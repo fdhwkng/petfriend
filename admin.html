@@ -24,6 +24,20 @@
 
 <body>
 
+    <div id="adminLoginScreen" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:#f7f3ed;">
+        <div style="width:100%;max-width:420px;padding:32px;background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.12);text-align:center;">
+            <div style="font-size:42px;margin-bottom:10px;">🐾</div>
+            <h1 style="margin:0 0 8px;">Admin paneli</h1>
+            <p style="margin:0 0 24px;opacity:.7;">Davam etmək üçün admin şifrəsini daxil edin.</p>
+            <form id="adminLoginForm">
+                <input type="password" id="adminPasswordInput" placeholder="Admin şifrəsi" autocomplete="current-password" required style="width:100%;box-sizing:border-box;padding:14px 16px;border:1px solid #ddd;border-radius:10px;font-size:16px;margin-bottom:12px;">
+                <button type="submit" style="width:100%;padding:14px 16px;border:0;border-radius:10px;cursor:pointer;font-size:16px;font-weight:600;">Daxil ol</button>
+                <p id="adminLoginError" style="display:none;margin:12px 0 0;color:#c62828;font-size:14px;">Şifrə yanlışdır. Yenidən cəhd edin.</p>
+            </form>
+        </div>
+    </div>
+
+
     <!-- =====================================================
          BAŞLIQ
          ===================================================== -->
@@ -586,6 +600,53 @@
 
     </footer>
 
+
+
+    <script>
+        const ADMIN_PASSWORD = "PetFriend@2026";
+        const ADMIN_SESSION_KEY = "petFriendAdminAuthenticated";
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginScreen = document.getElementById("adminLoginScreen");
+            const loginForm = document.getElementById("adminLoginForm");
+            const passwordInput = document.getElementById("adminPasswordInput");
+            const loginError = document.getElementById("adminLoginError");
+
+            if (!loginScreen || !loginForm) return;
+
+            function showAdminPanel() {
+                loginScreen.style.display = "none";
+                document.body.style.overflow = "";
+            }
+
+            function showLoginScreen() {
+                loginScreen.style.display = "flex";
+                document.body.style.overflow = "hidden";
+                setTimeout(() => passwordInput && passwordInput.focus(), 100);
+            }
+
+            if (sessionStorage.getItem(ADMIN_SESSION_KEY) === "true") {
+                showAdminPanel();
+            } else {
+                showLoginScreen();
+            }
+
+            loginForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                if (passwordInput.value === ADMIN_PASSWORD) {
+                    sessionStorage.setItem(ADMIN_SESSION_KEY, "true");
+                    loginError.style.display = "none";
+                    passwordInput.value = "";
+                    showAdminPanel();
+                } else {
+                    loginError.style.display = "block";
+                    passwordInput.value = "";
+                    passwordInput.focus();
+                }
+            });
+        });
+    </script>
 
     <script
         src="script.js"
