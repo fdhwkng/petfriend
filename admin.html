@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="az">
 
 <head>
     <meta charset="UTF-8" />
@@ -22,11 +22,10 @@
     />
 </head>
 
-
 <body>
 
     <!-- =====================================================
-         HEADER
+         BAŞLIQ
          ===================================================== -->
 
     <header class="site-header">
@@ -53,7 +52,7 @@
                 type="button"
                 class="menu-toggle"
                 id="menuToggle"
-                aria-label="Menüyü aç/kapat"
+                aria-label="Menyunu aç/bağla"
                 aria-expanded="false"
             >
                 ☰
@@ -66,15 +65,15 @@
             >
 
                 <a href="index.html">
-                    Ana Sayfa
+                    Əsas səhifə
                 </a>
 
                 <a href="products.html">
-                    Ürünler
+                    Məhsullar
                 </a>
 
                 <a href="cart.html">
-                    Sepet
+                    Səbət
                     <span
                         class="cart-badge"
                         id="cartCount"
@@ -98,7 +97,7 @@
 
 
     <!-- =====================================================
-         ANA ALAN
+         ƏSAS SAHƏ
          ===================================================== -->
 
     <main>
@@ -108,7 +107,7 @@
             <div class="container">
 
                 <span class="eyebrow">
-                    Yönetim Paneli
+                    İdarəetmə paneli
                 </span>
 
                 <h1>
@@ -116,7 +115,7 @@
                 </h1>
 
                 <p>
-                    Ürünlerinizi ve gelen siparişleri buradan yönetin.
+                    Məhsullarınızı və daxil olan sifarişləri buradan idarə edin.
                 </p>
 
             </div>
@@ -130,24 +129,24 @@
 
 
                 <!-- =================================================
-                     UYARI
+                     XƏBƏRDARLIQ
                      ================================================= -->
 
                 <div class="admin-warning">
 
-                    ⚠️ Bu panel şu anda yalnızca
-                    <strong>yerel demo sistemi</strong>
-                    olarak çalışıyor.
+                    ⚠️ Bu panel hazırda yalnız
+                    <strong>yerli demo sistemi</strong>
+                    kimi işləyir.
 
-                    Ürünler ve siparişler bu tarayıcının
+                    Məhsullar və sifarişlər bu brauzerin
                     <strong>localStorage</strong>
-                    alanında tutuluyor.
+                    yaddaşında saxlanılır.
 
                 </div>
 
 
                 <!-- =================================================
-                     ADMİN SEKMELERİ
+                     ADMİN SEKMƏLƏRİ
                      ================================================= -->
 
                 <div class="admin-tabs">
@@ -157,7 +156,7 @@
                         class="admin-tab active"
                         data-admin-tab="products"
                     >
-                        🛍️ Ürün Yönetimi
+                        🛍️ Məhsulların idarə edilməsi
                     </button>
 
 
@@ -166,7 +165,7 @@
                         class="admin-tab"
                         data-admin-tab="orders"
                     >
-                        📦 Gelen Siparişler
+                        📦 Daxil olan sifarişlər
 
                         <span
                             class="admin-tab-badge"
@@ -181,7 +180,7 @@
 
 
                 <!-- =================================================
-                     ÜRÜN YÖNETİMİ
+                     MƏHSUL İDARƏETMƏSİ
                      ================================================= -->
 
                 <section
@@ -191,7 +190,7 @@
 
 
                     <!-- ================================
-                         ÜRÜN EKLE / DÜZENLE
+                         MƏHSUL ƏLAVƏ ET / REDAKTƏ ET
                          ================================ -->
 
                     <div class="admin-card">
@@ -201,11 +200,11 @@
                             <div>
 
                                 <span class="eyebrow">
-                                    Ürün Yönetimi
+                                    Məhsul idarəetməsi
                                 </span>
 
                                 <h2>
-                                    Yeni ürün ekle
+                                    Yeni məhsul əlavə et
                                 </h2>
 
                             </div>
@@ -218,7 +217,7 @@
                             class="admin-product-form"
                         >
 
-                            <!-- Gizli ürün ID -->
+                            <!-- Gizli məhsul ID -->
                             <input
                                 type="hidden"
                                 id="productId"
@@ -229,13 +228,13 @@
                             <div class="form-grid">
 
 
-                                <!-- Ürün adı -->
+                                <!-- Məhsul adı -->
                                 <div class="form-group">
 
                                     <label
                                         for="productName"
                                     >
-                                        Ürün Adı
+                                        Məhsulun adı
                                     </label>
 
                                     <input
@@ -243,20 +242,20 @@
                                         id="productName"
                                         name="name"
                                         class="form-input"
-                                        placeholder="Örn. Premium Kedi Maması"
+                                        placeholder="Məsələn: Premium pişik yemi"
                                         required
                                     />
 
                                 </div>
 
 
-                                <!-- Kategori -->
+                                <!-- Kateqoriya -->
                                 <div class="form-group">
 
                                     <label
                                         for="productCategory"
                                     >
-                                        Kategori
+                                        Kateqoriya
                                     </label>
 
                                     <select
@@ -267,27 +266,27 @@
                                     >
 
                                         <option value="">
-                                            Kategori seçin
+                                            Kateqoriya seçin
                                         </option>
 
-                                        <option value="Mama">
-                                            Mama
+                                        <option value="Yem">
+                                            Yem
                                         </option>
 
-                                        <option value="Vitamin & İlaç">
-                                            Vitamin & İlaç
+                                        <option value="Vitamin və dərman">
+                                            Vitamin və dərman
                                         </option>
 
                                         <option value="Aksesuar">
                                             Aksesuar
                                         </option>
 
-                                        <option value="Kedi Ürünleri">
-                                            Kedi Ürünleri
+                                        <option value="Pişik məhsulları">
+                                            Pişik məhsulları
                                         </option>
 
-                                        <option value="Köpek Ürünleri">
-                                            Köpek Ürünleri
+                                        <option value="İt məhsulları">
+                                            İt məhsulları
                                         </option>
 
                                     </select>
@@ -295,13 +294,13 @@
                                 </div>
 
 
-                                <!-- Fiyat -->
+                                <!-- Qiymət -->
                                 <div class="form-group">
 
                                     <label
                                         for="productPrice"
                                     >
-                                        Fiyat
+                                        Qiymət
                                     </label>
 
                                     <input
@@ -309,7 +308,7 @@
                                         id="productPrice"
                                         name="price"
                                         class="form-input"
-                                        placeholder="Örn. 249.90"
+                                        placeholder="Məsələn: 249.90"
                                         min="0"
                                         step="0.01"
                                         required
@@ -318,13 +317,13 @@
                                 </div>
 
 
-                                <!-- Görsel -->
+                                <!-- Şəkil -->
                                 <div class="form-group">
 
                                     <label
                                         for="productImage"
                                     >
-                                        Ürün Görsel URL'si
+                                        Məhsul şəkil URL-i
                                     </label>
 
                                     <input
@@ -341,20 +340,20 @@
                             </div>
 
 
-                            <!-- Açıklama -->
+                            <!-- Təsvir -->
                             <div class="form-group">
 
                                 <label
                                     for="productDescription"
                                 >
-                                    Ürün Açıklaması
+                                    Məhsulun təsviri
                                 </label>
 
                                 <textarea
                                     id="productDescription"
                                     name="description"
                                     class="form-input textarea"
-                                    placeholder="Ürün hakkında kısa açıklama..."
+                                    placeholder="Məhsul haqqında qısa məlumat..."
                                     required
                                 ></textarea>
 
@@ -367,7 +366,7 @@
                                     type="submit"
                                     class="btn btn-primary"
                                 >
-                                    Ürünü Kaydet
+                                    Məhsulu yadda saxla
                                 </button>
 
 
@@ -376,7 +375,7 @@
                                     class="btn btn-secondary"
                                     id="cancelProductEdit"
                                 >
-                                    Formu Temizle
+                                    Formu təmizlə
                                 </button>
 
                             </div>
@@ -387,7 +386,7 @@
 
 
                     <!-- ================================
-                         KAYITLI ÜRÜNLER
+                         QEYD EDİLMİŞ MƏHSULLAR
                          ================================ -->
 
                     <div class="admin-card">
@@ -397,11 +396,11 @@
                             <div>
 
                                 <span class="eyebrow">
-                                    Katalog
+                                    Kataloq
                                 </span>
 
                                 <h2>
-                                    Kayıtlı Ürünler
+                                    Qeyd edilmiş məhsullar
                                 </h2>
 
                             </div>
@@ -411,7 +410,7 @@
                                 class="count-badge"
                                 id="adminProductCount"
                             >
-                                0 ürün
+                                0 məhsul
                             </span>
 
                         </div>
@@ -429,7 +428,7 @@
 
 
                 <!-- =================================================
-                     SİPARİŞLER
+                     SİFARİŞLƏR
                      ================================================= -->
 
                 <section
@@ -445,11 +444,11 @@
                             <div>
 
                                 <span class="eyebrow">
-                                    Sipariş Yönetimi
+                                    Sifarişlərin idarə edilməsi
                                 </span>
 
                                 <h2>
-                                    Gelen Siparişler
+                                    Daxil olan sifarişlər
                                 </h2>
 
                             </div>
@@ -459,7 +458,7 @@
                                 class="count-badge"
                                 id="adminOrdersBadge"
                             >
-                                0 sipariş
+                                0 sifariş
                             </span>
 
                         </div>
@@ -484,7 +483,7 @@
 
 
     <!-- =====================================================
-         FOOTER
+         ALT HİSSƏ
          ===================================================== -->
 
     <footer class="site-footer">
@@ -510,7 +509,7 @@
 
 
                 <p>
-                    Evcil dostlarınız için sevgiyle seçilmiş ürünler.
+                    Ev heyvanlarınız üçün sevgi ilə seçilmiş məhsullar.
                 </p>
 
             </div>
@@ -523,11 +522,11 @@
                 </h4>
 
                 <a href="products.html">
-                    Tüm Ürünler
+                    Bütün məhsullar
                 </a>
 
-                <a href="products.html?category=Mama">
-                    Mama
+                <a href="products.html?category=Yem">
+                    Yem
                 </a>
 
                 <a href="products.html?category=Aksesuar">
@@ -540,19 +539,19 @@
             <div>
 
                 <h4>
-                    Yönetim
+                    İdarəetmə
                 </h4>
 
                 <a href="admin.html">
-                    Admin Paneli
+                    Admin paneli
                 </a>
 
                 <a href="cart.html">
-                    Sepet
+                    Səbət
                 </a>
 
                 <a href="checkout.html">
-                    Sipariş Tamamla
+                    Sifarişi tamamla
                 </a>
 
             </div>
@@ -561,11 +560,11 @@
             <div>
 
                 <h4>
-                    Ödeme
+                    Ödəniş
                 </h4>
 
                 <p>
-                    💵 Yalnızca kapıda nakit ödeme
+                    💵 Yalnız qapıda nağd ödəniş
                 </p>
 
             </div>
@@ -580,7 +579,7 @@
             Pet Friend.
 
             <span>
-                Demo e-ticaret projesi.
+                Demo e-ticarət layihəsi.
             </span>
 
         </div>
