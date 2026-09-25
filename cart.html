@@ -1,155 +1,301 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="az">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pet Friend alışveriş sepeti." />
-  <title>Sepetim | Pet Friend</title>
+  <meta name="description" content="Pet Friend alış-veriş səbəti." />
+  <title>Səbətim | Pet Friend</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
   <header class="site-header">
+
     <div class="container header-inner">
+
       <a href="index.html" class="logo">
         <span class="logo-mark">🐾</span>
         <span>Pet <strong>Friend</strong></span>
       </a>
 
+
       <button
         class="menu-toggle"
         id="menuToggle"
-        aria-label="Menüyü aç/kapat"
+        aria-label="Menyunu aç/bağla"
         aria-expanded="false"
       >
         ☰
       </button>
 
+
       <nav class="main-nav" id="mainNav">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="products.html">Ürünler</a>
-        <a href="products.html?category=Mama">Mama</a>
-        <a href="products.html?category=Aksesuar">Aksesuar</a>
-        <a href="admin.html">Admin</a>
-        <a href="cart.html" class="cart-link active">
-          Sepet <span class="cart-badge" id="cartCount">0</span>
+
+        <a href="index.html">
+          Əsas səhifə
         </a>
+
+        <a href="products.html">
+          Məhsullar
+        </a>
+
+        <a href="products.html?category=Yem">
+          Yem
+        </a>
+
+        <a href="products.html?category=Aksesuar">
+          Aksesuar
+        </a>
+
+        <a href="admin.html">
+          Admin
+        </a>
+
+        <a href="cart.html" class="cart-link active">
+          Səbət
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+
       </nav>
+
     </div>
+
   </header>
 
+
   <main>
+
     <section class="page-hero compact">
+
       <div class="container">
-        <span class="eyebrow">Alışverişiniz</span>
-        <h1>Sepetim</h1>
+
+        <span class="eyebrow">
+          Alış-verişiniz
+        </span>
+
+        <h1>
+          Səbətim
+        </h1>
+
       </div>
+
     </section>
 
+
     <section class="section">
+
       <div class="container cart-layout">
 
         <div>
+
           <div id="cartItems"></div>
 
-          <div id="emptyCart" class="empty-state hidden">
-            <div class="empty-icon">🛒</div>
 
-            <h3>Sepetiniz boş</h3>
+          <div id="emptyCart" class="empty-state hidden">
+
+            <div class="empty-icon">
+              🛒
+            </div>
+
+            <h3>
+              Səbətiniz boşdur
+            </h3>
 
             <p>
-              Dostunuz için birkaç ürün seçmeye ne dersiniz?
+              Dostunuz üçün bir neçə məhsul seçməyə nə deyirsiniz?
             </p>
 
             <a href="products.html" class="btn btn-primary">
-              Ürünlere Git
+              Məhsullara keç
             </a>
+
           </div>
+
         </div>
 
+
         <aside class="summary-card" id="cartSummary">
-          <h2>Sipariş Özeti</h2>
+
+          <h2>
+            Sifariş xülasəsi
+          </h2>
+
 
           <div class="summary-row">
-            <span>Ara toplam</span>
-            <strong id="cartSubtotal">₺0,00</strong>
+
+            <span>
+              Ara cəm
+            </span>
+
+            <strong id="cartSubtotal">
+              ₺0,00
+            </strong>
+
           </div>
 
+
           <div class="summary-row">
-            <span>Kargo</span>
-            <strong>Ücretsiz</strong>
+
+            <span>
+              Çatdırılma
+            </span>
+
+            <strong>
+              Pulsuz
+            </strong>
+
           </div>
+
 
           <div class="summary-divider"></div>
 
+
           <div class="summary-row total">
-            <span>Toplam</span>
-            <strong id="cartTotal">₺0,00</strong>
+
+            <span>
+              Ümumi
+            </span>
+
+            <strong id="cartTotal">
+              ₺0,00
+            </strong>
+
           </div>
 
+
           <div class="cash-box">
+
             💵
+
             <span>
-              Ödeme:
-              <strong>Kapıda nakit</strong>
+              Ödəniş:
+              <strong>
+                Qapıda nağd
+              </strong>
             </span>
+
           </div>
+
 
           <a
             href="checkout.html"
             id="checkoutButton"
             class="btn btn-primary btn-full"
           >
-            Siparişi Tamamla
+            Sifarişi tamamla
           </a>
+
 
           <a href="products.html" class="continue-link">
-            ← Alışverişe devam et
+            ← Alış-verişə davam et
           </a>
+
         </aside>
+
       </div>
+
     </section>
+
   </main>
 
+
   <footer class="site-footer">
+
     <div class="container footer-grid">
+
       <div>
+
         <a href="index.html" class="logo footer-logo">
-          <span class="logo-mark">🐾</span>
-          <span>Pet <strong>Friend</strong></span>
+
+          <span class="logo-mark">
+            🐾
+          </span>
+
+          <span>
+            Pet <strong>Friend</strong>
+          </span>
+
         </a>
 
+
         <p class="footer-note">
-          Evcil dostlarınız için sevgiyle seçilmiş ürünler.
+          Ev heyvanlarınız üçün sevgi ilə seçilmiş məhsullar.
         </p>
+
       </div>
 
-      <div>
-        <h4>Mağaza</h4>
-        <a href="products.html">Tüm Ürünler</a>
-        <a href="products.html?category=Mama">Mama</a>
-        <a href="products.html?category=Aksesuar">Aksesuar</a>
-      </div>
 
       <div>
-        <h4>Yardım</h4>
-        <a href="cart.html">Sepetim</a>
-        <a href="checkout.html">Sipariş Tamamla</a>
-        <a href="admin.html">Admin Paneli</a>
+
+        <h4>
+          Mağaza
+        </h4>
+
+        <a href="products.html">
+          Bütün məhsullar
+        </a>
+
+        <a href="products.html?category=Yem">
+          Yem
+        </a>
+
+        <a href="products.html?category=Aksesuar">
+          Aksesuar
+        </a>
+
       </div>
 
+
       <div>
-        <h4>Ödeme</h4>
+
+        <h4>
+          Kömək
+        </h4>
+
+        <a href="cart.html">
+          Səbətim
+        </a>
+
+        <a href="checkout.html">
+          Sifarişi tamamla
+        </a>
+
+        <a href="admin.html">
+          Admin paneli
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          Ödəniş
+        </h4>
+
         <p class="cash-note">
-          💵 Yalnızca kapıda nakit ödeme
+          💵 Yalnız qapıda nağd ödəniş
         </p>
+
       </div>
+
     </div>
+
 
     <div class="container footer-bottom">
-      © <span id="currentYear"></span> Pet Friend. Demo e-ticaret projesi.
+
+      © <span id="currentYear"></span> Pet Friend.
+      Demo e-ticarət layihəsi.
+
     </div>
+
   </footer>
 
+
   <script src="script.js" defer></script>
+
 </body>
+
 </html>
