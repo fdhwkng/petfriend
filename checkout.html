@@ -1,84 +1,141 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="az">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pet Friend sipariş tamamlama." />
-  <title>Sipariş Tamamla | Pet Friend</title>
+  <meta name="description" content="Pet Friend sifarişin tamamlanması." />
+  <title>Sifarişi tamamla | Pet Friend</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
   <header class="site-header">
+
     <div class="container header-inner">
+
       <a href="index.html" class="logo">
         <span class="logo-mark">🐾</span>
         <span>Pet <strong>Friend</strong></span>
       </a>
 
+
       <button
         class="menu-toggle"
         id="menuToggle"
-        aria-label="Menüyü aç/kapat"
+        aria-label="Menyunu aç/bağla"
         aria-expanded="false"
       >
         ☰
       </button>
 
+
       <nav class="main-nav" id="mainNav">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="products.html">Ürünler</a>
-        <a href="products.html?category=Mama">Mama</a>
-        <a href="products.html?category=Aksesuar">Aksesuar</a>
-        <a href="admin.html">Admin</a>
-        <a href="cart.html" class="cart-link">
-          Sepet <span class="cart-badge" id="cartCount">0</span>
+
+        <a href="index.html">
+          Əsas səhifə
         </a>
+
+        <a href="products.html">
+          Məhsullar
+        </a>
+
+        <a href="products.html?category=Yem">
+          Yem
+        </a>
+
+        <a href="products.html?category=Aksesuar">
+          Aksesuar
+        </a>
+
+        <a href="admin.html">
+          Admin
+        </a>
+
+        <a href="cart.html" class="cart-link">
+          Səbət
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+
       </nav>
+
     </div>
+
   </header>
 
+
   <main>
+
     <section class="page-hero compact">
+
       <div class="container">
-        <span class="eyebrow">Son adım</span>
-        <h1>Sipariş Tamamlama</h1>
+
+        <span class="eyebrow">
+          Son addım
+        </span>
+
+        <h1>
+          Sifarişi tamamlama
+        </h1>
+
       </div>
+
     </section>
 
+
     <section class="section">
+
       <div class="container checkout-layout">
+
 
         <div class="checkout-form-card">
 
           <div class="form-section-title">
-            <span class="step-number">1</span>
+
+            <span class="step-number">
+              1
+            </span>
 
             <div>
-              <h2>Teslimat Bilgileri</h2>
+
+              <h2>
+                Çatdırılma məlumatları
+              </h2>
+
               <p>
-                Ürünün ulaştırılacağı bilgileri girin.
+                Məhsulun çatdırılacağı məlumatları daxil edin.
               </p>
+
             </div>
+
           </div>
 
+
           <form id="checkoutForm">
+
             <div class="form-grid">
 
+
               <div class="form-group">
+
                 <label for="customerName">
-                  Ad Soyad *
+                  Ad, soyad *
                 </label>
 
                 <input
                   id="customerName"
                   name="customerName"
                   type="text"
-                  placeholder="Adınız Soyadınız"
+                  placeholder="Adınız və soyadınız"
                   required
                 />
+
               </div>
 
+
               <div class="form-group">
+
                 <label for="customerPhone">
                   Telefon *
                 </label>
@@ -88,141 +145,260 @@
                   name="customerPhone"
                   type="tel"
                   inputmode="tel"
-                  placeholder="05xx xxx xx xx"
+                  placeholder="050 xxx xx xx"
                   required
                 />
+
               </div>
 
+
               <div class="form-group full">
+
                 <label for="customerAddress">
-                  Teslimat Adresi *
+                  Çatdırılma ünvanı *
                 </label>
 
                 <textarea
                   id="customerAddress"
                   name="customerAddress"
                   rows="5"
-                  placeholder="Mahalle, sokak, bina no, daire no, ilçe / il"
+                  placeholder="Məhəllə, küçə, bina nömrəsi, mənzil nömrəsi, rayon / şəhər"
                   required
                 ></textarea>
+
               </div>
+
             </div>
+
 
             <div class="form-section-title section-gap">
-              <span class="step-number">2</span>
+
+              <span class="step-number">
+                2
+              </span>
 
               <div>
-                <h2>Ödeme Yöntemi</h2>
+
+                <h2>
+                  Ödəniş üsulu
+                </h2>
 
                 <p>
-                  Bu mağazada yalnızca kapıda ödeme kabul edilir.
+                  Bu mağazada yalnız qapıda ödəniş qəbul edilir.
                 </p>
+
               </div>
+
             </div>
+
 
             <div class="payment-option selected">
-              <div class="payment-icon">💵</div>
 
-              <div>
-                <strong>Kapıda Nakit Ödeme</strong>
-
-                <p>
-                  Siparişiniz teslim edilirken tutarı nakit olarak ödersiniz.
-                </p>
+              <div class="payment-icon">
+                💵
               </div>
 
-              <span class="check-dot">✓</span>
+              <div>
+
+                <strong>
+                  Qapıda nağd ödəniş
+                </strong>
+
+                <p>
+                  Sifarişiniz çatdırılarkən məbləği nağd şəkildə ödəyirsiniz.
+                </p>
+
+              </div>
+
+              <span class="check-dot">
+                ✓
+              </span>
+
             </div>
 
+
             <div class="payment-warning">
-              Kredi kartı, havale/EFT veya herhangi bir online ödeme
-              entegrasyonu bulunmamaktadır.
+              Kredit kartı, bank köçürməsi və ya hər hansı onlayn ödəniş
+              inteqrasiyası mövcud deyil.
             </div>
+
 
             <button
               type="submit"
               class="btn btn-primary btn-full"
             >
-              Siparişi Onayla
+              Sifarişi təsdiqlə
             </button>
+
 
             <p
               id="checkoutMessage"
               class="form-message"
               role="status"
             ></p>
+
           </form>
+
         </div>
 
+
         <aside class="summary-card checkout-summary">
-          <h2>Sipariş Özeti</h2>
+
+          <h2>
+            Sifariş xülasəsi
+          </h2>
+
 
           <div id="checkoutItems"></div>
 
+
           <div class="summary-divider"></div>
 
+
           <div class="summary-row">
-            <span>Kargo</span>
-            <strong>Ücretsiz</strong>
+
+            <span>
+              Çatdırılma
+            </span>
+
+            <strong>
+              Pulsuz
+            </strong>
+
           </div>
+
 
           <div class="summary-row total">
-            <span>Toplam</span>
-            <strong id="checkoutTotal">₺0,00</strong>
+
+            <span>
+              Ümumi
+            </span>
+
+            <strong id="checkoutTotal">
+              ₺0,00
+            </strong>
+
           </div>
+
 
           <div class="cash-box">
+
             🔒
+
             <span>
-              Güvenli not:
-              <strong>Sadece teslimatta nakit</strong>
+              Təhlükəsiz qeyd:
+              <strong>
+                Yalnız çatdırılma zamanı nağd
+              </strong>
             </span>
+
           </div>
+
         </aside>
+
       </div>
+
     </section>
+
   </main>
 
+
   <footer class="site-footer">
+
     <div class="container footer-grid">
+
+
       <div>
+
         <a href="index.html" class="logo footer-logo">
-          <span class="logo-mark">🐾</span>
-          <span>Pet <strong>Friend</strong></span>
+
+          <span class="logo-mark">
+            🐾
+          </span>
+
+          <span>
+            Pet <strong>Friend</strong>
+          </span>
+
         </a>
 
+
         <p class="footer-note">
-          Evcil dostlarınız için sevgiyle seçilmiş ürünler.
+          Ev heyvanlarınız üçün sevgi ilə seçilmiş məhsullar.
         </p>
+
       </div>
 
-      <div>
-        <h4>Mağaza</h4>
-        <a href="products.html">Tüm Ürünler</a>
-        <a href="products.html?category=Mama">Mama</a>
-        <a href="products.html?category=Aksesuar">Aksesuar</a>
-      </div>
 
       <div>
-        <h4>Yardım</h4>
-        <a href="cart.html">Sepetim</a>
-        <a href="checkout.html">Sipariş Tamamla</a>
-        <a href="admin.html">Admin Paneli</a>
+
+        <h4>
+          Mağaza
+        </h4>
+
+        <a href="products.html">
+          Bütün məhsullar
+        </a>
+
+        <a href="products.html?category=Yem">
+          Yem
+        </a>
+
+        <a href="products.html?category=Aksesuar">
+          Aksesuar
+        </a>
+
       </div>
 
+
       <div>
-        <h4>Ödeme</h4>
+
+        <h4>
+          Kömək
+        </h4>
+
+        <a href="cart.html">
+          Səbətim
+        </a>
+
+        <a href="checkout.html">
+          Sifarişi tamamla
+        </a>
+
+        <a href="admin.html">
+          Admin paneli
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          Ödəniş
+        </h4>
+
         <p class="cash-note">
-          💵 Yalnızca kapıda nakit ödeme
+          💵 Yalnız qapıda nağd ödəniş
         </p>
+
       </div>
+
     </div>
+
 
     <div class="container footer-bottom">
-      © <span id="currentYear"></span> Pet Friend. Demo e-ticaret projesi.
+
+      © <span id="currentYear"></span> Pet Friend.
+      Demo e-ticarət layihəsi.
+
     </div>
+
   </footer>
 
+
   <script src="script.js" defer></script>
+
 </body>
+
 </html>
