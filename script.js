@@ -38,90 +38,90 @@ const defaultProducts = [
 
     {
         id: 1,
-        name: "Premium Kedi Maması",
-        category: "Mama",
+        name: "Premium Pişik Yemi",
+        category: "Yem",
         price: 349.90,
         image:
             "https://placehold.co/600x450/F4E8D8/5E4634?text=Kedi+Mamasi",
         description:
-            "Kedinizin günlük beslenme ihtiyaçlarını karşılamaya yardımcı kaliteli premium kedi maması."
+            "Pişiyinizin gündəlik qidalanma ehtiyaclarını qarşılamağa kömək edən keyfiyyətli premium pişik yemi."
     },
 
     {
         id: 2,
-        name: "Yetişkin Köpek Maması",
-        category: "Mama",
+        name: "Yetkin İt Yemi",
+        category: "Yem",
         price: 499.90,
         image:
             "https://placehold.co/600x450/E8F0E5/355C45?text=Kopek+Mamasi",
         description:
-            "Yetişkin köpeklerin dengeli beslenmesine yardımcı özel formüllü mama."
+            "Yetkin itlərin balanslaşdırılmış qidalanmasına kömək edən xüsusi formullu yem."
     },
 
     {
         id: 3,
-        name: "Omega 3 Pet Vitamini",
-        category: "Vitamin & İlaç",
+        name: "Omega 3 Ev Heyvanı Vitamini",
+        category: "Vitamin və Dərman",
         price: 189.90,
         image:
             "https://placehold.co/600x450/FFF0D8/C66A24?text=Omega+3",
         description:
-            "Evcil hayvanınızın genel bakımını desteklemeye yardımcı Omega 3 takviyesi."
+            "Ev heyvanınızın ümumi baxımını dəstəkləməyə kömək edən Omega 3 əlavəsi."
     },
 
     {
         id: 4,
-        name: "Ayarlanabilir Köpek Tasması",
+        name: "Tənzimlənən İt Tasması",
         category: "Aksesuar",
         price: 129.90,
         image:
             "https://placehold.co/600x450/E8F0E5/355C45?text=Kopek+Tasmasi",
         description:
-            "Günlük kullanım için dayanıklı, rahat ve ayarlanabilir köpek tasması."
+            "Gündəlik istifadə üçün davamlı, rahat və tənzimlənən it tasması."
     },
 
     {
         id: 5,
-        name: "Tüylü Kedi Oyuncağı",
-        category: "Kedi Ürünleri",
+        name: "Tüklü Pişik Oyuncağı",
+        category: "Pişik Məhsulları",
         price: 79.90,
         image:
             "https://placehold.co/600x450/F4E8D8/5E4634?text=Kedi+Oyuncagi",
         description:
-            "Kedinizin eğlenmesini ve hareket etmesini sağlayan renkli tüylü oyuncak."
+            "Pişiyinizin əylənməsini və hərəkət etməsini təmin edən rəngli tüklü oyuncaq."
     },
 
     {
         id: 6,
-        name: "Köpek Çiğneme Oyuncağı",
-        category: "Köpek Ürünleri",
+        name: "İt Çeynəmə Oyuncağı",
+        category: "İt Məhsulları",
         price: 99.90,
         image:
             "https://placehold.co/600x450/FFF0D8/C66A24?text=Kopek+Oyuncagi",
         description:
-            "Köpeklerin çiğneme ihtiyacına uygun dayanıklı oyuncak."
+            "İtlərin çeynəmə ehtiyacına uyğun davamlı oyuncaq."
     },
 
     {
         id: 7,
-        name: "Kedi Kum Küreği",
-        category: "Kedi Ürünleri",
+        name: "Pişik Qumu Kürəyi",
+        category: "Pişik Məhsulları",
         price: 59.90,
         image:
             "https://placehold.co/600x450/F1EEE8/5E4634?text=Kum+Kuregi",
         description:
-            "Kedi kumu temizliğini kolaylaştıran pratik ve dayanıklı kürek."
+            "Pişik qumu təmizliyini asanlaşdıran praktik və davamlı kürək."
     },
 
     {
         id: 8,
-        name: "Köpek Mama Kabı",
-        category: "Köpek Ürünleri",
+        name: "İt Yem Qabı",
+        category: "İt Məhsulları",
         price: 149.90,
         image:
             "https://placehold.co/600x450/E8F0E5/355C45?text=Mama+Kabi",
         description:
-            "Kolay temizlenebilen, dayanıklı ve şık mama kabı."
+            "Asan təmizlənən, davamlı və zərif yem qabı."
     }
 
 ];
@@ -350,7 +350,7 @@ function addToCart(
     if (!product) {
 
         alert(
-            "Ürün bulunamadı."
+            "Məhsul tapılmadı."
         );
 
         return;
@@ -414,7 +414,7 @@ function addToCart(
 
 
     alert(
-        `"${product.name}" sepete eklendi.`
+        `"${product.name}" səbətə əlavə edildi.`
     );
 
 }
@@ -709,7 +709,7 @@ function createProductCard(
                     data-product-id="${product.id}"
                 >
 
-                    Sepete Ekle
+                    Səbətə Əlavə Et
 
                 </button>
 
@@ -765,7 +765,7 @@ function renderFeaturedProducts() {
                 </div>
 
                 <h2>
-                    Henüz ürün bulunmuyor
+                    Hələ məhsul yoxdur
                 </h2>
 
             </div>
@@ -1038,11 +1038,11 @@ function renderProductsPage() {
                 </div>
 
                 <h2>
-                    Ürün bulunamadı
+                    Məhsul tapılmadı
                 </h2>
 
                 <p>
-                    Seçtiğiniz filtrelere uygun ürün bulunamadı.
+                    Seçdiyiniz filtrlərə uyğun məhsul tapılmadı.
                 </p>
 
             </div>
@@ -1100,7 +1100,7 @@ function updateProductResultCount(
 
 
     element.textContent =
-        `${count} ürün`;
+        `${count} məhsul`;
 
 }
 
@@ -1151,7 +1151,7 @@ function populateCategoryFilter() {
     select.innerHTML = `
 
         <option value="all">
-            Tüm Kategoriler
+            Bütün Kateqoriyalar
         </option>
 
         ${
@@ -1263,7 +1263,7 @@ function setupFilterButton() {
 
 
     button.textContent =
-        "Filtreleri Uygula";
+        "Filtrləri Tətbiq Et";
 
 
     parent.appendChild(
@@ -1428,18 +1428,18 @@ function renderProductDetailPage() {
                 </div>
 
                 <h2>
-                    Ürün bulunamadı
+                    Məhsul tapılmadı
                 </h2>
 
                 <p>
-                    Aradığınız ürün mevcut değil.
+                    Axtardığınız məhsul mövcud deyil.
                 </p>
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    Ürünlere Dön
+                    Məhsullara Qayıt
                 </a>
 
             </div>
@@ -1491,7 +1491,7 @@ function renderProductDetailPage() {
             <div class="quantity-row">
 
                 <label>
-                    Adet:
+                    Say:
                 </label>
 
 
@@ -1533,7 +1533,7 @@ function renderProductDetailPage() {
                     class="btn btn-primary"
                     data-product-id="${product.id}"
                 >
-                    Sepete Ekle
+                    Səbətə Əlavə Et
                 </button>
 
             </div>
@@ -1544,11 +1544,11 @@ function renderProductDetailPage() {
                 <div class="meta-row">
 
                     <span>
-                        Ödeme
+                        Ödəniş
                     </span>
 
                     <strong>
-                        Kapıda Nakit
+                        Qapıda Nağd
                     </strong>
 
                 </div>
@@ -1557,7 +1557,7 @@ function renderProductDetailPage() {
                 <div class="meta-row">
 
                     <span>
-                        Kategori
+                        Kateqoriya
                     </span>
 
                     <strong>
@@ -1633,18 +1633,18 @@ function renderCartPage() {
                 </div>
 
                 <h2>
-                    Sepetiniz boş
+                    Səbətiniz boşdur
                 </h2>
 
                 <p>
-                    Henüz sepetinize ürün eklemediniz.
+                    Hələ səbətinizə məhsul əlavə etməmisiniz.
                 </p>
 
                 <a
                     href="products.html"
                     class="btn btn-primary"
                 >
-                    Alışverişe Başla
+                    Alış-verişə Başla
                 </a>
 
             </div>
@@ -1735,7 +1735,7 @@ function renderCartPage() {
                             <div class="cart-item-actions">
 
                                 <label>
-                                    Adet:
+                                    Say:
 
                                     <input
                                         type="number"
@@ -1753,7 +1753,7 @@ function renderCartPage() {
                                     class="remove-cart-btn"
                                     data-product-id="${product.id}"
                                 >
-                                    Ürünü Sil
+                                    Məhsulu Sil
                                 </button>
 
                             </div>
@@ -1761,7 +1761,7 @@ function renderCartPage() {
 
                             <div class="cart-item-total">
 
-                                Ara toplam:
+                                Aralıq cəmi:
                                 <strong>
                                     ${formatPrice(
                                         subtotal
@@ -1810,7 +1810,7 @@ function handleCheckout(
     ) {
 
         alert(
-            "Sepetiniz boş."
+            "Səbətiniz boşdur."
         );
 
         return;
@@ -1870,7 +1870,7 @@ function handleCheckout(
     ) {
 
         alert(
-            "Checkout form alanları bulunamadı."
+            "Sifariş forması sahələri tapılmadı."
         );
 
         return;
@@ -1897,7 +1897,7 @@ function handleCheckout(
     ) {
 
         alert(
-            "Lütfen ad, telefon ve adres alanlarını doldurun."
+            "Zəhmət olmasa ad, telefon və ünvan sahələrini doldurun."
         );
 
         return;
@@ -2006,7 +2006,7 @@ function handleCheckout(
         },
 
         paymentMethod:
-            "Kapıda Nakit Ödeme",
+            "Qapıda Nağd Ödəniş",
 
         items:
             orderItems,
@@ -2015,7 +2015,7 @@ function handleCheckout(
             total,
 
         status:
-            "Yeni Sipariş"
+            "Yeni Sifariş"
 
     };
 
@@ -2040,14 +2040,14 @@ function handleCheckout(
 
     alert(
 
-        "Siparişiniz başarıyla oluşturuldu!\n\n" +
+        "Sifarişiniz uğurla yaradıldı!\n\n" +
 
-        "Sipariş No: " +
+        "Sifariş No: " +
         newOrder.id +
 
         "\n\n" +
 
-        "Ödeme: Kapıda Nakit"
+        "Ödəniş: Qapıda Nağd"
 
     );
 
@@ -2219,7 +2219,7 @@ function renderAdminProducts() {
     if (countElement) {
 
         countElement.textContent =
-            `${products.length} ürün`;
+            `${products.length} məhsul`;
 
     }
 
@@ -2237,11 +2237,11 @@ function renderAdminProducts() {
                 </div>
 
                 <h2>
-                    Henüz ürün yok
+                    Hələ məhsul yoxdur
                 </h2>
 
                 <p>
-                    Yukarıdaki formu kullanarak ilk ürününüzü ekleyin.
+                    Yuxarıdakı formu istifadə edərək ilk məhsulunuzu əlavə edin.
                 </p>
 
             </div>
@@ -2314,7 +2314,7 @@ function renderAdminProducts() {
                                 class="btn btn-small btn-secondary"
                                 data-edit-product="${product.id}"
                             >
-                                Düzenle
+                                Redaktə et
                             </button>
 
 
@@ -2430,7 +2430,7 @@ function saveAdminProduct(
     ) {
 
         alert(
-            "Ürün formunda eksik alan var."
+            "Məhsul formunda çatışmayan sahə var."
         );
 
         return;
@@ -2468,7 +2468,7 @@ function saveAdminProduct(
     ) {
 
         alert(
-            "Lütfen tüm ürün alanlarını doldurun."
+            "Zəhmət olmasa bütün məhsul sahələrini doldurun."
         );
 
         return;
@@ -2482,7 +2482,7 @@ function saveAdminProduct(
     ) {
 
         alert(
-            "Geçerli bir fiyat girin."
+            "Düzgün bir qiymət daxil edin."
         );
 
         return;
@@ -2521,7 +2521,7 @@ function saveAdminProduct(
         if (index === -1) {
 
             alert(
-                "Ürün bulunamadı."
+                "Məhsul tapılmadı."
             );
 
             return;
@@ -2552,7 +2552,7 @@ function saveAdminProduct(
 
 
         alert(
-            "Ürün başarıyla güncellendi."
+            "Məhsul uğurla yeniləndi."
         );
 
     }
@@ -2595,7 +2595,7 @@ function saveAdminProduct(
 
 
         alert(
-            "Yeni ürün başarıyla eklendi."
+            "Yeni məhsul uğurla əlavə edildi."
         );
 
     }
@@ -2665,7 +2665,7 @@ function resetAdminProductForm() {
     if (submitButton) {
 
         submitButton.textContent =
-            "Ürünü Kaydet";
+            "Məhsulu Yadda Saxla";
 
     }
 
@@ -2695,7 +2695,7 @@ function editProduct(
     if (!product) {
 
         alert(
-            "Ürün bulunamadı."
+            "Məhsul tapılmadı."
         );
 
         return;
@@ -2796,7 +2796,7 @@ function editProduct(
     if (submitButton) {
 
         submitButton.textContent =
-            "Değişiklikleri Kaydet";
+            "Dəyişiklikləri Yadda Saxla";
 
     }
 
@@ -2846,7 +2846,7 @@ function deleteProduct(
     if (!product) {
 
         alert(
-            "Ürün bulunamadı."
+            "Məhsul tapılmadı."
         );
 
         return;
@@ -2857,7 +2857,7 @@ function deleteProduct(
     const confirmed =
         confirm(
 
-            `"${product.name}" ürününü silmek istediğinize emin misiniz?`
+            `"${product.name}" məhsulunu silmək istədiyinizə əminsiniz?`
 
         );
 
@@ -2920,7 +2920,7 @@ function deleteProduct(
 
 
     alert(
-        "Ürün silindi."
+        "Məhsul silindi."
     );
 
 }
@@ -2959,7 +2959,7 @@ function updateAdminOrderCount() {
         orders.filter(
             order =>
                 order.status !==
-                "Onaylandı"
+                "Təsdiqləndi"
         ).length;
 
 
@@ -2974,7 +2974,7 @@ function updateAdminOrderCount() {
     if (badgeElement) {
 
         badgeElement.textContent =
-            `${orders.length} sipariş`;
+            `${orders.length} sifariş`;
 
     }
 
@@ -3023,11 +3023,11 @@ function renderAdminOrders() {
                 </div>
 
                 <h2>
-                    Henüz sipariş yok
+                    Hələ sifariş yoxdur
                 </h2>
 
                 <p>
-                    Müşterilerden gelen siparişler burada görünecek.
+                    Müştərilərdən gələn sifarişlər burada görünəcək.
                 </p>
 
             </div>
@@ -3112,7 +3112,7 @@ function renderAdminOrders() {
 
                     const isApproved =
                         order.status ===
-                        "Onaylandı";
+                        "Təsdiqləndi";
 
 
                     return `
@@ -3157,8 +3157,8 @@ function renderAdminOrders() {
 
                                     ${
                                         isApproved
-                                            ? "✓ Onaylandı"
-                                            : "Yeni Sipariş"
+                                            ? "✓ Təsdiqləndi"
+                                            : "Yeni Sifariş"
                                     }
 
                                 </div>
@@ -3173,7 +3173,7 @@ function renderAdminOrders() {
                                 <div class="admin-order-customer">
 
                                     <h4>
-                                        Müşteri Bilgileri
+                                        Müştəri Məlumatları
                                     </h4>
 
 
@@ -3185,7 +3185,7 @@ function renderAdminOrders() {
 
                                         ${escapeHTML(
                                             customer.name ||
-                                            "Bilgi yok"
+                                            "Məlumat yoxdur"
                                         )}
 
                                     </p>
@@ -3199,7 +3199,7 @@ function renderAdminOrders() {
 
                                         ${escapeHTML(
                                             customer.phone ||
-                                            "Bilgi yok"
+                                            "Məlumat yoxdur"
                                         )}
 
                                     </p>
@@ -3208,12 +3208,12 @@ function renderAdminOrders() {
                                     <p>
 
                                         <strong>
-                                            Teslimat Adresi:
+                                            Çatdırılma Ünvanı:
                                         </strong>
 
                                         ${escapeHTML(
                                             customer.address ||
-                                            "Bilgi yok"
+                                            "Məlumat yoxdur"
                                         )}
 
                                     </p>
@@ -3222,10 +3222,10 @@ function renderAdminOrders() {
                                     <p>
 
                                         <strong>
-                                            Ödeme:
+                                            Ödəniş:
                                         </strong>
 
-                                        Kapıda Nakit Ödeme
+                                        Qapıda Nağd Ödəniş
 
                                     </p>
 
@@ -3235,7 +3235,7 @@ function renderAdminOrders() {
                                 <div class="order-items">
 
                                     <h4>
-                                        Sipariş İçeriği
+                                        Sifariş Tərkibi
                                     </h4>
 
 
@@ -3245,7 +3245,7 @@ function renderAdminOrders() {
                                     <div class="order-total">
 
                                         <span>
-                                            Toplam
+                                            Cəmi
                                         </span>
 
                                         <strong>
@@ -3272,7 +3272,7 @@ function renderAdminOrders() {
 
                                             <span class="approved-message">
 
-                                                ✓ Bu sipariş onaylandı.
+                                                ✓ Bu sifariş təsdiqləndi.
 
                                             </span>
 
@@ -3288,7 +3288,7 @@ function renderAdminOrders() {
                                                 )}"
                                             >
 
-                                                ✓ Siparişi Onayla
+                                                ✓ Sifarişi Təsdiqlə
 
                                             </button>
 
@@ -3340,7 +3340,7 @@ function approveOrder(
     if (!order) {
 
         alert(
-            "Sipariş bulunamadı."
+            "Sifariş tapılmadı."
         );
 
         return;
@@ -3350,7 +3350,7 @@ function approveOrder(
 
     if (
         order.status ===
-        "Onaylandı"
+        "Təsdiqləndi"
     ) {
 
         return;
@@ -3361,7 +3361,7 @@ function approveOrder(
     const confirmed =
         confirm(
 
-            `#${order.id} numaralı siparişi onaylamak istiyor musunuz?`
+            `#${order.id} nömrəli sifarişi təsdiqləmək istəyirsiniz?`
 
         );
 
@@ -3374,7 +3374,7 @@ function approveOrder(
 
 
     order.status =
-        "Onaylandı";
+        "Təsdiqləndi";
 
 
     order.approvedAt =
@@ -3393,7 +3393,7 @@ function approveOrder(
 
 
     alert(
-        "Sipariş başarıyla onaylandı."
+        "Sifariş uğurla təsdiqləndi."
     );
 
 }
@@ -3698,7 +3698,7 @@ document.addEventListener(
 
             const confirmed =
                 confirm(
-                    "Sepeti tamamen temizlemek istiyor musunuz?"
+                    "Səbəti tamamilə təmizləmək istəyirsiniz?"
                 );
 
 
