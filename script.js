@@ -4275,7 +4275,7 @@ window.PetFriend = {
 
 };
 
-const ADMIN_PASSWORD = "PetFriend@2026";
+const ADMIN_PASSWORD = "salam";
 /* =========================================================
    DOSYA SONU
    ========================================================= */
