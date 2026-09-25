@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+        name="description"
+        content="Pet Friend Admin Paneli"
+    />
+
+    <title>Pet Friend | Admin Paneli</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    />
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+
+                <span class="logo-mark">
+                    🐾
+                </span>
+
+                <span>
+                    Pet <strong>Friend</strong>
+                </span>
+
+            </a>
+
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Menüyü aç/kapat"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+
+            <nav
+                class="main-nav"
+                id="mainNav"
+            >
+
+                <a href="index.html">
+                    Ana Sayfa
+                </a>
+
+                <a href="products.html">
+                    Ürünler
+                </a>
+
+                <a href="cart.html">
+                    Sepet
+                    <span
+                        class="cart-badge"
+                        id="cartCount"
+                    >
+                        0
+                    </span>
+                </a>
+
+                <a
+                    href="admin.html"
+                    class="active"
+                >
+                    Admin
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         ANA ALAN
+         ===================================================== -->
+
+    <main>
+
+        <section class="page-header">
+
+            <div class="container">
+
+                <span class="eyebrow">
+                    Yönetim Paneli
+                </span>
+
+                <h1>
+                    Pet Friend Admin
+                </h1>
+
+                <p>
+                    Ürünlerinizi ve gelen siparişleri buradan yönetin.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="section admin-section">
+
+            <div class="container">
+
+
+                <!-- =================================================
+                     UYARI
+                     ================================================= -->
+
+                <div class="admin-warning">
+
+                    ⚠️ Bu panel şu anda yalnızca
+                    <strong>yerel demo sistemi</strong>
+                    olarak çalışıyor.
+
+                    Ürünler ve siparişler bu tarayıcının
+                    <strong>localStorage</strong>
+                    alanında tutuluyor.
+
+                </div>
+
+
+                <!-- =================================================
+                     ADMİN SEKMELERİ
+                     ================================================= -->
+
+                <div class="admin-tabs">
+
+                    <button
+                        type="button"
+                        class="admin-tab active"
+                        data-admin-tab="products"
+                    >
+                        🛍️ Ürün Yönetimi
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="admin-tab"
+                        data-admin-tab="orders"
+                    >
+                        📦 Gelen Siparişler
+
+                        <span
+                            class="admin-tab-badge"
+                            id="adminOrderCount"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     ÜRÜN YÖNETİMİ
+                     ================================================= -->
+
+                <section
+                    id="adminTabProducts"
+                    class="admin-tab-content active"
+                >
+
+
+                    <!-- ================================
+                         ÜRÜN EKLE / DÜZENLE
+                         ================================ -->
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    Ürün Yönetimi
+                                </span>
+
+                                <h2>
+                                    Yeni ürün ekle
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <form
+                            id="adminProductForm"
+                            class="admin-product-form"
+                        >
+
+                            <!-- Gizli ürün ID -->
+                            <input
+                                type="hidden"
+                                id="productId"
+                                name="id"
+                            />
+
+
+                            <div class="form-grid">
+
+
+                                <!-- Ürün adı -->
+                                <div class="form-group">
+
+                                    <label
+                                        for="productName"
+                                    >
+                                        Ürün Adı
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productName"
+                                        name="name"
+                                        class="form-input"
+                                        placeholder="Örn. Premium Kedi Maması"
+                                        required
+                                    />
+
+                                </div>
+
+
+                                <!-- Kategori -->
+                                <div class="form-group">
+
+                                    <label
+                                        for="productCategory"
+                                    >
+                                        Kategori
+                                    </label>
+
+                                    <select
+                                        id="productCategory"
+                                        name="category"
+                                        class="form-input"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Kategori seçin
+                                        </option>
+
+                                        <option value="Mama">
+                                            Mama
+                                        </option>
+
+                                        <option value="Vitamin & İlaç">
+                                            Vitamin & İlaç
+                                        </option>
+
+                                        <option value="Aksesuar">
+                                            Aksesuar
+                                        </option>
+
+                                        <option value="Kedi Ürünleri">
+                                            Kedi Ürünleri
+                                        </option>
+
+                                        <option value="Köpek Ürünleri">
+                                            Köpek Ürünleri
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- Fiyat -->
+                                <div class="form-group">
+
+                                    <label
+                                        for="productPrice"
+                                    >
+                                        Fiyat
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="productPrice"
+                                        name="price"
+                                        class="form-input"
+                                        placeholder="Örn. 249.90"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                    />
+
+                                </div>
+
+
+                                <!-- Görsel -->
+                                <div class="form-group">
+
+                                    <label
+                                        for="productImage"
+                                    >
+                                        Ürün Görsel URL'si
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        id="productImage"
+                                        name="image"
+                                        class="form-input"
+                                        placeholder="https://..."
+                                        required
+                                    />
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Açıklama -->
+                            <div class="form-group">
+
+                                <label
+                                    for="productDescription"
+                                >
+                                    Ürün Açıklaması
+                                </label>
+
+                                <textarea
+                                    id="productDescription"
+                                    name="description"
+                                    class="form-input textarea"
+                                    placeholder="Ürün hakkında kısa açıklama..."
+                                    required
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="admin-form-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                >
+                                    Ürünü Kaydet
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    id="cancelProductEdit"
+                                >
+                                    Formu Temizle
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- ================================
+                         KAYITLI ÜRÜNLER
+                         ================================ -->
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    Katalog
+                                </span>
+
+                                <h2>
+                                    Kayıtlı Ürünler
+                                </h2>
+
+                            </div>
+
+
+                            <span
+                                class="count-badge"
+                                id="adminProductCount"
+                            >
+                                0 ürün
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            id="adminProductList"
+                            class="admin-product-list"
+                        ></div>
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     SİPARİŞLER
+                     ================================================= -->
+
+                <section
+                    id="adminTabOrders"
+                    class="admin-tab-content"
+                >
+
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <span class="eyebrow">
+                                    Sipariş Yönetimi
+                                </span>
+
+                                <h2>
+                                    Gelen Siparişler
+                                </h2>
+
+                            </div>
+
+
+                            <span
+                                class="count-badge"
+                                id="adminOrdersBadge"
+                            >
+                                0 sipariş
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            id="adminOrderList"
+                            class="order-list"
+                        ></div>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <a
+                    href="index.html"
+                    class="logo footer-logo"
+                >
+
+                    <span class="logo-mark">
+                        🐾
+                    </span>
+
+                    <span>
+                        Pet <strong>Friend</strong>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Evcil dostlarınız için sevgiyle seçilmiş ürünler.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Mağaza
+                </h4>
+
+                <a href="products.html">
+                    Tüm Ürünler
+                </a>
+
+                <a href="products.html?category=Mama">
+                    Mama
+                </a>
+
+                <a href="products.html?category=Aksesuar">
+                    Aksesuar
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Yönetim
+                </h4>
+
+                <a href="admin.html">
+                    Admin Paneli
+                </a>
+
+                <a href="cart.html">
+                    Sepet
+                </a>
+
+                <a href="checkout.html">
+                    Sipariş Tamamla
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Ödeme
+                </h4>
+
+                <p>
+                    💵 Yalnızca kapıda nakit ödeme
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            ©
+            <span id="currentYear"></span>
+            Pet Friend.
+
+            <span>
+                Demo e-ticaret projesi.
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <script
+        src="script.js"
+        defer
+    ></script>
+
+</body>
+
+</html>
