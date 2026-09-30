@@ -169,6 +169,72 @@
   }
   .product-row .actions button.del{color:var(--danger);border-color:#F0C4B8;}
   .empty-list{color:var(--muted);font-size:0.9rem;padding:10px 0;}
+
+  /* Sidebar layout */
+  .admin-layout{display:flex;min-height:100vh;}
+  .sidebar{
+    width:230px;
+    flex:0 0 auto;
+    background:var(--pine);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    padding:22px 0;
+    position:fixed;
+    top:0;left:0;bottom:0;
+    z-index:20;
+    transition:transform .2s ease;
+  }
+  .sidebar-brand{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.25rem;
+    padding:0 22px 20px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    margin-bottom:10px;
+  }
+  .sidebar nav{display:flex;flex-direction:column;flex:1;}
+  .nav-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    border-right:3px solid transparent;
+    color:#C9D8C2;
+    padding:13px 22px;
+    font-size:0.95rem;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .nav-item:hover{background:rgba(255,255,255,.06);color:#fff;}
+  .nav-item.active{background:rgba(255,255,255,.1);color:#fff;font-weight:600;border-right-color:var(--honey);}
+  .nav-item.logout{color:#E7B39C;margin-top:auto;}
+  .sidebar-toggle{display:none;}
+  .sidebar-overlay{display:none;}
+
+  .admin-main{flex:1;margin-left:230px;padding:32px 28px 80px;min-width:0;}
+  .admin-main .view h1{
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    margin:0 0 20px;
+    color:var(--pine);
+  }
+
+  @media (max-width: 860px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .admin-main{margin-left:0;padding:74px 18px 60px;}
+    .sidebar-toggle{
+      display:flex;align-items:center;justify-content:center;
+      position:fixed;top:14px;left:14px;z-index:30;
+      width:42px;height:42px;border-radius:9px;border:none;
+      background:var(--pine);color:#fff;font-size:1.25rem;cursor:pointer;
+    }
+    .sidebar-overlay.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:15;}
+  }
 </style>
 </head>
 <body>
@@ -185,57 +251,70 @@
 </div>
 
 <div id="adminPanel" hidden>
-  <div class="wrap">
-    <div class="admin-header">
-      <h1>Məhsullar</h1>
-      <span class="logout-link" id="logoutBtn">Çıxış</span>
-    </div>
+  <div class="admin-layout">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Menyu">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <div class="panel">
-      <h2 id="formTitle">Yeni məhsul əlavə et</h2>
-      <form id="productForm">
-        <div class="field">
-          <label>Şəkil</label>
-          <input type="file" id="photoInput" accept="image/*">
-          <div class="photo-preview" id="photoPreview"><img id="photoPreviewImg" alt=""></div>
-        </div>
-        <div class="field">
-          <label>Ad</label>
-          <input type="text" id="nameInput" required placeholder="Məsələn: Whiskas pişik yemi 1.5kg">
-        </div>
-        <div class="field">
-          <label>Kateqoriya</label>
-          <select id="categoryInput">
-            <option value="Yem">Yem</option>
-            <option value="Oyuncaqlar">Oyuncaqlar</option>
-            <option value="Geyim">Geyim</option>
-            <option value="Aksesuarlar">Aksesuarlar</option>
-            <option value="Gigiyena məhsulları">Gigiyena məhsulları</option>
-            <option value="Sağlamlıq">Sağlamlıq</option>
-            <option value="Qəfəs və yataqlar">Qəfəs və yataqlar</option>
-            <option value="Digər">Digər</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Açıqlama</label>
-          <textarea id="descInput" placeholder="Qısa məlumat..."></textarea>
-        </div>
-        <div class="field">
-          <label>Qiymət (₼) — istəyə bağlı</label>
-          <input type="number" id="priceInput" min="0" step="0.01" placeholder="Boş buraxa bilərsiniz">
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="submitBtn">Əlavə et</button>
-          <button type="button" class="btn btn-secondary" id="cancelEditBtn" hidden>Ləğv et</button>
-        </div>
-        <p class="status-msg" id="statusMsg"></p>
-      </form>
-    </div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">Pet Friend</div>
+      <nav>
+        <button type="button" class="nav-item active" data-view="products">📦 Məhsullar</button>
+        <button type="button" class="nav-item" data-view="new">➕ Yeni məhsul</button>
+        <button type="button" class="nav-item logout" id="logoutBtn">↩ Çıxış</button>
+      </nav>
+    </aside>
 
-    <div class="panel">
-      <h2>Mövcud məhsullar</h2>
-      <div id="productList"><p class="empty-list">Yüklənir...</p></div>
-    </div>
+    <main class="admin-main">
+      <section class="view" id="view-products">
+        <h1>Məhsullar</h1>
+        <div class="panel">
+          <div id="productList"><p class="empty-list">Yüklənir...</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-new" hidden>
+        <h1 id="formTitle">Yeni məhsul əlavə et</h1>
+        <div class="panel">
+          <form id="productForm">
+            <div class="field">
+              <label>Şəkil</label>
+              <input type="file" id="photoInput" accept="image/*">
+              <div class="photo-preview" id="photoPreview"><img id="photoPreviewImg" alt=""></div>
+            </div>
+            <div class="field">
+              <label>Ad</label>
+              <input type="text" id="nameInput" required placeholder="Məsələn: Whiskas pişik yemi 1.5kg">
+            </div>
+            <div class="field">
+              <label>Kateqoriya</label>
+              <select id="categoryInput">
+                <option value="Yem">Yem</option>
+                <option value="Oyuncaqlar">Oyuncaqlar</option>
+                <option value="Geyim">Geyim</option>
+                <option value="Aksesuarlar">Aksesuarlar</option>
+                <option value="Gigiyena məhsulları">Gigiyena məhsulları</option>
+                <option value="Sağlamlıq">Sağlamlıq</option>
+                <option value="Qəfəs və yataqlar">Qəfəs və yataqlar</option>
+                <option value="Digər">Digər</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Açıqlama</label>
+              <textarea id="descInput" placeholder="Qısa məlumat..."></textarea>
+            </div>
+            <div class="field">
+              <label>Qiymət (₼) — istəyə bağlı</label>
+              <input type="number" id="priceInput" min="0" step="0.01" placeholder="Boş buraxa bilərsiniz">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="submitBtn">Əlavə et</button>
+              <button type="button" class="btn btn-secondary" id="cancelEditBtn" hidden>Ləğv et</button>
+            </div>
+            <p class="status-msg" id="statusMsg"></p>
+          </form>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
 
@@ -278,6 +357,31 @@
       sessionStorage.removeItem('pfAdminAuthed');
       location.reload();
     });
+
+    // Sidebar nav: switch between "Məhsullar" and "Yeni məhsul" views
+    var navItems = document.querySelectorAll('.nav-item[data-view]');
+    var views = { products: document.getElementById('view-products'), new: document.getElementById('view-new') };
+    var sidebar = document.getElementById('sidebar');
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function showView(name){
+      navItems.forEach(function(btn){ btn.classList.toggle('active', btn.dataset.view === name); });
+      Object.keys(views).forEach(function(key){ views[key].hidden = key !== name; });
+      closeSidebar();
+    }
+    window.pfShowView = showView; // module script also calls this when "Redaktə et" is clicked
+
+    navItems.forEach(function(btn){
+      btn.addEventListener('click', function(){ showView(btn.dataset.view); });
+    });
+
+    function openSidebar(){ sidebar.classList.add('open'); sidebarOverlay.classList.add('show'); }
+    function closeSidebar(){ sidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); }
+    sidebarToggle.addEventListener('click', function(){
+      sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    });
+    sidebarOverlay.addEventListener('click', closeSidebar);
   })();
 </script>
 
@@ -366,7 +470,10 @@
     cancelEditBtn.hidden = true;
   }
 
-  cancelEditBtn.addEventListener('click', resetForm);
+  cancelEditBtn.addEventListener('click', () => {
+    resetForm();
+    if(window.pfShowView) window.pfShowView('products');
+  });
 
   function showStatus(msg, ok){
     statusMsg.textContent = msg;
@@ -397,6 +504,7 @@
       }
       resetForm();
       loadProducts();
+      if(window.pfShowView) window.pfShowView('products');
     }catch(err){
       console.error(err);
       showStatus('Xəta baş verdi: ' + err.message, false);
@@ -454,7 +562,7 @@
           submitBtn.textContent = 'Yenilə';
           formTitle.textContent = 'Məhsulu redaktə et';
           cancelEditBtn.hidden = false;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if(window.pfShowView) window.pfShowView('new');
         });
       });
 
