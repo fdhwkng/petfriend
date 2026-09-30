@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Friend — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine:#1F3B2C;
+    --pine-light:#2E5540;
+    --bg:#EDF1E8;
+    --card:#FFFFFF;
+    --honey:#D98E2B;
+    --ink:#22301F;
+    --muted:#66765F;
+    --line:#DCE3D5;
+    --danger:#C1442C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+  img{max-width:100%;display:block;}
+
+  /* Login screen */
+  #loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .login-box{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:32px;
+    width:100%;
+    max-width:340px;
+  }
+  .login-box h1{
+    font-family:'Fraunces',serif;
+    font-size:1.4rem;
+    margin:0 0 18px;
+    color:var(--pine);
+  }
+  .login-box input{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:1rem;
+    font-family:inherit;
+    margin-bottom:12px;
+  }
+  .login-box button{
+    width:100%;
+    padding:12px;
+    background:var(--pine);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:1rem;
+    font-weight:600;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .login-error{color:var(--danger);font-size:0.9rem;margin:0 0 12px;display:none;}
+
+  /* Admin panel */
+  #adminPanel{padding:32px 0 80px;}
+  .admin-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
+  .admin-header h1{
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    margin:0;
+    color:var(--pine);
+  }
+  .logout-link{color:var(--muted);font-size:0.9rem;text-decoration:none;cursor:pointer;}
+  .logout-link:hover{text-decoration:underline;}
+
+  .panel{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:28px;
+  }
+  .panel h2{
+    font-family:'Fraunces',serif;
+    font-size:1.15rem;
+    margin:0 0 16px;
+    color:var(--pine);
+  }
+  label{display:block;font-size:0.88rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .field{margin-bottom:16px;}
+  input[type=text], input[type=number], select, textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:0.95rem;
+    font-family:inherit;
+    background:#fff;
+    color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:80px;}
+  input[type=file]{font-size:0.9rem;}
+  .photo-preview{
+    margin-top:10px;
+    width:120px;
+    height:120px;
+    border-radius:10px;
+    overflow:hidden;
+    background:#E4E9DE;
+    display:none;
+  }
+  .photo-preview img{width:100%;height:100%;object-fit:cover;}
+  .form-actions{display:flex;gap:10px;align-items:center;}
+  .btn{
+    padding:11px 20px;
+    border-radius:8px;
+    border:none;
+    font-family:inherit;
+    font-size:0.95rem;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--pine);color:#fff;}
+  .btn-secondary{background:#fff;color:var(--muted);border:1px solid var(--line);}
+  .btn-danger{background:var(--danger);color:#fff;}
+  .status-msg{font-size:0.9rem;margin-top:10px;display:none;}
+  .status-msg.ok{color:var(--pine-light);}
+  .status-msg.err{color:var(--danger);}
+
+  .product-row{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .product-row:last-child{border-bottom:none;}
+  .product-row .thumb{
+    width:56px;height:56px;border-radius:8px;overflow:hidden;flex:0 0 auto;background:#E4E9DE;
+  }
+  .product-row .thumb img{width:100%;height:100%;object-fit:cover;}
+  .product-row .info{flex:1;min-width:0;}
+  .product-row .info .name{font-weight:600;font-size:0.95rem;}
+  .product-row .info .meta{font-size:0.82rem;color:var(--muted);}
+  .product-row .actions{display:flex;gap:8px;flex:0 0 auto;}
+  .product-row .actions button{
+    background:none;border:1px solid var(--line);padding:6px 12px;border-radius:6px;font-size:0.82rem;
+    cursor:pointer;font-family:inherit;color:var(--ink);
+  }
+  .product-row .actions button.del{color:var(--danger);border-color:#F0C4B8;}
+  .empty-list{color:var(--muted);font-size:0.9rem;padding:10px 0;}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Pet Friend — Admin</h1>
+    <p class="login-error" id="loginError">Şifrə yanlışdır.</p>
+    <form id="loginForm">
+      <input type="password" id="pwInput" placeholder="Şifrə" autocomplete="off" required>
+      <button type="submit">Daxil ol</button>
+    </form>
+  </div>
+</div>
+
+<div id="adminPanel" hidden>
+  <div class="wrap">
+    <div class="admin-header">
+      <h1>Məhsullar</h1>
+      <span class="logout-link" id="logoutBtn">Çıxış</span>
+    </div>
+
+    <div class="panel">
+      <h2 id="formTitle">Yeni məhsul əlavə et</h2>
+      <form id="productForm">
+        <div class="field">
+          <label>Şəkil</label>
+          <input type="file" id="photoInput" accept="image/*">
+          <div class="photo-preview" id="photoPreview"><img id="photoPreviewImg" alt=""></div>
+        </div>
+        <div class="field">
+          <label>Ad</label>
+          <input type="text" id="nameInput" required placeholder="Məsələn: Whiskas pişik yemi 1.5kg">
+        </div>
+        <div class="field">
+          <label>Kateqoriya</label>
+          <select id="categoryInput">
+            <option value="Yem">Yem</option>
+            <option value="Oyuncaqlar">Oyuncaqlar</option>
+            <option value="Geyim">Geyim</option>
+            <option value="Aksesuarlar">Aksesuarlar</option>
+            <option value="Gigiyena məhsulları">Gigiyena məhsulları</option>
+            <option value="Sağlamlıq">Sağlamlıq</option>
+            <option value="Qəfəs və yataqlar">Qəfəs və yataqlar</option>
+            <option value="Digər">Digər</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Açıqlama</label>
+          <textarea id="descInput" placeholder="Qısa məlumat..."></textarea>
+        </div>
+        <div class="field">
+          <label>Qiymət (₼) — istəyə bağlı</label>
+          <input type="number" id="priceInput" min="0" step="0.01" placeholder="Boş buraxa bilərsiniz">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Əlavə et</button>
+          <button type="button" class="btn btn-secondary" id="cancelEditBtn" hidden>Ləğv et</button>
+        </div>
+        <p class="status-msg" id="statusMsg"></p>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Mövcud məhsullar</h2>
+      <div id="productList"><p class="empty-list">Yüklənir...</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Bu blok Firebase-dən tamamilə asılı deyil — internet/Firebase problemi olsa belə
+  // giriş forması işləməyə davam edir.
+  (function(){
+    // Şifrəni dəyişmək üçün aşağıdakı sətri redaktə edin:
+    var ADMIN_PASSWORD = "petfriend2026";
+
+    var loginScreen = document.getElementById('loginScreen');
+    var adminPanel = document.getElementById('adminPanel');
+    var loginForm = document.getElementById('loginForm');
+    var pwInput = document.getElementById('pwInput');
+    var loginError = document.getElementById('loginError');
+    var logoutBtn = document.getElementById('logoutBtn');
+
+    function showAdmin(){
+      loginScreen.hidden = true;
+      adminPanel.hidden = false;
+      document.dispatchEvent(new CustomEvent('pf-admin-shown'));
+    }
+
+    if(sessionStorage.getItem('pfAdminAuthed') === 'true'){
+      showAdmin();
+    }
+
+    loginForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(pwInput.value === ADMIN_PASSWORD){
+        sessionStorage.setItem('pfAdminAuthed', 'true');
+        loginError.style.display = 'none';
+        showAdmin();
+      }else{
+        loginError.style.display = 'block';
+      }
+    });
+
+    logoutBtn.addEventListener('click', function(){
+      sessionStorage.removeItem('pfAdminAuthed');
+      location.reload();
+    });
+  })();
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
+    authDomain: "petfriend-az.firebaseapp.com",
+    projectId: "petfriend-az",
+    storageBucket: "petfriend-az.firebasestorage.app",
+    messagingSenderId: "970042291926",
+    appId: "1:970042291926:web:7b3b4124cab520e3863b77",
+    measurementId: "G-84BZXVMWCJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Admin panel artıq görünürsə (bu səhifə yenilənəndə sessiya hələ aktivdirsə) məhsulları dərhal yüklə.
+  if(!document.getElementById('adminPanel').hidden){
+    loadProducts();
+  }
+  // İstifadəçi indicə şifrə ilə daxil olubsa, bu hadisə gələndə məhsulları yüklə.
+  document.addEventListener('pf-admin-shown', loadProducts);
+
+  /* ---------- Image compression ---------- */
+  function compressImage(file, maxWidth = 700, quality = 0.6){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if(w > maxWidth){ h = Math.round(h * maxWidth / w); w = maxWidth; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* ---------- Form state ---------- */
+  const form = document.getElementById('productForm');
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+  const photoPreviewImg = document.getElementById('photoPreviewImg');
+  const nameInput = document.getElementById('nameInput');
+  const categoryInput = document.getElementById('categoryInput');
+  const descInput = document.getElementById('descInput');
+  const priceInput = document.getElementById('priceInput');
+  const submitBtn = document.getElementById('submitBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+  const formTitle = document.getElementById('formTitle');
+  const statusMsg = document.getElementById('statusMsg');
+
+  let editingId = null;
+  let currentPhotoBase64 = null;
+  let newPhotoBase64 = null;
+
+  photoInput.addEventListener('change', async () => {
+    const file = photoInput.files[0];
+    if(!file) return;
+    newPhotoBase64 = await compressImage(file);
+    photoPreviewImg.src = newPhotoBase64;
+    photoPreview.style.display = 'block';
+  });
+
+  function resetForm(){
+    editingId = null;
+    currentPhotoBase64 = null;
+    newPhotoBase64 = null;
+    form.reset();
+    photoPreview.style.display = 'none';
+    submitBtn.textContent = 'Əlavə et';
+    formTitle.textContent = 'Yeni məhsul əlavə et';
+    cancelEditBtn.hidden = true;
+  }
+
+  cancelEditBtn.addEventListener('click', resetForm);
+
+  function showStatus(msg, ok){
+    statusMsg.textContent = msg;
+    statusMsg.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    statusMsg.style.display = 'block';
+    setTimeout(() => { statusMsg.style.display = 'none'; }, 3000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    try{
+      const photo = newPhotoBase64 || currentPhotoBase64 || null;
+      const data = {
+        name: nameInput.value.trim(),
+        category: categoryInput.value,
+        description: descInput.value.trim(),
+        price: priceInput.value ? Number(priceInput.value) : null,
+        photo: photo,
+      };
+      if(editingId){
+        await updateDoc(doc(db, 'products', editingId), data);
+        showStatus('Məhsul yeniləndi.', true);
+      }else{
+        data.createdAt = Date.now();
+        await addDoc(collection(db, 'products'), data);
+        showStatus('Məhsul əlavə edildi.', true);
+      }
+      resetForm();
+      loadProducts();
+    }catch(err){
+      console.error(err);
+      showStatus('Xəta baş verdi: ' + err.message, false);
+    }finally{
+      submitBtn.disabled = false;
+    }
+  });
+
+  /* ---------- Product list ---------- */
+  const productList = document.getElementById('productList');
+
+  async function loadProducts(){
+    productList.innerHTML = '<p class="empty-list">Yüklənir...</p>';
+    try{
+      const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      if(products.length === 0){
+        productList.innerHTML = '<p class="empty-list">Hələ məhsul yoxdur.</p>';
+        return;
+      }
+
+      productList.innerHTML = products.map(p => `
+        <div class="product-row" data-id="${p.id}">
+          <div class="thumb">${p.photo ? `<img src="${p.photo}" alt="">` : ''}</div>
+          <div class="info">
+            <div class="name">${escapeHtml(p.name)}</div>
+            <div class="meta">${escapeHtml(p.category || '')}${p.price ? ' · ' + escapeHtml(p.price) + ' ₼' : ''}</div>
+          </div>
+          <div class="actions">
+            <button type="button" class="edit">Redaktə et</button>
+            <button type="button" class="del">Sil</button>
+          </div>
+        </div>
+      `).join('');
+
+      productList.querySelectorAll('.edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.closest('.product-row').dataset.id;
+          const p = products.find(x => x.id === id);
+          editingId = id;
+          currentPhotoBase64 = p.photo || null;
+          newPhotoBase64 = null;
+          nameInput.value = p.name || '';
+          categoryInput.value = p.category || 'Yem';
+          descInput.value = p.description || '';
+          priceInput.value = p.price || '';
+          if(p.photo){
+            photoPreviewImg.src = p.photo;
+            photoPreview.style.display = 'block';
+          }else{
+            photoPreview.style.display = 'none';
+          }
+          submitBtn.textContent = 'Yenilə';
+          formTitle.textContent = 'Məhsulu redaktə et';
+          cancelEditBtn.hidden = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      productList.querySelectorAll('.del').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.closest('.product-row').dataset.id;
+          if(!confirm('Bu məhsulu silmək istədiyinizə əminsiniz?')) return;
+          await deleteDoc(doc(db, 'products', id));
+          if(editingId === id) resetForm();
+          loadProducts();
+        });
+      });
+
+    }catch(err){
+      console.error(err);
+      productList.innerHTML = '<p class="empty-list">Yükləmə xətası: ' + escapeHtml(err.message) + '</p>';
+    }
+  }
+
+  function escapeHtml(str){
+    return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+</script>
+
+</body>
+</html>
