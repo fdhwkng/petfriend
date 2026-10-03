@@ -598,7 +598,9 @@
       if(pwInput.value === ADMIN_PASSWORD){
         sessionStorage.setItem('pfAdminAuthed', 'true');
         loginError.style.display = 'none';
-        showAdmin();
+        // Səhifəni təzələyirik ki, şifrə təsdiqlənən kimi təmiz, yuxarıdan başlayan
+        // admin paneli açılsın (scroll mövqeyi və s. sıfırlanır).
+        location.reload();
       }else{
         loginError.style.display = 'block';
       }
