@@ -39,6 +39,7 @@
     justify-content:center;
     padding:20px;
   }
+  #loginScreen[hidden]{display:none;}
   .login-box{
     background:#fff;
     border:1px solid var(--line);
@@ -586,6 +587,7 @@
     function showAdmin(){
       loginScreen.hidden = true;
       adminPanel.hidden = false;
+      window.scrollTo(0, 0);
       document.dispatchEvent(new CustomEvent('pf-admin-shown'));
     }
 
@@ -598,9 +600,7 @@
       if(pwInput.value === ADMIN_PASSWORD){
         sessionStorage.setItem('pfAdminAuthed', 'true');
         loginError.style.display = 'none';
-        // Səhifəni təzələyirik ki, şifrə təsdiqlənən kimi təmiz, yuxarıdan başlayan
-        // admin paneli açılsın (scroll mövqeyi və s. sıfırlanır).
-        location.reload();
+        showAdmin();
       }else{
         loginError.style.display = 'block';
       }
