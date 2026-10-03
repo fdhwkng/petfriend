@@ -170,6 +170,71 @@
   .product-row .actions button.del{color:var(--danger);border-color:#F0C4B8;}
   .empty-list{color:var(--muted);font-size:0.9rem;padding:10px 0;}
 
+  /* Brand form extras */
+  .toggle-row{display:flex;align-items:center;gap:10px;}
+  .switch{position:relative;display:inline-block;width:44px;height:24px;flex:0 0 auto;}
+  .switch input{opacity:0;width:0;height:0;}
+  .switch .slider{position:absolute;cursor:pointer;inset:0;background:#CBD4C3;border-radius:999px;transition:.15s;}
+  .switch .slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s;}
+  .switch input:checked + .slider{background:var(--pine-light);}
+  .switch input:checked + .slider:before{transform:translateX(20px);}
+  .toggle-label{font-size:0.9rem;color:var(--ink);}
+  .slug-row{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .slug-prefix{background:#F3F5F0;color:var(--muted);font-size:0.82rem;padding:10px 10px;white-space:nowrap;display:flex;align-items:center;}
+  .slug-row input{border:none;border-radius:0;}
+  .slug-row input:focus{outline:none;}
+  .badge{display:inline-block;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:100px;margin-left:6px;vertical-align:1px;}
+  .badge.on{background:#E3EEE0;color:var(--pine-light);}
+  .badge.off{background:#F3E4DC;color:var(--danger);}
+  .logo-preview{margin-top:10px;width:76px;height:76px;border-radius:10px;overflow:hidden;background:#E4E9DE;display:none;}
+  .logo-preview img{width:100%;height:100%;object-fit:contain;}
+
+  /* Dashboard */
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px;}
+  .stat-card{
+    border-radius:14px;padding:20px 18px;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+  }
+  .stat-card .num{font-size:1.6rem;font-weight:700;font-family:'Fraunces',serif;}
+  .stat-card .lbl{font-size:0.78rem;opacity:.9;margin-top:2px;}
+  .stat-card .note{font-size:0.68rem;opacity:.75;margin-top:4px;}
+  .stat-card .icon{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex:0 0 auto;}
+  .stat-1{background:#3B5BDB;} .stat-2{background:var(--pine-light);} .stat-3{background:var(--honey);} .stat-4{background:#5C8A6A;}
+
+  .dash-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start;}
+  @media (max-width:980px){ .dash-grid{grid-template-columns:1fr;} .stat-grid{grid-template-columns:repeat(2,1fr);} }
+
+  .fake-chart{display:flex;align-items:flex-end;gap:14px;height:160px;padding-top:10px;}
+  .fake-chart .bar{flex:1;border-radius:6px 6px 0 0;background:var(--pine-light);position:relative;min-height:8px;}
+  .fake-chart .bar span{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:0.68rem;color:var(--muted);}
+  .mini-table{width:100%;border-collapse:collapse;font-size:0.86rem;}
+  .mini-table th{text-align:left;color:var(--muted);font-weight:600;font-size:0.75rem;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--line);}
+  .mini-table td{padding:9px 8px;border-bottom:1px solid var(--line);}
+  .mini-table tr:last-child td{border-bottom:none;}
+  .side-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:20px;}
+  .side-panel h2{font-family:'Fraunces',serif;font-size:1rem;margin:0 0 14px;color:var(--pine);}
+  .soon-note{color:var(--muted);font-size:0.86rem;padding:8px 0;}
+
+  /* Collapsible nav group */
+  .nav-group-toggle{display:flex;align-items:center;justify-content:space-between;}
+  .nav-group-toggle .chev{transition:transform .15s;font-size:0.8rem;}
+  .nav-group-toggle.open .chev{transform:rotate(90deg);}
+  .nav-submenu{max-height:0;overflow:hidden;transition:max-height .2s ease;}
+  .nav-submenu.open{max-height:260px;}
+  .nav-submenu .nav-item{padding-left:44px;font-size:0.88rem;}
+
+  /* Categories */
+  .cat-row{padding:14px 0;border-bottom:1px solid var(--line);}
+  .cat-row:last-child{border-bottom:none;}
+  .cat-row .cat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .cat-row .cat-name{font-weight:600;font-size:0.98rem;}
+  .subcat-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .subcat-chip{background:#F3F5F0;border:1px solid var(--line);color:var(--muted);font-size:0.78rem;padding:3px 10px;border-radius:100px;}
+
+  /* Settings form layout */
+  .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+  @media (max-width:700px){ .settings-grid{grid-template-columns:1fr;} }
+
   /* Sidebar layout */
   .admin-layout{display:flex;min-height:100vh;}
   .sidebar{
@@ -258,17 +323,191 @@
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">Pet Friend</div>
       <nav>
-        <button type="button" class="nav-item active" data-view="products">📦 Məhsullar</button>
-        <button type="button" class="nav-item" data-view="new">➕ Yeni məhsul</button>
+        <button type="button" class="nav-item active" data-view="dashboard">📊 İdarə Paneli</button>
+        <button type="button" class="nav-item nav-group-toggle open" id="productsGroupToggle">📦 Məhsullar <span class="chev">›</span></button>
+        <div class="nav-submenu open" id="productsSubmenu">
+          <button type="button" class="nav-item" data-view="new">Məhsul yarat</button>
+          <button type="button" class="nav-item" data-view="products">Bütün məhsullar</button>
+          <button type="button" class="nav-item" data-view="categories">Kateqoriyalar</button>
+          <button type="button" class="nav-item" data-view="brands">Brendlər</button>
+        </div>
+        <button type="button" class="nav-item" data-view="settings">⚙️ Sayt Ayarları</button>
         <button type="button" class="nav-item logout" id="logoutBtn">↩ Çıxış</button>
       </nav>
     </aside>
 
     <main class="admin-main">
-      <section class="view" id="view-products">
+      <section class="view" id="view-dashboard">
+        <h1>İdarə Paneli</h1>
+
+        <div class="stat-grid">
+          <div class="stat-card stat-1">
+            <div><div class="num" id="statSales">0 ₼</div><div class="lbl">Ümumi Satışlar</div><div class="note">hələ izlənmir</div></div>
+            <div class="icon">💰</div>
+          </div>
+          <div class="stat-card stat-2">
+            <div><div class="num" id="statWa">0</div><div class="lbl">WhatsApp Klikləri</div></div>
+            <div class="icon">💬</div>
+          </div>
+          <div class="stat-card stat-3">
+            <div><div class="num" id="statProducts">0</div><div class="lbl">Ümumi Məhsullar</div></div>
+            <div class="icon">📦</div>
+          </div>
+          <div class="stat-card stat-4">
+            <div><div class="num" id="statCustomers">0</div><div class="lbl">Ümumi Müştərilər</div><div class="note">hələ izlənmir</div></div>
+            <div class="icon">👥</div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div>
+            <div class="side-panel">
+              <h2>Satış Analitikası</h2>
+              <div class="fake-chart">
+                <div class="bar" style="height:72%;background:#8ecae6;"><span>Şən</span></div>
+                <div class="bar" style="height:88%;background:#7b8ef7;"><span>Baz</span></div>
+                <div class="bar" style="height:54%;background:#f4a6c6;"><span>B.e</span></div>
+                <div class="bar" style="height:60%;background:#f3a07a;"><span>Ç.a</span></div>
+                <div class="bar" style="height:40%;background:#9fd69f;"><span>Çər</span></div>
+                <div class="bar" style="height:96%;background:#f6b35c;"><span>C.a</span></div>
+                <div class="bar" style="height:78%;background:#8ecae6;"><span>Cü</span></div>
+              </div>
+              <p class="soon-note" style="margin-top:22px;">Nümunə qrafikdir — real satış sistemi qoşulmayıb.</p>
+            </div>
+            <div class="side-panel">
+              <h2>Son WhatsApp Sorğuları</h2>
+              <div id="waClicksList"><p class="empty-list">Yüklənir...</p></div>
+            </div>
+          </div>
+          <div>
+            <div class="side-panel">
+              <h2>Son Axtarışlar</h2>
+              <p class="soon-note">Tezliklə əlavə olunacaq.</p>
+            </div>
+            <div class="side-panel">
+              <h2>Son Rəylər</h2>
+              <p class="soon-note">Hələ rəy yoxdur.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-products" hidden>
         <h1>Məhsullar</h1>
         <div class="panel">
           <div id="productList"><p class="empty-list">Yüklənir...</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-brands" hidden>
+        <h1>Brendlər</h1>
+        <div class="panel">
+          <h2 id="brandFormHeading">Yeni brend əlavə et</h2>
+          <form id="brandForm">
+            <div class="field">
+              <label>Loqo</label>
+              <input type="file" id="brandLogoInput" accept="image/*">
+              <div class="logo-preview" id="brandLogoPreview"><img id="brandLogoPreviewImg" alt=""></div>
+            </div>
+            <div class="field">
+              <label>Ad</label>
+              <input type="text" id="brandNameInput" required placeholder="Məsələn: Cricket">
+            </div>
+            <div class="field">
+              <label>Link (URL)</label>
+              <div class="slug-row">
+                <span class="slug-prefix">petfriend.az/brend/</span>
+                <input type="text" id="brandSlugInput" placeholder="cricket">
+              </div>
+            </div>
+            <div class="field">
+              <label>Meta başlıq (SEO)</label>
+              <input type="text" id="brandMetaTitleInput" placeholder="Məsələn: Cricket — Pet Friend">
+            </div>
+            <div class="field">
+              <label>Meta təsvir (SEO)</label>
+              <textarea id="brandMetaDescInput" placeholder="Axtarış nəticələrində görünəcək qısa təsvir..."></textarea>
+            </div>
+            <div class="field toggle-row">
+              <label class="switch">
+                <input type="checkbox" id="brandActiveInput" checked>
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-label">Aktiv (saytda görünsün)</span>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="brandSubmitBtn">Əlavə et</button>
+              <button type="button" class="btn btn-secondary" id="brandCancelEditBtn" hidden>Ləğv et</button>
+            </div>
+            <p class="status-msg" id="brandStatusMsg"></p>
+          </form>
+        </div>
+        <div class="panel">
+          <h2>Bütün brendlər</h2>
+          <div id="brandList"><p class="empty-list">Yüklənir...</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-categories" hidden>
+        <h1>Kateqoriyalar</h1>
+        <div class="panel">
+          <h2 id="catFormHeading">Yeni kateqoriya əlavə et</h2>
+          <form id="categoryForm">
+            <div class="field">
+              <label>Kateqoriya adı</label>
+              <input type="text" id="catNameInput" required placeholder="Məsələn: Pişiklər">
+            </div>
+            <div class="field">
+              <label>Alt kateqoriyalar — hər sətirdə biri</label>
+              <textarea id="catSubsInput" rows="4" placeholder="Quru yem&#10;Yaş yem&#10;Konserva&#10;Müalicəvi yem&#10;Çərəz"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="catSubmitBtn">Əlavə et</button>
+              <button type="button" class="btn btn-secondary" id="catCancelEditBtn" hidden>Ləğv et</button>
+            </div>
+            <p class="status-msg" id="catStatusMsg"></p>
+          </form>
+        </div>
+        <div class="panel">
+          <h2>Bütün kateqoriyalar</h2>
+          <div id="categoryList"><p class="empty-list">Yüklənir...</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-settings" hidden>
+        <h1>Sayt Ayarları</h1>
+        <div class="panel">
+          <h2>Əlaqə məlumatları</h2>
+          <form id="settingsForm">
+            <div class="settings-grid">
+              <div class="field">
+                <label>Telefon</label>
+                <input type="text" id="setPhoneInput" placeholder="+994 50 306 87 00">
+              </div>
+              <div class="field">
+                <label>E-mail</label>
+                <input type="email" id="setEmailInput" placeholder="info@petfriend.az">
+              </div>
+            </div>
+            <div class="field">
+              <label>Ünvan</label>
+              <input type="text" id="setAddressInput" placeholder="Bakı şəhəri, ...">
+            </div>
+            <h2 style="margin-top:22px;">Sosial şəbəkələr — linkləri boş buraxsanız, ikon saytda görünməyəcək</h2>
+            <div class="settings-grid">
+              <div class="field"><label>Facebook</label><input type="text" id="setFacebookInput" placeholder="https://facebook.com/..."></div>
+              <div class="field"><label>Instagram</label><input type="text" id="setInstagramInput" placeholder="https://instagram.com/..."></div>
+              <div class="field"><label>X (Twitter)</label><input type="text" id="setXInput" placeholder="https://x.com/..."></div>
+              <div class="field"><label>YouTube</label><input type="text" id="setYoutubeInput" placeholder="https://youtube.com/..."></div>
+              <div class="field"><label>WhatsApp nömrəsi</label><input type="text" id="setWhatsappInput" placeholder="994503068700"></div>
+              <div class="field"><label>Telegram</label><input type="text" id="setTelegramInput" placeholder="https://t.me/..."></div>
+              <div class="field"><label>TikTok</label><input type="text" id="setTiktokInput" placeholder="https://tiktok.com/@..."></div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="setSubmitBtn">Yadda saxla</button>
+            </div>
+            <p class="status-msg" id="setStatusMsg"></p>
+          </form>
         </div>
       </section>
 
@@ -288,14 +527,19 @@
             <div class="field">
               <label>Kateqoriya</label>
               <select id="categoryInput">
-                <option value="Yem">Yem</option>
-                <option value="Oyuncaqlar">Oyuncaqlar</option>
-                <option value="Geyim">Geyim</option>
-                <option value="Aksesuarlar">Aksesuarlar</option>
-                <option value="Gigiyena məhsulları">Gigiyena məhsulları</option>
-                <option value="Sağlamlıq">Sağlamlıq</option>
-                <option value="Qəfəs və yataqlar">Qəfəs və yataqlar</option>
-                <option value="Digər">Digər</option>
+                <option value="">— Əvvəlcə Kateqoriyalar bölməsindən əlavə edin —</option>
+              </select>
+            </div>
+            <div class="field" id="subCategoryField" hidden>
+              <label>Alt kateqoriya</label>
+              <select id="subCategoryInput">
+                <option value="">— Seçilməyib —</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Brend — istəyə bağlı</label>
+              <select id="brandSelect">
+                <option value="">— Brend seçilməyib —</option>
               </select>
             </div>
             <div class="field">
@@ -305,6 +549,13 @@
             <div class="field">
               <label>Qiymət (₼) — istəyə bağlı</label>
               <input type="number" id="priceInput" min="0" step="0.01" placeholder="Boş buraxa bilərsiniz">
+            </div>
+            <div class="field toggle-row">
+              <label class="switch">
+                <input type="checkbox" id="featuredInput">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-label">Ən yaxşı məhsul (saytın ön hissəsində göstərilsin)</span>
             </div>
             <div class="form-actions">
               <button type="submit" class="btn btn-primary" id="submitBtn">Əlavə et</button>
@@ -358,9 +609,16 @@
       location.reload();
     });
 
-    // Sidebar nav: switch between "Məhsullar" and "Yeni məhsul" views
+    // Sidebar nav: switch between views
     var navItems = document.querySelectorAll('.nav-item[data-view]');
-    var views = { products: document.getElementById('view-products'), new: document.getElementById('view-new') };
+    var views = {
+      dashboard: document.getElementById('view-dashboard'),
+      products: document.getElementById('view-products'),
+      new: document.getElementById('view-new'),
+      brands: document.getElementById('view-brands'),
+      categories: document.getElementById('view-categories'),
+      settings: document.getElementById('view-settings')
+    };
     var sidebar = document.getElementById('sidebar');
     var sidebarToggle = document.getElementById('sidebarToggle');
     var sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -376,6 +634,14 @@
       btn.addEventListener('click', function(){ showView(btn.dataset.view); });
     });
 
+    // Collapsible "Məhsullar" submenu
+    var productsGroupToggle = document.getElementById('productsGroupToggle');
+    var productsSubmenu = document.getElementById('productsSubmenu');
+    productsGroupToggle.addEventListener('click', function(){
+      productsGroupToggle.classList.toggle('open');
+      productsSubmenu.classList.toggle('open');
+    });
+
     function openSidebar(){ sidebar.classList.add('open'); sidebarOverlay.classList.add('show'); }
     function closeSidebar(){ sidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); }
     sidebarToggle.addEventListener('click', function(){
@@ -388,7 +654,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {
-    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy
+    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy, setDoc, getDoc
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -404,12 +670,53 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Admin panel artıq görünürsə (bu səhifə yenilənəndə sessiya hələ aktivdirsə) məhsulları dərhal yüklə.
-  if(!document.getElementById('adminPanel').hidden){
-    loadProducts();
+  let allBrands = [];
+  let allCategories = [];
+  let allProducts = [];
+
+  function formatDate(ms){
+    if(!ms) return '';
+    const d = new Date(ms);
+    const pad = n => String(n).padStart(2,'0');
+    return pad(d.getDate()) + '.' + pad(d.getMonth()+1) + '.' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
   }
-  // İstifadəçi indicə şifrə ilə daxil olubsa, bu hadisə gələndə məhsulları yüklə.
-  document.addEventListener('pf-admin-shown', loadProducts);
+
+  async function loadAdminData(){
+    await Promise.all([loadProducts(), loadBrands(), loadCategories(), loadSettings()]);
+    loadDashboardStats();
+  }
+
+  async function loadDashboardStats(){
+    const statProducts = document.getElementById('statProducts');
+    if(statProducts) statProducts.textContent = allProducts.length;
+    try{
+      const snap = await getDocs(query(collection(db, 'whatsappClicks'), orderBy('createdAt', 'desc')));
+      const clicks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const statWa = document.getElementById('statWa');
+      if(statWa) statWa.textContent = clicks.length;
+      const waClicksList = document.getElementById('waClicksList');
+      if(waClicksList){
+        if(clicks.length === 0){
+          waClicksList.innerHTML = '<p class="empty-list">Hələ klik qeydə alınmayıb.</p>';
+        }else{
+          waClicksList.innerHTML = '<table class="mini-table"><thead><tr><th>Məhsul</th><th>Vaxt</th></tr></thead><tbody>' +
+            clicks.slice(0, 8).map(c => `<tr><td>${escapeHtml(c.productName || '—')}</td><td>${formatDate(c.createdAt)}</td></tr>`).join('') +
+            '</tbody></table>';
+        }
+      }
+    }catch(err){
+      console.error(err);
+      const waClicksList = document.getElementById('waClicksList');
+      if(waClicksList) waClicksList.innerHTML = '<p class="empty-list">Yükləmə xətası.</p>';
+    }
+  }
+
+  // Admin panel artıq görünürsə (bu səhifə yenilənəndə sessiya hələ aktivdirsə) məlumatları dərhal yüklə.
+  if(!document.getElementById('adminPanel').hidden){
+    loadAdminData();
+  }
+  // İstifadəçi indicə şifrə ilə daxil olubsa, bu hadisə gələndə məlumatları yüklə.
+  document.addEventListener('pf-admin-shown', loadAdminData);
 
   /* ---------- Image compression ---------- */
   function compressImage(file, maxWidth = 700, quality = 0.6){
@@ -440,8 +747,12 @@
   const photoPreviewImg = document.getElementById('photoPreviewImg');
   const nameInput = document.getElementById('nameInput');
   const categoryInput = document.getElementById('categoryInput');
+  const subCategoryField = document.getElementById('subCategoryField');
+  const subCategoryInput = document.getElementById('subCategoryInput');
+  const brandSelect = document.getElementById('brandSelect');
   const descInput = document.getElementById('descInput');
   const priceInput = document.getElementById('priceInput');
+  const featuredInput = document.getElementById('featuredInput');
   const submitBtn = document.getElementById('submitBtn');
   const cancelEditBtn = document.getElementById('cancelEditBtn');
   const formTitle = document.getElementById('formTitle');
@@ -450,6 +761,27 @@
   let editingId = null;
   let currentPhotoBase64 = null;
   let newPhotoBase64 = null;
+
+  /* ---------- Brand form refs & state ---------- */
+  const brandForm = document.getElementById('brandForm');
+  const brandLogoInput = document.getElementById('brandLogoInput');
+  const brandLogoPreview = document.getElementById('brandLogoPreview');
+  const brandLogoPreviewImg = document.getElementById('brandLogoPreviewImg');
+  const brandNameInput = document.getElementById('brandNameInput');
+  const brandSlugInput = document.getElementById('brandSlugInput');
+  const brandMetaTitleInput = document.getElementById('brandMetaTitleInput');
+  const brandMetaDescInput = document.getElementById('brandMetaDescInput');
+  const brandActiveInput = document.getElementById('brandActiveInput');
+  const brandSubmitBtn = document.getElementById('brandSubmitBtn');
+  const brandCancelEditBtn = document.getElementById('brandCancelEditBtn');
+  const brandFormHeading = document.getElementById('brandFormHeading');
+  const brandStatusMsg = document.getElementById('brandStatusMsg');
+  const brandList = document.getElementById('brandList');
+
+  let editingBrandId = null;
+  let currentLogoBase64 = null;
+  let newLogoBase64 = null;
+  let slugManuallyEdited = false;
 
   photoInput.addEventListener('change', async () => {
     const file = photoInput.files[0];
@@ -468,6 +800,7 @@
     submitBtn.textContent = 'Əlavə et';
     formTitle.textContent = 'Yeni məhsul əlavə et';
     cancelEditBtn.hidden = true;
+    populateSubCategoryOptions('', '');
   }
 
   cancelEditBtn.addEventListener('click', () => {
@@ -487,12 +820,18 @@
     submitBtn.disabled = true;
     try{
       const photo = newPhotoBase64 || currentPhotoBase64 || null;
+      const brandId = brandSelect.value || null;
+      const brandObj = brandId ? allBrands.find(b => b.id === brandId) : null;
       const data = {
         name: nameInput.value.trim(),
         category: categoryInput.value,
+        subCategory: subCategoryInput.value || null,
+        brandId: brandId,
+        brandName: brandObj ? brandObj.name : null,
         description: descInput.value.trim(),
         price: priceInput.value ? Number(priceInput.value) : null,
         photo: photo,
+        featured: featuredInput.checked,
       };
       if(editingId){
         await updateDoc(doc(db, 'products', editingId), data);
@@ -513,6 +852,376 @@
     }
   });
 
+  /* ---------- Categories ---------- */
+  const categoryForm = document.getElementById('categoryForm');
+  const catNameInput = document.getElementById('catNameInput');
+  const catSubsInput = document.getElementById('catSubsInput');
+  const catSubmitBtn = document.getElementById('catSubmitBtn');
+  const catCancelEditBtn = document.getElementById('catCancelEditBtn');
+  const catFormHeading = document.getElementById('catFormHeading');
+  const catStatusMsg = document.getElementById('catStatusMsg');
+  const categoryList = document.getElementById('categoryList');
+
+  let editingCategoryId = null;
+
+  function resetCategoryForm(){
+    editingCategoryId = null;
+    categoryForm.reset();
+    catSubmitBtn.textContent = 'Əlavə et';
+    catFormHeading.textContent = 'Yeni kateqoriya əlavə et';
+    catCancelEditBtn.hidden = true;
+  }
+  catCancelEditBtn.addEventListener('click', resetCategoryForm);
+
+  function showCatStatus(msg, ok){
+    catStatusMsg.textContent = msg;
+    catStatusMsg.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    catStatusMsg.style.display = 'block';
+    setTimeout(() => { catStatusMsg.style.display = 'none'; }, 3000);
+  }
+
+  categoryForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    catSubmitBtn.disabled = true;
+    try{
+      const subcategories = catSubsInput.value.split('\n').map(s => s.trim()).filter(Boolean);
+      const data = {
+        name: catNameInput.value.trim(),
+        subcategories: subcategories,
+      };
+      if(editingCategoryId){
+        await updateDoc(doc(db, 'categories', editingCategoryId), data);
+        showCatStatus('Kateqoriya yeniləndi.', true);
+      }else{
+        data.createdAt = Date.now();
+        await addDoc(collection(db, 'categories'), data);
+        showCatStatus('Kateqoriya əlavə edildi.', true);
+      }
+      resetCategoryForm();
+      loadCategories();
+    }catch(err){
+      console.error(err);
+      showCatStatus('Xəta baş verdi: ' + err.message, false);
+    }finally{
+      catSubmitBtn.disabled = false;
+    }
+  });
+
+  function populateCategorySelect(){
+    const current = categoryInput.value;
+    if(allCategories.length === 0){
+      categoryInput.innerHTML = '<option value="">— Əvvəlcə Kateqoriyalar bölməsindən əlavə edin —</option>';
+      return;
+    }
+    categoryInput.innerHTML = '<option value="">— Seçin —</option>' +
+      allCategories.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+    if(allCategories.some(c => c.name === current)) categoryInput.value = current;
+  }
+
+  function populateSubCategoryOptions(categoryName, selectedValue){
+    const cat = allCategories.find(c => c.name === categoryName);
+    const subs = (cat && cat.subcategories) ? cat.subcategories : [];
+    if(subs.length === 0){
+      subCategoryField.hidden = true;
+      subCategoryInput.innerHTML = '<option value="">— Seçilməyib —</option>';
+      return;
+    }
+    subCategoryField.hidden = false;
+    subCategoryInput.innerHTML = '<option value="">— Seçilməyib —</option>' +
+      subs.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+    if(selectedValue && subs.includes(selectedValue)) subCategoryInput.value = selectedValue;
+  }
+
+  categoryInput.addEventListener('change', () => populateSubCategoryOptions(categoryInput.value, ''));
+
+  async function loadCategories(){
+    categoryList.innerHTML = '<p class="empty-list">Yüklənir...</p>';
+    try{
+      const q = query(collection(db, 'categories'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      allCategories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      populateCategorySelect();
+      populateSubCategoryOptions(categoryInput.value, subCategoryInput.value);
+
+      if(allCategories.length === 0){
+        categoryList.innerHTML = '<p class="empty-list">Hələ kateqoriya yoxdur.</p>';
+        return;
+      }
+
+      categoryList.innerHTML = allCategories.map(c => `
+        <div class="cat-row" data-id="${c.id}">
+          <div class="cat-head">
+            <span class="cat-name">${escapeHtml(c.name)}</span>
+            <div class="actions">
+              <button type="button" class="edit">Redaktə et</button>
+              <button type="button" class="del">Sil</button>
+            </div>
+          </div>
+          ${(c.subcategories && c.subcategories.length) ? `<div class="subcat-chips">${c.subcategories.map(s => `<span class="subcat-chip">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+        </div>
+      `).join('');
+
+      categoryList.querySelectorAll('.edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.closest('.cat-row').dataset.id;
+          const c = allCategories.find(x => x.id === id);
+          editingCategoryId = id;
+          catNameInput.value = c.name || '';
+          catSubsInput.value = (c.subcategories || []).join('\n');
+          catSubmitBtn.textContent = 'Yenilə';
+          catFormHeading.textContent = 'Kateqoriyanı redaktə et';
+          catCancelEditBtn.hidden = false;
+          if(window.pfShowView) window.pfShowView('categories');
+          document.querySelector('#view-categories .panel').scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+
+      categoryList.querySelectorAll('.del').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.closest('.cat-row').dataset.id;
+          if(!confirm('Bu kateqoriyanı silmək istədiyinizə əminsiniz? (Bu kateqoriyada qeyd olunmuş məhsullar silinmir.)')) return;
+          await deleteDoc(doc(db, 'categories', id));
+          if(editingCategoryId === id) resetCategoryForm();
+          loadCategories();
+        });
+      });
+
+    }catch(err){
+      console.error(err);
+      categoryList.innerHTML = '<p class="empty-list">Yükləmə xətası: ' + escapeHtml(err.message) + '</p>';
+    }
+  }
+
+  /* ---------- Site settings ---------- */
+  const settingsForm = document.getElementById('settingsForm');
+  const setPhoneInput = document.getElementById('setPhoneInput');
+  const setEmailInput = document.getElementById('setEmailInput');
+  const setAddressInput = document.getElementById('setAddressInput');
+  const setFacebookInput = document.getElementById('setFacebookInput');
+  const setInstagramInput = document.getElementById('setInstagramInput');
+  const setXInput = document.getElementById('setXInput');
+  const setYoutubeInput = document.getElementById('setYoutubeInput');
+  const setWhatsappInput = document.getElementById('setWhatsappInput');
+  const setTelegramInput = document.getElementById('setTelegramInput');
+  const setTiktokInput = document.getElementById('setTiktokInput');
+  const setSubmitBtn = document.getElementById('setSubmitBtn');
+  const setStatusMsg = document.getElementById('setStatusMsg');
+
+  async function loadSettings(){
+    try{
+      const snap = await getDoc(doc(db, 'settings', 'site'));
+      if(snap.exists()){
+        const s = snap.data();
+        setPhoneInput.value = s.phone || '';
+        setEmailInput.value = s.email || '';
+        setAddressInput.value = s.address || '';
+        setFacebookInput.value = (s.social && s.social.facebook) || '';
+        setInstagramInput.value = (s.social && s.social.instagram) || '';
+        setXInput.value = (s.social && s.social.x) || '';
+        setYoutubeInput.value = (s.social && s.social.youtube) || '';
+        setWhatsappInput.value = (s.social && s.social.whatsapp) || '';
+        setTelegramInput.value = (s.social && s.social.telegram) || '';
+        setTiktokInput.value = (s.social && s.social.tiktok) || '';
+      }
+    }catch(err){
+      console.error('Ayarlar yüklənərkən xəta:', err);
+    }
+  }
+
+  function showSetStatus(msg, ok){
+    setStatusMsg.textContent = msg;
+    setStatusMsg.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    setStatusMsg.style.display = 'block';
+    setTimeout(() => { setStatusMsg.style.display = 'none'; }, 3000);
+  }
+
+  settingsForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    setSubmitBtn.disabled = true;
+    try{
+      await setDoc(doc(db, 'settings', 'site'), {
+        phone: setPhoneInput.value.trim(),
+        email: setEmailInput.value.trim(),
+        address: setAddressInput.value.trim(),
+        social: {
+          facebook: setFacebookInput.value.trim(),
+          instagram: setInstagramInput.value.trim(),
+          x: setXInput.value.trim(),
+          youtube: setYoutubeInput.value.trim(),
+          whatsapp: setWhatsappInput.value.trim(),
+          telegram: setTelegramInput.value.trim(),
+          tiktok: setTiktokInput.value.trim(),
+        }
+      }, { merge: true });
+      showSetStatus('Ayarlar yadda saxlanıldı.', true);
+    }catch(err){
+      console.error(err);
+      showSetStatus('Xəta baş verdi: ' + err.message, false);
+    }finally{
+      setSubmitBtn.disabled = false;
+    }
+  });
+
+  /* ---------- Brands ---------- */
+  function slugify(str){
+    const map = {'ə':'e','Ə':'e','ı':'i','I':'i','İ':'i','ö':'o','Ö':'o','ü':'u','Ü':'u','ş':'s','Ş':'s','ç':'c','Ç':'c','ğ':'g','Ğ':'g'};
+    return String(str || '')
+      .split('').map(ch => map[ch] || ch).join('')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  brandNameInput.addEventListener('input', () => {
+    if(!slugManuallyEdited){
+      brandSlugInput.value = slugify(brandNameInput.value);
+    }
+  });
+  brandSlugInput.addEventListener('input', () => { slugManuallyEdited = true; });
+
+  brandLogoInput.addEventListener('change', async () => {
+    const file = brandLogoInput.files[0];
+    if(!file) return;
+    newLogoBase64 = await compressImage(file, 400, 0.85);
+    brandLogoPreviewImg.src = newLogoBase64;
+    brandLogoPreview.style.display = 'block';
+  });
+
+  function resetBrandForm(){
+    editingBrandId = null;
+    currentLogoBase64 = null;
+    newLogoBase64 = null;
+    slugManuallyEdited = false;
+    brandForm.reset();
+    brandActiveInput.checked = true;
+    brandLogoPreview.style.display = 'none';
+    brandSubmitBtn.textContent = 'Əlavə et';
+    brandFormHeading.textContent = 'Yeni brend əlavə et';
+    brandCancelEditBtn.hidden = true;
+  }
+
+  brandCancelEditBtn.addEventListener('click', resetBrandForm);
+
+  function showBrandStatus(msg, ok){
+    brandStatusMsg.textContent = msg;
+    brandStatusMsg.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    brandStatusMsg.style.display = 'block';
+    setTimeout(() => { brandStatusMsg.style.display = 'none'; }, 3000);
+  }
+
+  brandForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    brandSubmitBtn.disabled = true;
+    try{
+      let slug = slugify(brandSlugInput.value || brandNameInput.value);
+      if(!slug) slug = 'brend-' + Date.now();
+      const logo = newLogoBase64 || currentLogoBase64 || null;
+      const data = {
+        name: brandNameInput.value.trim(),
+        slug: slug,
+        active: brandActiveInput.checked,
+        logo: logo,
+        metaTitle: brandMetaTitleInput.value.trim(),
+        metaDescription: brandMetaDescInput.value.trim(),
+      };
+      if(editingBrandId){
+        await updateDoc(doc(db, 'brands', editingBrandId), data);
+        showBrandStatus('Brend yeniləndi.', true);
+      }else{
+        data.createdAt = Date.now();
+        await addDoc(collection(db, 'brands'), data);
+        showBrandStatus('Brend əlavə edildi.', true);
+      }
+      resetBrandForm();
+      loadBrands();
+    }catch(err){
+      console.error(err);
+      showBrandStatus('Xəta baş verdi: ' + err.message, false);
+    }finally{
+      brandSubmitBtn.disabled = false;
+    }
+  });
+
+  function populateBrandSelect(){
+    const current = brandSelect.value;
+    const activeBrands = allBrands.filter(b => b.active !== false);
+    brandSelect.innerHTML = '<option value="">— Brend seçilməyib —</option>' +
+      activeBrands.map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+    if(activeBrands.some(b => b.id === current)) brandSelect.value = current;
+  }
+
+  async function loadBrands(){
+    brandList.innerHTML = '<p class="empty-list">Yüklənir...</p>';
+    try{
+      const q = query(collection(db, 'brands'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      allBrands = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      populateBrandSelect();
+
+      if(allBrands.length === 0){
+        brandList.innerHTML = '<p class="empty-list">Hələ brend yoxdur.</p>';
+        return;
+      }
+
+      brandList.innerHTML = allBrands.map(b => `
+        <div class="product-row" data-id="${b.id}">
+          <div class="thumb">${b.logo ? `<img src="${b.logo}" alt="" style="object-fit:contain;background:#fff;">` : ''}</div>
+          <div class="info">
+            <div class="name">${escapeHtml(b.name)}<span class="badge ${b.active !== false ? 'on' : 'off'}">${b.active !== false ? 'Aktiv' : 'Deaktiv'}</span></div>
+            <div class="meta">/brend/${escapeHtml(b.slug || '')}</div>
+          </div>
+          <div class="actions">
+            <button type="button" class="edit">Redaktə et</button>
+            <button type="button" class="del">Sil</button>
+          </div>
+        </div>
+      `).join('');
+
+      brandList.querySelectorAll('.edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.closest('.product-row').dataset.id;
+          const b = allBrands.find(x => x.id === id);
+          editingBrandId = id;
+          currentLogoBase64 = b.logo || null;
+          newLogoBase64 = null;
+          slugManuallyEdited = true;
+          brandNameInput.value = b.name || '';
+          brandSlugInput.value = b.slug || '';
+          brandMetaTitleInput.value = b.metaTitle || '';
+          brandMetaDescInput.value = b.metaDescription || '';
+          brandActiveInput.checked = b.active !== false;
+          if(b.logo){
+            brandLogoPreviewImg.src = b.logo;
+            brandLogoPreview.style.display = 'block';
+          }else{
+            brandLogoPreview.style.display = 'none';
+          }
+          brandSubmitBtn.textContent = 'Yenilə';
+          brandFormHeading.textContent = 'Brendi redaktə et';
+          brandCancelEditBtn.hidden = false;
+          if(window.pfShowView) window.pfShowView('brands');
+          document.querySelector('#view-brands .panel').scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+
+      brandList.querySelectorAll('.del').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.closest('.product-row').dataset.id;
+          if(!confirm('Bu brendi silmək istədiyinizə əminsiniz? (Bu brendlə qeyd olunmuş məhsullar silinmir, sadəcə brend siyahıdan çıxır.)')) return;
+          await deleteDoc(doc(db, 'brands', id));
+          if(editingBrandId === id) resetBrandForm();
+          loadBrands();
+        });
+      });
+
+    }catch(err){
+      console.error(err);
+      brandList.innerHTML = '<p class="empty-list">Yükləmə xətası: ' + escapeHtml(err.message) + '</p>';
+    }
+  }
+
   /* ---------- Product list ---------- */
   const productList = document.getElementById('productList');
 
@@ -522,6 +1231,7 @@
       const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
       const snap = await getDocs(q);
       const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      allProducts = products;
 
       if(products.length === 0){
         productList.innerHTML = '<p class="empty-list">Hələ məhsul yoxdur.</p>';
@@ -532,8 +1242,8 @@
         <div class="product-row" data-id="${p.id}">
           <div class="thumb">${p.photo ? `<img src="${p.photo}" alt="">` : ''}</div>
           <div class="info">
-            <div class="name">${escapeHtml(p.name)}</div>
-            <div class="meta">${escapeHtml(p.category || '')}${p.price ? ' · ' + escapeHtml(p.price) + ' ₼' : ''}</div>
+            <div class="name">${escapeHtml(p.name)}${p.featured ? ' <span class="badge on">Ən yaxşı</span>' : ''}</div>
+            <div class="meta">${escapeHtml(p.category || '')}${p.subCategory ? ' / ' + escapeHtml(p.subCategory) : ''}${p.brandName ? ' · ' + escapeHtml(p.brandName) : ''}${p.price ? ' · ' + escapeHtml(p.price) + ' ₼' : ''}</div>
           </div>
           <div class="actions">
             <button type="button" class="edit">Redaktə et</button>
@@ -550,9 +1260,12 @@
           currentPhotoBase64 = p.photo || null;
           newPhotoBase64 = null;
           nameInput.value = p.name || '';
-          categoryInput.value = p.category || 'Yem';
+          categoryInput.value = p.category || '';
+          populateSubCategoryOptions(p.category, p.subCategory);
+          brandSelect.value = p.brandId || '';
           descInput.value = p.description || '';
           priceInput.value = p.price || '';
+          featuredInput.checked = !!p.featured;
           if(p.photo){
             photoPreviewImg.src = p.photo;
             photoPreview.style.display = 'block';
