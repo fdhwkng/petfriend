@@ -33,17 +33,71 @@
   img{max-width:100%;display:block;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
 
-  .site-header{background:var(--pine);color:#fff;padding:28px 0 26px;}
-  .header-inner{display:flex;flex-direction:column;gap:4px;}
+  .site-header{background:var(--pine);color:#fff;padding:18px 0;position:relative;z-index:30;}
+  .header-inner{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
   .wordmark{
     font-family:'Fraunces',serif;
     font-weight:600;
-    font-size:1.9rem;
+    font-size:1.7rem;
     color:#fff;
     text-decoration:none;
     letter-spacing:-0.01em;
+    flex:0 0 auto;
   }
-  .tagline{margin:0;color:#C9D8C2;font-size:0.95rem;}
+
+  .cat-nav{position:relative;flex:0 0 auto;}
+  .cat-nav-btn{
+    display:flex;align-items:center;gap:8px;
+    background:var(--honey);color:#2A1D08;border:none;
+    font-family:inherit;font-weight:600;font-size:0.92rem;
+    padding:10px 16px;border-radius:9px;cursor:pointer;
+  }
+  .cat-nav-btn .chev{transition:transform .15s;font-size:0.75rem;}
+  .cat-nav-btn.open .chev{transform:rotate(180deg);}
+  .cat-mega{
+    display:none;position:absolute;top:calc(100% + 8px);left:0;
+    background:#fff;border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.18);
+    min-width:260px;max-width:320px;padding:8px;z-index:40;
+  }
+  .cat-mega.open{display:block;}
+  .cat-mega-item{border-bottom:1px solid var(--line);}
+  .cat-mega-item:last-child{border-bottom:none;}
+  .cat-mega-head{display:flex;align-items:stretch;}
+  .cat-name-btn{
+    flex:1;background:none;border:none;font-family:inherit;
+    padding:11px 4px 11px 10px;font-size:0.95rem;color:var(--ink);cursor:pointer;text-align:left;
+  }
+  .cat-name-btn:hover{color:var(--pine-light);}
+  .cat-chev-btn{
+    background:none;border:none;padding:11px 10px;cursor:pointer;color:var(--muted);
+  }
+  .cat-chev-btn .chev{display:inline-block;transition:transform .15s;font-size:0.75rem;}
+  .cat-chev-btn.open .chev{transform:rotate(90deg);}
+  .cat-subs{max-height:0;overflow:hidden;transition:max-height .18s ease;}
+  .cat-subs.open{max-height:300px;}
+  .cat-sub-btn{
+    display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;
+    padding:8px 10px 8px 24px;font-size:0.86rem;color:var(--muted);cursor:pointer;
+  }
+  .cat-sub-btn:hover{color:var(--pine-light);}
+
+  .search-box{flex:1 1 180px;min-width:160px;}
+  .search-box input{
+    width:100%;padding:10px 14px;border-radius:9px;border:none;
+    font-family:inherit;font-size:0.9rem;background:rgba(255,255,255,.14);color:#fff;
+  }
+  .search-box input::placeholder{color:#C9D8C2;}
+  .search-box input:focus{outline:2px solid var(--honey);background:#fff;color:var(--ink);}
+
+  .active-filter{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);color:var(--pine);
+    padding:6px 8px 6px 14px;border-radius:100px;font-size:0.86rem;margin:0 0 16px;
+  }
+  .active-filter button{
+    background:var(--pine);color:#fff;border:none;border-radius:50%;
+    width:20px;height:20px;line-height:1;cursor:pointer;font-size:0.8rem;
+  }
 
   .intro{padding:34px 0 18px;}
   .intro h1{
@@ -56,30 +110,68 @@
     color:var(--pine);
   }
 
-  .filters{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding:14px 20px 20px;
-    scrollbar-width:none;
-  }
-  .filters::-webkit-scrollbar{display:none;}
-  .filter-pill{
-    flex:0 0 auto;
-    border:1px solid var(--line);
-    background:#fff;
+  .brands-section{padding:4px 0 6px;}
+  .section-title{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.25rem;
     color:var(--pine);
-    padding:8px 16px;
-    border-radius:100px;
-    font-size:0.9rem;
-    font-family:inherit;
-    cursor:pointer;
-    transition:background .15s,color .15s,border-color .15s;
+    margin:0 0 16px;
   }
-  .filter-pill:hover{border-color:var(--pine-light);}
-  .filter-pill.active{background:var(--pine);border-color:var(--pine);color:#fff;}
+  section + section{margin-top:12px;}
+  .brand-row{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    scrollbar-width:none;
+    scroll-behavior:smooth;
+  }
+  .brand-row::-webkit-scrollbar{display:none;}
+  .brand-item{
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    font-family:inherit;
+    padding:0;
+  }
+  .brand-logo{
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    background:#fff;
+    border:1.5px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    transition:border-color .15s, transform .15s;
+  }
+  .brand-logo img{width:70%;height:70%;object-fit:contain;}
+  .brand-logo.no-logo{font-family:'Fraunces',serif;font-weight:600;color:var(--pine);font-size:1.3rem;}
+  .brand-item:hover .brand-logo{border-color:var(--pine-light);}
+  .brand-item.active .brand-logo{border-color:var(--honey);border-width:2px;transform:translateY(-2px);}
+  .brand-name{font-size:0.78rem;color:var(--muted);max-width:84px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .brand-item.active .brand-name{color:var(--pine);font-weight:600;}
 
-  main{padding-bottom:60px;}
+  .brand-tag{
+    align-self:flex-start;
+    font-size:0.75rem;
+    color:var(--muted);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:3px 10px;
+    border-radius:100px;
+  }
+  .tag-row{display:flex;gap:6px;flex-wrap:wrap;}
+
+  main{padding-bottom:40px;}
+  main.wrap > section{margin-bottom:38px;}
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
@@ -147,7 +239,7 @@
     transition:background .15s;
   }
   .wa-btn:hover{background:var(--wa-dark);}
-  .wa-btn:focus-visible, .filter-pill:focus-visible{outline:2px solid var(--pine-light);outline-offset:2px;}
+  .wa-btn:focus-visible{outline:2px solid var(--pine-light);outline-offset:2px;}
   .wa-btn svg{flex:0 0 auto;}
 
   .empty{
@@ -163,36 +255,50 @@
   }
 
   .site-footer{
-    border-top:1px solid var(--line);
-    padding:22px 0;
-    color:var(--muted);
-    font-size:0.85rem;
+    background:var(--pine);
+    color:#C9D8C2;
+    padding:38px 0 24px;
+    margin-top:50px;
+  }
+  .footer-top{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;margin-bottom:26px;}
+  .footer-contact{display:flex;flex-direction:column;gap:8px;font-size:0.92rem;}
+  .footer-contact a{color:#C9D8C2;text-decoration:none;}
+  .footer-contact a:hover{color:#fff;}
+  .footer-social{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+  .social-icon{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    text-decoration:none;font-size:0.72rem;font-weight:700;letter-spacing:-0.02em;
+    transition:background .15s;
+  }
+  .social-icon:hover{background:var(--honey);}
+  .social-icon svg{width:18px;height:18px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;font-size:0.8rem;color:#9FB294;}
+
+  @media (max-width:560px){
+    .header-inner{gap:10px;}
+    .search-box{order:3;flex-basis:100%;}
+    .cat-mega{left:0;right:0;max-width:none;}
   }
 
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;}
+    .brand-row{scroll-behavior:auto;}
   }
 </style>
 </head>
-  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a05bd6ce57a6a1c342a3f0f/1joj6nsdj';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
 <body>
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <span class="wordmark">Pet Friend</span>
-    <p class="tagline">Ev heyvanınız üçün seçilmiş məhsullar</p>
+    <a class="wordmark" href="/">Pet Friend</a>
+    <div class="cat-nav" id="catNav" hidden>
+      <button type="button" class="cat-nav-btn" id="catNavBtn">☰ Kateqoriyalar <span class="chev">▾</span></button>
+      <div class="cat-mega" id="catMega"></div>
+    </div>
+    <div class="search-box">
+      <input type="search" id="searchInput" placeholder="Məhsul axtar...">
+    </div>
   </div>
 </header>
 
@@ -200,21 +306,42 @@ s0.parentNode.insertBefore(s1,s0);
   <h1>Məhsullarımıza baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.</h1>
 </section>
 
-<div class="filters wrap" id="filters"></div>
-
 <main class="wrap">
-  <p class="skeleton" id="loading">Məhsullar yüklənir...</p>
-  <div class="grid" id="grid" hidden></div>
-  <p class="empty" id="emptyState" hidden>Hələ məhsul əlavə edilməyib. Tezliklə burada olacaq!</p>
+  <div id="activeFilterWrap"></div>
+
+  <section id="featuredSection" hidden>
+    <h2 class="section-title">⭐ Ən yaxşı məhsullar</h2>
+    <div class="grid" id="featuredGrid"></div>
+  </section>
+
+  <section class="brands-section" id="brandsSection" hidden>
+    <h2 class="section-title">Brendlərimiz</h2>
+    <div class="brand-row" id="brandRow"></div>
+  </section>
+
+  <section id="latestSection">
+    <h2 class="section-title">Son əlavə olunan məhsullar</h2>
+    <p class="skeleton" id="loading">Məhsullar yüklənir...</p>
+    <div class="grid" id="grid" hidden></div>
+    <p class="empty" id="emptyState" hidden>Hələ məhsul əlavə edilməyib. Tezliklə burada olacaq!</p>
+  </section>
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">© 2026 Pet Friend</div>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-contact" id="footerContact"></div>
+      <div class="footer-social" id="footerSocial"></div>
+    </div>
+    <div class="footer-bottom">© 2026 Pet Friend</div>
+  </div>
 </footer>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import { getFirestore, collection, getDocs, addDoc, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  // Qeyd: aktiv/deaktiv filtri bilərəkdən burada deyil, JS tərəfində edilir —
+  // beləliklə Firestore-da composite index qurmağa ehtiyac qalmır.
 
   const firebaseConfig = {
     apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
@@ -226,7 +353,8 @@ s0.parentNode.insertBefore(s1,s0);
     measurementId: "G-84BZXVMWCJ"
   };
 
-  // WhatsApp nömrəsini dəyişmək üçün aşağıdakı sətri redaktə edin (ölkə kodu ilə, + işarəsi olmadan):
+  // Hər bir məhsulun WhatsApp düyməsi üçün nömrə (ölkə kodu ilə, + işarəsi olmadan).
+  // Admin → Sayt Ayarları-da fərqli nömrə qeyd etsəniz, footer-dəki WhatsApp ikonu onu istifadə edəcək.
   const WHATSAPP_NUMBER = "994503068700";
 
   const app = initializeApp(firebaseConfig);
@@ -235,10 +363,30 @@ s0.parentNode.insertBefore(s1,s0);
   const gridEl = document.getElementById('grid');
   const loadingEl = document.getElementById('loading');
   const emptyEl = document.getElementById('emptyState');
-  const filtersEl = document.getElementById('filters');
+  const catNav = document.getElementById('catNav');
+  const catNavBtn = document.getElementById('catNavBtn');
+  const catMega = document.getElementById('catMega');
+  const searchInput = document.getElementById('searchInput');
+  const activeFilterWrap = document.getElementById('activeFilterWrap');
+  const featuredSection = document.getElementById('featuredSection');
+  const featuredGrid = document.getElementById('featuredGrid');
+  const brandsSectionEl = document.getElementById('brandsSection');
+  const brandRowEl = document.getElementById('brandRow');
+  const latestSection = document.getElementById('latestSection');
+  const footerContact = document.getElementById('footerContact');
+  const footerSocial = document.getElementById('footerSocial');
+  const metaDescTag = document.querySelector('meta[name="description"]');
+  const defaultTitle = document.title;
+  const defaultMetaDesc = metaDescTag ? metaDescTag.content : '';
 
   let allProducts = [];
-  let activeCategory = 'Hamısı';
+  let allBrands = [];
+  let allCategories = [];
+  let activeCategory = null;
+  let activeSubCategory = null;
+  let activeBrandId = null;
+  let searchQuery = '';
+  let brandScrollTimer = null;
 
   function escapeHtml(str){
     return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -249,54 +397,232 @@ s0.parentNode.insertBefore(s1,s0);
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
 
-  const waIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" stroke="#fff" stroke-width="1.4"/><path d="M8.5 8.7c.2-.55.7-.55 1.1-.55.3 0 .5 0 .7.5.2.5.7 1.7.75 1.85.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.15.6.15.3.7 1.15 1.5 1.85.9.8 1.6 1.05 1.9 1.2.3.15.5.1.65-.1.15-.2.65-.75.85-1 .2-.25.4-.2.65-.1.25.1 1.6.75 1.9.9.3.15.5.2.55.35.05.15.05.85-.2 1.65-.25.8-1.5 1.45-2.05 1.5-.55.05-1.05.25-3.55-.75-2.5-1-4.05-3.55-4.15-3.75-.1-.2-.85-1.15-.85-2.2 0-1.05.55-1.55.75-1.75Z" fill="#fff"/></svg>`;
+  const waIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 8.7c.2-.55.7-.55 1.1-.55.3 0 .5 0 .7.5.2.5.7 1.7.75 1.85.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.15.6.15.3.7 1.15 1.5 1.85.9.8 1.6 1.05 1.9 1.2.3.15.5.1.65-.1.15-.2.65-.75.85-1 .2-.25.4-.2.65-.1.25.1 1.6.75 1.9.9.3.15.5.2.55.35.05.15.05.85-.2 1.65-.25.8-1.5 1.45-2.05 1.5-.55.05-1.05.25-3.55-.75-2.5-1-4.05-3.55-4.15-3.75-.1-.2-.85-1.15-.85-2.2 0-1.05.55-1.55.75-1.75Z" fill="currentColor"/></svg>`;
 
-  function renderFilters(categories){
-    const cats = ['Hamısı', ...categories];
-    filtersEl.innerHTML = cats.map(c =>
-      `<button type="button" class="filter-pill${c===activeCategory?' active':''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`
-    ).join('');
-    filtersEl.querySelectorAll('.filter-pill').forEach(btn => {
+  /* ---------- WhatsApp click tracking (İdarə Paneli üçün) ---------- */
+  function trackWaClick(p){
+    try{
+      addDoc(collection(db, 'whatsappClicks'), {
+        productId: (p && p.id) || null,
+        productName: (p && p.name) || '',
+        createdAt: Date.now()
+      }).catch(() => {});
+    }catch(e){ /* izləmə uğursuz olsa belə WhatsApp linki açılmağa davam etsin */ }
+  }
+
+  /* ---------- Product card (həm "Ən yaxşı", həm "Son əlavə olunan" bölmələri bunu istifadə edir) ---------- */
+  function cardHtml(p){
+    return `
+      <article class="card">
+        <div class="card-photo${p.photo ? '' : ' no-photo'}">
+          ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
+        </div>
+        <div class="card-body">
+          <div class="tag-row">
+            ${p.category ? `<span class="tag">${escapeHtml(p.category)}</span>` : ''}
+            ${p.brandName ? `<span class="brand-tag">${escapeHtml(p.brandName)}</span>` : ''}
+          </div>
+          <h3>${escapeHtml(p.name)}</h3>
+          ${p.description ? `<p class="desc">${escapeHtml(p.description)}</p>` : ''}
+          ${p.price ? `<p class="price">${escapeHtml(p.price)} ₼</p>` : ''}
+          <a class="wa-btn" data-id="${p.id}" href="${waLink(p.name)}" target="_blank" rel="noopener">${waIcon} WhatsApp-dan soruş</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function attachWaTracking(container){
+    container.querySelectorAll('.wa-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        activeCategory = btn.dataset.cat;
-        renderFilters(categories);
-        renderGrid();
+        const p = allProducts.find(x => x.id === btn.dataset.id);
+        trackWaClick(p);
       });
     });
   }
 
+  /* ---------- Axtarış + kateqoriya/brend filtri ---------- */
+  function renderActiveFilter(){
+    const parts = [];
+    if(activeCategory) parts.push(activeSubCategory ? `${activeCategory} / ${activeSubCategory}` : activeCategory);
+    if(searchQuery.trim()) parts.push(`"${searchQuery.trim()}"`);
+    if(parts.length === 0){ activeFilterWrap.innerHTML = ''; return; }
+    activeFilterWrap.innerHTML = `<div class="active-filter">${escapeHtml(parts.join(' · '))} <button type="button" id="clearFilterBtn">✕</button></div>`;
+    document.getElementById('clearFilterBtn').addEventListener('click', () => {
+      activeCategory = null;
+      activeSubCategory = null;
+      searchQuery = '';
+      searchInput.value = '';
+      renderActiveFilter();
+      renderGrid();
+    });
+  }
+
   function renderGrid(){
-    const items = activeCategory === 'Hamısı'
-      ? allProducts
-      : allProducts.filter(p => p.category === activeCategory);
+    const q = searchQuery.trim().toLowerCase();
+    const items = allProducts.filter(p =>
+      (!activeCategory || p.category === activeCategory) &&
+      (!activeSubCategory || p.subCategory === activeSubCategory) &&
+      (!activeBrandId || p.brandId === activeBrandId) &&
+      (!q || (p.name || '').toLowerCase().includes(q))
+    );
 
     if(items.length === 0){
       gridEl.hidden = true;
       emptyEl.hidden = false;
       emptyEl.textContent = allProducts.length === 0
         ? 'Hələ məhsul əlavə edilməyib. Tezliklə burada olacaq!'
-        : 'Bu kateqoriyada hələ məhsul yoxdur.';
+        : 'Seçilmiş filtrə uyğun məhsul tapılmadı.';
       return;
     }
     gridEl.hidden = false;
     emptyEl.hidden = true;
-
-    gridEl.innerHTML = items.map(p => `
-      <article class="card">
-        <div class="card-photo${p.photo ? '' : ' no-photo'}">
-          ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
-        </div>
-        <div class="card-body">
-          ${p.category ? `<span class="tag">${escapeHtml(p.category)}</span>` : ''}
-          <h3>${escapeHtml(p.name)}</h3>
-          ${p.description ? `<p class="desc">${escapeHtml(p.description)}</p>` : ''}
-          ${p.price ? `<p class="price">${escapeHtml(p.price)} ₼</p>` : ''}
-          <a class="wa-btn" href="${waLink(p.name)}" target="_blank" rel="noopener">${waIcon} WhatsApp-dan soruş</a>
-        </div>
-      </article>
-    `).join('');
+    gridEl.innerHTML = items.map(cardHtml).join('');
+    attachWaTracking(gridEl);
   }
 
+  function renderFeatured(){
+    const items = allProducts.filter(p => p.featured);
+    if(items.length === 0){ featuredSection.hidden = true; return; }
+    featuredSection.hidden = false;
+    featuredGrid.innerHTML = items.map(cardHtml).join('');
+    attachWaTracking(featuredGrid);
+  }
+
+  /* ---------- Kateqoriyalar mega-menyusu ---------- */
+  function renderCatMega(){
+    if(allCategories.length === 0){ catNav.hidden = true; return; }
+    catNav.hidden = false;
+    catMega.innerHTML = allCategories.map(c => `
+      <div class="cat-mega-item">
+        <div class="cat-mega-head">
+          <button type="button" class="cat-name-btn" data-cat="${escapeHtml(c.name)}">${escapeHtml(c.name)}</button>
+          ${(c.subcategories && c.subcategories.length) ? `<button type="button" class="cat-chev-btn" data-toggle="${escapeHtml(c.id)}"><span class="chev">›</span></button>` : ''}
+        </div>
+        ${(c.subcategories && c.subcategories.length) ? `
+          <div class="cat-subs" id="subs-${escapeHtml(c.id)}">
+            ${c.subcategories.map(s => `<button type="button" class="cat-sub-btn" data-cat="${escapeHtml(c.name)}" data-sub="${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `).join('');
+
+    function selectCategory(catName, subName){
+      activeCategory = catName;
+      activeSubCategory = subName || null;
+      closeCatMega();
+      renderActiveFilter();
+      renderGrid();
+      latestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    catMega.querySelectorAll('.cat-name-btn').forEach(btn => {
+      btn.addEventListener('click', () => selectCategory(btn.dataset.cat, null));
+    });
+    catMega.querySelectorAll('.cat-sub-btn').forEach(btn => {
+      btn.addEventListener('click', () => selectCategory(btn.dataset.cat, btn.dataset.sub));
+    });
+    catMega.querySelectorAll('.cat-chev-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const subsEl = document.getElementById('subs-' + btn.dataset.toggle);
+        btn.classList.toggle('open');
+        if(subsEl) subsEl.classList.toggle('open');
+      });
+    });
+  }
+
+  function openCatMega(){ catMega.classList.add('open'); catNavBtn.classList.add('open'); }
+  function closeCatMega(){ catMega.classList.remove('open'); catNavBtn.classList.remove('open'); }
+  catNavBtn.addEventListener('click', () => {
+    catMega.classList.contains('open') ? closeCatMega() : openCatMega();
+  });
+  document.addEventListener('click', (e) => {
+    if(!catNav.contains(e.target)) closeCatMega();
+  });
+
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value;
+    renderActiveFilter();
+    renderGrid();
+  });
+
+  /* ---------- Brendlər zolağı (avtomatik sürüşən) ---------- */
+  function renderBrands(){
+    const activeBrands = allBrands.filter(b => b.active !== false);
+    if(activeBrands.length === 0){
+      brandsSectionEl.hidden = true;
+      return;
+    }
+    brandsSectionEl.hidden = false;
+    brandRowEl.innerHTML = activeBrands.map(b => `
+      <button type="button" class="brand-item${b.id === activeBrandId ? ' active' : ''}" data-id="${b.id}" data-slug="${escapeHtml(b.slug || '')}">
+        <span class="brand-logo${b.logo ? '' : ' no-logo'}">${b.logo ? `<img src="${b.logo}" alt="${escapeHtml(b.name)}" loading="lazy">` : escapeHtml((b.name || '?').charAt(0))}</span>
+        <span class="brand-name">${escapeHtml(b.name)}</span>
+      </button>
+    `).join('');
+
+    brandRowEl.querySelectorAll('.brand-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const slug = btn.dataset.slug;
+        if(activeBrandId === id){
+          activeBrandId = null;
+          history.replaceState(null, '', location.pathname);
+          document.title = defaultTitle;
+          if(metaDescTag) metaDescTag.content = defaultMetaDesc;
+        }else{
+          activeBrandId = id;
+          const b = allBrands.find(x => x.id === id);
+          history.replaceState(null, '', slug ? `?brend=${encodeURIComponent(slug)}` : location.pathname);
+          if(b){
+            document.title = b.metaTitle || (b.name + ' — Pet Friend');
+            if(metaDescTag) metaDescTag.content = b.metaDescription || defaultMetaDesc;
+          }
+        }
+        renderBrands();
+        renderGrid();
+        latestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function startBrandAutoScroll(){
+    stopBrandAutoScroll();
+    brandScrollTimer = setInterval(() => {
+      if(!brandRowEl || brandRowEl.scrollWidth <= brandRowEl.clientWidth + 4) return;
+      const atEnd = brandRowEl.scrollLeft + brandRowEl.clientWidth >= brandRowEl.scrollWidth - 4;
+      brandRowEl.scrollTo(atEnd ? { left: 0, behavior: 'smooth' } : { left: brandRowEl.scrollLeft + 180, behavior: 'smooth' });
+    }, 5000);
+  }
+  function stopBrandAutoScroll(){ if(brandScrollTimer) clearInterval(brandScrollTimer); }
+  brandRowEl.addEventListener('mouseenter', stopBrandAutoScroll);
+  brandRowEl.addEventListener('mouseleave', startBrandAutoScroll);
+
+  /* ---------- Footer: əlaqə + sosial şəbəkələr (Admin → Sayt Ayarları-dan) ---------- */
+  function renderFooter(settings){
+    const s = settings || {};
+    const lines = [];
+    if(s.phone) lines.push(`<a href="tel:${escapeHtml(s.phone.replace(/\s+/g, ''))}">📞 ${escapeHtml(s.phone)}</a>`);
+    if(s.email) lines.push(`<a href="mailto:${escapeHtml(s.email)}">✉️ ${escapeHtml(s.email)}</a>`);
+    if(s.address) lines.push(`<span>📍 ${escapeHtml(s.address)}</span>`);
+    footerContact.innerHTML = lines.join('');
+
+    const soc = s.social || {};
+    const socialDefs = [
+      { label: 'FB', url: soc.facebook, name: 'Facebook' },
+      { label: 'IG', url: soc.instagram, name: 'Instagram' },
+      { label: 'X', url: soc.x, name: 'X' },
+      { label: 'YT', url: soc.youtube, name: 'YouTube' },
+      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : `https://wa.me/${WHATSAPP_NUMBER}`, name: 'WhatsApp' },
+      { label: 'TG', url: soc.telegram, name: 'Telegram' },
+      { label: 'TT', url: soc.tiktok, name: 'TikTok' },
+    ];
+    footerSocial.innerHTML = socialDefs.filter(x => x.url).map(x =>
+      `<a class="social-icon" href="${escapeHtml(x.url)}" target="_blank" rel="noopener" aria-label="${x.name}">${escapeHtml(x.label)}</a>`
+    ).join('');
+  }
+
+  /* ---------- Yükləmə ---------- */
   async function loadProducts(){
     try{
       const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
@@ -306,13 +632,66 @@ s0.parentNode.insertBefore(s1,s0);
       console.error('Məhsullar yüklənərkən xəta:', e);
       allProducts = [];
     }
-    loadingEl.hidden = true;
-    const categories = [...new Set(allProducts.map(p => p.category).filter(Boolean))];
-    renderFilters(categories);
-    renderGrid();
   }
 
-  loadProducts();
+  async function loadBrands(){
+    try{
+      const q = query(collection(db, 'brands'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      allBrands = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }catch(e){
+      console.error('Brendlər yüklənərkən xəta:', e);
+      allBrands = [];
+    }
+  }
+
+  async function loadCategories(){
+    try{
+      const q = query(collection(db, 'categories'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      allCategories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }catch(e){
+      console.error('Kateqoriyalar yüklənərkən xəta:', e);
+      allCategories = [];
+    }
+  }
+
+  async function loadSettings(){
+    try{
+      const snap = await getDoc(doc(db, 'settings', 'site'));
+      return snap.exists() ? snap.data() : null;
+    }catch(e){
+      console.error('Ayarlar yüklənərkən xəta:', e);
+      return null;
+    }
+  }
+
+  async function init(){
+    const results = await Promise.all([loadProducts(), loadBrands(), loadCategories(), loadSettings()]);
+    const settings = results[3];
+    loadingEl.hidden = true;
+
+    // Əgər keçid ?brend=slug ilə gəlibsə, həmin brendi əvvəlcədən seçili et
+    const slugParam = new URLSearchParams(location.search).get('brend');
+    if(slugParam){
+      const b = allBrands.find(x => x.slug === slugParam && x.active !== false);
+      if(b){
+        activeBrandId = b.id;
+        document.title = b.metaTitle || (b.name + ' — Pet Friend');
+        if(metaDescTag) metaDescTag.content = b.metaDescription || defaultMetaDesc;
+      }
+    }
+
+    renderCatMega();
+    renderFeatured();
+    renderBrands();
+    renderActiveFilter();
+    renderGrid();
+    renderFooter(settings);
+    startBrandAutoScroll();
+  }
+
+  init();
 </script>
 
 </body>
