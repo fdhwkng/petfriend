@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitleTag">Məhsul — Pet Friend</title>
+<meta name="description" id="pageDescTag" content="Pet Friend-də məhsullara baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine:#1F3B2C;
+    --pine-light:#2E5540;
+    --bg:#EDF1E8;
+    --card:#FFFFFF;
+    --honey:#D98E2B;
+    --ink:#22301F;
+    --muted:#66765F;
+    --line:#DCE3D5;
+    --wa:#25D366;
+    --wa-dark:#1DA851;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+
+  .site-header{background:var(--pine);color:#fff;padding:18px 0;}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .wordmark{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;color:#fff;text-decoration:none;}
+  .back-link{color:#C9D8C2;text-decoration:none;font-size:0.9rem;white-space:nowrap;}
+  .back-link:hover{color:#fff;}
+
+  main{padding:36px 0 50px;}
+
+  .skeleton, .not-found{text-align:center;color:var(--muted);padding:70px 20px;}
+  .not-found p{margin:0 0 16px;font-size:1.02rem;}
+  .not-found a{color:var(--pine);font-weight:600;text-decoration:none;}
+  .not-found a:hover{text-decoration:underline;}
+
+  .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;}
+  @media (max-width:720px){.product-detail{grid-template-columns:1fr;}}
+
+  .detail-photo{aspect-ratio:1/1;background:#E4E9DE;border-radius:16px;overflow:hidden;}
+  .detail-photo img{width:100%;height:100%;object-fit:cover;}
+  .detail-photo.no-photo{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.9rem;}
+
+  .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+  .tag{
+    align-self:flex-start;font-size:0.75rem;color:var(--honey);background:#FBF0DD;
+    padding:3px 10px;border-radius:100px;font-weight:600;
+  }
+  .brand-tag{
+    align-self:flex-start;font-size:0.75rem;color:var(--muted);background:#fff;
+    border:1px solid var(--line);padding:3px 10px;border-radius:100px;
+  }
+
+  .detail-info h1{
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--pine);margin:0 0 14px;
+  }
+  .detail-price{margin:0 0 16px;font-weight:700;color:var(--ink);font-size:1.5rem;}
+  .detail-desc{margin:0 0 26px;color:var(--muted);font-size:1rem;line-height:1.65;white-space:pre-line;}
+
+  .wa-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    background:var(--wa);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;
+    padding:14px 22px;border-radius:10px;transition:background .15s;
+  }
+  .wa-btn:hover{background:var(--wa-dark);}
+  .wa-btn:focus-visible{outline:2px solid var(--pine-light);outline-offset:2px;}
+  .wa-btn svg{flex:0 0 auto;}
+
+  .section-title{
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--pine);margin:0 0 16px;
+  }
+  #relatedSection{margin-top:56px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  }
+  .card-photo{aspect-ratio:1/1;background:#E4E9DE;overflow:hidden;}
+  .card-photo img{width:100%;height:100%;object-fit:cover;}
+  .card-photo.no-photo{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;}
+  .card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .card-body h3{margin:0;font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:var(--pine);}
+  .card-price{margin:0;font-weight:700;color:var(--ink);font-size:0.95rem;}
+
+  .site-footer{background:var(--pine);color:#C9D8C2;padding:38px 0 24px;margin-top:60px;}
+  .footer-top{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;margin-bottom:26px;}
+  .footer-contact{display:flex;flex-direction:column;gap:8px;font-size:0.92rem;}
+  .footer-contact a{color:#C9D8C2;text-decoration:none;}
+  .footer-contact a:hover{color:#fff;}
+  .footer-social{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+  .social-icon{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    text-decoration:none;font-size:0.72rem;font-weight:700;letter-spacing:-0.02em;
+    transition:background .15s;
+  }
+  .social-icon:hover{background:var(--honey);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;font-size:0.8rem;color:#9FB294;}
+
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="/">Pet Friend</a>
+    <a class="back-link" href="/">← Bütün məhsullar</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="skeleton" id="loadingState">Yüklənir...</p>
+
+  <div class="not-found" id="notFoundState" hidden>
+    <p>Bu məhsul tapılmadı və ya artıq mövcud deyil.</p>
+    <a href="/">← Bütün məhsullara qayıt</a>
+  </div>
+
+  <div class="product-detail" id="detailWrap" hidden>
+    <div class="detail-photo" id="detailPhoto"></div>
+    <div class="detail-info">
+      <div class="tag-row" id="detailTags"></div>
+      <h1 id="detailName"></h1>
+      <p class="detail-price" id="detailPrice" hidden></p>
+      <p class="detail-desc" id="detailDesc" hidden></p>
+      <a class="wa-btn" id="detailWaBtn" href="#" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 8.7c.2-.55.7-.55 1.1-.55.3 0 .5 0 .7.5.2.5.7 1.7.75 1.85.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.15.6.15.3.7 1.15 1.5 1.85.9.8 1.6 1.05 1.9 1.2.3.15.5.1.65-.1.15-.2.65-.75.85-1 .2-.25.4-.2.65-.1.25.1 1.6.75 1.9.9.3.15.5.2.55.35.05.15.05.85-.2 1.65-.25.8-1.5 1.45-2.05 1.5-.55.05-1.05.25-3.55-.75-2.5-1-4.05-3.55-4.15-3.75-.1-.2-.85-1.15-.85-2.2 0-1.05.55-1.55.75-1.75Z" fill="currentColor"/></svg>
+        WhatsApp-dan soruş
+      </a>
+    </div>
+  </div>
+
+  <section id="relatedSection" hidden>
+    <h2 class="section-title">Oxşar məhsullar</h2>
+    <div class="grid" id="relatedGrid"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-contact" id="footerContact"></div>
+      <div class="footer-social" id="footerSocial"></div>
+    </div>
+    <div class="footer-bottom">© 2026 Pet Friend</div>
+  </div>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
+    authDomain: "petfriend-az.firebaseapp.com",
+    projectId: "petfriend-az",
+    storageBucket: "petfriend-az.firebasestorage.app",
+    messagingSenderId: "970042291926",
+    appId: "1:970042291926:web:7b3b4124cab520e3863b77",
+    measurementId: "G-84BZXVMWCJ"
+  };
+
+  const WHATSAPP_NUMBER = "994503068700";
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const loadingEl = document.getElementById('loadingState');
+  const notFoundEl = document.getElementById('notFoundState');
+  const detailEl = document.getElementById('detailWrap');
+  const relatedSection = document.getElementById('relatedSection');
+  const relatedGrid = document.getElementById('relatedGrid');
+  const footerContact = document.getElementById('footerContact');
+  const footerSocial = document.getElementById('footerSocial');
+  const pageTitleTag = document.getElementById('pageTitleTag');
+  const pageDescTag = document.getElementById('pageDescTag');
+
+  function escapeHtml(str){
+    return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function waLink(name){
+    const msg = `Salam, "${name}" haqqında məlumat almaq istəyirəm.`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function trackWaClick(p){
+    try{
+      addDoc(collection(db, 'whatsappClicks'), {
+        productId: (p && p.id) || null,
+        productName: (p && p.name) || '',
+        createdAt: Date.now()
+      }).catch(() => {});
+    }catch(e){ /* izləmə uğursuz olsa belə WhatsApp linki açılmağa davam etsin */ }
+  }
+
+  function miniCardHtml(p){
+    return `
+      <a class="card" href="/mehsul?id=${encodeURIComponent(p.id)}">
+        <div class="card-photo${p.photo ? '' : ' no-photo'}">
+          ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
+        </div>
+        <div class="card-body">
+          <h3>${escapeHtml(p.name)}</h3>
+          ${p.price ? `<p class="card-price">${escapeHtml(p.price)} ₼</p>` : ''}
+        </div>
+      </a>
+    `;
+  }
+
+  function renderProduct(p){
+    loadingEl.hidden = true;
+    detailEl.hidden = false;
+
+    const title = p.name ? `${p.name} — Pet Friend` : 'Məhsul — Pet Friend';
+    document.title = title;
+    pageTitleTag.textContent = title;
+    const descText = p.description ? p.description.slice(0, 160) : 'Pet Friend-də məhsullara baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.';
+    pageDescTag.setAttribute('content', descText);
+
+    const photoEl = document.getElementById('detailPhoto');
+    photoEl.classList.toggle('no-photo', !p.photo);
+    photoEl.innerHTML = p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}">` : 'Şəkil yoxdur';
+
+    const catLabel = p.subCategory ? `${p.category} / ${p.subCategory}` : p.category;
+    document.getElementById('detailTags').innerHTML = `
+      ${p.category ? `<span class="tag">${escapeHtml(catLabel)}</span>` : ''}
+      ${p.brandName ? `<span class="brand-tag">${escapeHtml(p.brandName)}</span>` : ''}
+    `;
+
+    document.getElementById('detailName').textContent = p.name || '';
+
+    const priceEl = document.getElementById('detailPrice');
+    priceEl.hidden = !p.price;
+    if(p.price) priceEl.textContent = `${p.price} ₼`;
+
+    const descEl = document.getElementById('detailDesc');
+    descEl.hidden = !p.description;
+    if(p.description) descEl.textContent = p.description;
+
+    const waBtn = document.getElementById('detailWaBtn');
+    waBtn.href = waLink(p.name);
+    waBtn.addEventListener('click', () => trackWaClick(p));
+  }
+
+  function renderFooter(settings){
+    const s = settings || {};
+    const lines = [];
+    if(s.phone) lines.push(`<a href="tel:${escapeHtml(s.phone.replace(/\s+/g, ''))}">📞 ${escapeHtml(s.phone)}</a>`);
+    if(s.email) lines.push(`<a href="mailto:${escapeHtml(s.email)}">✉️ ${escapeHtml(s.email)}</a>`);
+    if(s.address) lines.push(`<span>📍 ${escapeHtml(s.address)}</span>`);
+    footerContact.innerHTML = lines.join('');
+
+    const soc = s.social || {};
+    const socialDefs = [
+      { label: 'FB', url: soc.facebook, name: 'Facebook' },
+      { label: 'IG', url: soc.instagram, name: 'Instagram' },
+      { label: 'X', url: soc.x, name: 'X' },
+      { label: 'YT', url: soc.youtube, name: 'YouTube' },
+      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : `https://wa.me/${WHATSAPP_NUMBER}`, name: 'WhatsApp' },
+      { label: 'TG', url: soc.telegram, name: 'Telegram' },
+      { label: 'TT', url: soc.tiktok, name: 'TikTok' },
+    ];
+    footerSocial.innerHTML = socialDefs.filter(x => x.url).map(x =>
+      `<a class="social-icon" href="${escapeHtml(x.url)}" target="_blank" rel="noopener" aria-label="${x.name}">${escapeHtml(x.label)}</a>`
+    ).join('');
+  }
+
+  async function loadRelated(p){
+    try{
+      const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const items = all.filter(x => x.id !== p.id && x.category === p.category && !x.draft).slice(0, 4);
+      if(items.length === 0){ relatedSection.hidden = true; return; }
+      relatedSection.hidden = false;
+      relatedGrid.innerHTML = items.map(miniCardHtml).join('');
+    }catch(e){
+      console.error('Oxşar məhsullar yüklənərkən xəta:', e);
+      relatedSection.hidden = true;
+    }
+  }
+
+  async function loadFooterSettings(){
+    try{
+      const snap = await getDoc(doc(db, 'settings', 'site'));
+      renderFooter(snap.exists() ? snap.data() : null);
+    }catch(e){
+      console.error('Ayarlar yüklənərkən xəta:', e);
+      renderFooter(null);
+    }
+  }
+
+  async function init(){
+    const id = new URLSearchParams(location.search).get('id');
+    loadFooterSettings();
+
+    if(!id){
+      loadingEl.hidden = true;
+      notFoundEl.hidden = false;
+      return;
+    }
+
+    try{
+      const snap = await getDoc(doc(db, 'products', id));
+      if(!snap.exists() || snap.data().draft){
+        loadingEl.hidden = true;
+        notFoundEl.hidden = false;
+        return;
+      }
+      const p = { id: snap.id, ...snap.data() };
+      renderProduct(p);
+      if(p.category) loadRelated(p);
+    }catch(e){
+      console.error('Məhsul yüklənərkən xəta:', e);
+      loadingEl.hidden = true;
+      notFoundEl.hidden = false;
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
