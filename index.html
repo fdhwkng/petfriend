@@ -186,6 +186,7 @@
     display:flex;
     flex-direction:column;
   }
+  .card-link{display:flex;flex-direction:column;flex:1;color:inherit;text-decoration:none;}
   .card-photo{
     aspect-ratio:1/1;
     background:#E4E9DE;
@@ -193,7 +194,8 @@
   }
   .card-photo img{width:100%;height:100%;object-fit:cover;}
   .card-photo.no-photo{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;}
-  .card-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .card-body{padding:16px 16px 0;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .card-cta{padding:10px 16px 16px;}
   .tag{
     align-self:flex-start;
     font-size:0.75rem;
@@ -414,17 +416,21 @@
   function cardHtml(p){
     return `
       <article class="card">
-        <div class="card-photo${p.photo ? '' : ' no-photo'}">
-          ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
-        </div>
-        <div class="card-body">
-          <div class="tag-row">
-            ${p.category ? `<span class="tag">${escapeHtml(p.category)}</span>` : ''}
-            ${p.brandName ? `<span class="brand-tag">${escapeHtml(p.brandName)}</span>` : ''}
+        <a class="card-link" href="/mehsul?id=${encodeURIComponent(p.id)}">
+          <div class="card-photo${p.photo ? '' : ' no-photo'}">
+            ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
           </div>
-          <h3>${escapeHtml(p.name)}</h3>
-          ${p.description ? `<p class="desc">${escapeHtml(p.description)}</p>` : ''}
-          ${p.price ? `<p class="price">${escapeHtml(p.price)} ₼</p>` : ''}
+          <div class="card-body">
+            <div class="tag-row">
+              ${p.category ? `<span class="tag">${escapeHtml(p.category)}</span>` : ''}
+              ${p.brandName ? `<span class="brand-tag">${escapeHtml(p.brandName)}</span>` : ''}
+            </div>
+            <h3>${escapeHtml(p.name)}</h3>
+            ${p.description ? `<p class="desc">${escapeHtml(p.description)}</p>` : ''}
+            ${p.price ? `<p class="price">${escapeHtml(p.price)} ₼</p>` : ''}
+          </div>
+        </a>
+        <div class="card-cta">
           <a class="wa-btn" data-id="${p.id}" href="${waLink(p.name)}" target="_blank" rel="noopener">${waIcon} WhatsApp-dan soruş</a>
         </div>
       </article>
@@ -441,6 +447,17 @@
   }
 
   /* ---------- Axtarış + kateqoriya/brend filtri ---------- */
+  function applyCategoryMeta(cat){
+    if(cat && cat.metaTitle){ document.title = cat.metaTitle; }
+    else if(cat){ document.title = `${cat.name} — Pet Friend`; }
+    if(metaDescTag) metaDescTag.content = (cat && cat.metaDescription) ? cat.metaDescription : defaultMetaDesc;
+  }
+
+  function resetMeta(){
+    document.title = defaultTitle;
+    if(metaDescTag) metaDescTag.content = defaultMetaDesc;
+  }
+
   function renderActiveFilter(){
     const parts = [];
     if(activeCategory) parts.push(activeSubCategory ? `${activeCategory} / ${activeSubCategory}` : activeCategory);
@@ -452,6 +469,8 @@
       activeSubCategory = null;
       searchQuery = '';
       searchInput.value = '';
+      history.replaceState(null, '', location.pathname);
+      resetMeta();
       renderActiveFilter();
       renderGrid();
     });
@@ -509,6 +528,9 @@
     function selectCategory(catName, subName){
       activeCategory = catName;
       activeSubCategory = subName || null;
+      const cat = allCategories.find(c => c.name === catName);
+      history.replaceState(null, '', cat && cat.slug ? `?kateqoriya=${encodeURIComponent(cat.slug)}` : location.pathname);
+      applyCategoryMeta(cat);
       closeCatMega();
       renderActiveFilter();
       renderGrid();
@@ -627,7 +649,8 @@
     try{
       const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
       const snap = await getDocs(q);
-      allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      // Qaralama (draft) məhsullar — admin hələ ad/qiymət/kateqoriya əlavə etməyib — saytda göstərilmir.
+      allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(p => !p.draft);
     }catch(e){
       console.error('Məhsullar yüklənərkən xəta:', e);
       allProducts = [];
@@ -679,6 +702,16 @@
         activeBrandId = b.id;
         document.title = b.metaTitle || (b.name + ' — Pet Friend');
         if(metaDescTag) metaDescTag.content = b.metaDescription || defaultMetaDesc;
+      }
+    }
+
+    // Əgər keçid ?kateqoriya=slug ilə gəlibsə, həmin kateqoriyanı əvvəlcədən seçili et
+    const catSlugParam = new URLSearchParams(location.search).get('kateqoriya');
+    if(catSlugParam){
+      const c = allCategories.find(x => x.slug === catSlugParam);
+      if(c){
+        activeCategory = c.name;
+        applyCategoryMeta(c);
       }
     }
 
