@@ -187,6 +187,18 @@
   .badge{display:inline-block;font-size:0.72rem;font-weight:600;padding:2px 9px;border-radius:100px;margin-left:6px;vertical-align:1px;}
   .badge.on{background:#E3EEE0;color:var(--pine-light);}
   .badge.off{background:#F3E4DC;color:var(--danger);}
+  .badge.draft{background:#FBF0DD;color:var(--honey);}
+
+  .hint{color:var(--muted);font-size:0.88rem;line-height:1.5;margin:0 0 16px;}
+  .bulk-progress{margin-top:14px;display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;}
+  .bulk-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:0.86rem;
+  }
+  .bulk-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);}
+  .bulk-state{flex:0 0 auto;color:var(--muted);}
+  .bulk-state.ok{color:var(--pine-light);font-weight:600;}
+  .bulk-state.err{color:var(--danger);font-weight:600;}
   .logo-preview{margin-top:10px;width:76px;height:76px;border-radius:10px;overflow:hidden;background:#E4E9DE;display:none;}
   .logo-preview img{width:100%;height:100%;object-fit:contain;}
 
@@ -462,6 +474,21 @@
               <label>Alt kateqoriyalar — hər sətirdə biri</label>
               <textarea id="catSubsInput" rows="4" placeholder="Quru yem&#10;Yaş yem&#10;Konserva&#10;Müalicəvi yem&#10;Çərəz"></textarea>
             </div>
+            <div class="field">
+              <label>Link (URL)</label>
+              <div class="slug-row">
+                <span class="slug-prefix">petfriend.az/kateqoriya/</span>
+                <input type="text" id="catSlugInput" placeholder="pisikler">
+              </div>
+            </div>
+            <div class="field">
+              <label>Meta başlıq (SEO)</label>
+              <input type="text" id="catMetaTitleInput" placeholder="Məsələn: Pişik məhsulları — Pet Friend">
+            </div>
+            <div class="field">
+              <label>Meta təsvir (SEO)</label>
+              <textarea id="catMetaDescInput" placeholder="Axtarış nəticələrində görünəcək qısa təsvir..."></textarea>
+            </div>
             <div class="form-actions">
               <button type="submit" class="btn btn-primary" id="catSubmitBtn">Əlavə et</button>
               <button type="button" class="btn btn-secondary" id="catCancelEditBtn" hidden>Ləğv et</button>
@@ -564,6 +591,17 @@
             </div>
             <p class="status-msg" id="statusMsg"></p>
           </form>
+        </div>
+
+        <div class="panel">
+          <h2>📤 Toplu şəkil yüklə — sürətli üsul</h2>
+          <p class="hint">Bir neçə şəkli eyni anda seçin — hər biri üçün ad, kateqoriya və qiyməti boş olan bir qaralama (draft) məhsul avtomatik yaradılacaq. Qaralamalar saytda GÖRÜNMƏYƏCƏK, siz "Bütün məhsullar"dan hər birini açıb ad/qiymət/kateqoriya əlavə edənə qədər.</p>
+          <div class="field">
+            <label>Şəkillər (bir neçəsini seçə bilərsiniz)</label>
+            <input type="file" id="bulkPhotoInput" accept="image/*" multiple>
+          </div>
+          <div class="bulk-progress" id="bulkProgress" hidden></div>
+          <p class="status-msg" id="bulkStatusMsg"></p>
         </div>
       </section>
     </main>
@@ -834,6 +872,7 @@
         price: priceInput.value ? Number(priceInput.value) : null,
         photo: photo,
         featured: featuredInput.checked,
+        draft: false,
       };
       if(editingId){
         await updateDoc(doc(db, 'products', editingId), data);
@@ -854,10 +893,87 @@
     }
   });
 
+  /* ---------- Toplu şəkil yüklə ---------- */
+  const bulkPhotoInput = document.getElementById('bulkPhotoInput');
+  const bulkProgress = document.getElementById('bulkProgress');
+  const bulkStatusMsg = document.getElementById('bulkStatusMsg');
+
+  function showBulkStatus(msg, ok){
+    bulkStatusMsg.textContent = msg;
+    bulkStatusMsg.className = 'status-msg ' + (ok ? 'ok' : 'err');
+    bulkStatusMsg.style.display = 'block';
+  }
+
+  function filenameToDraftName(filename){
+    let name = filename.replace(/\.[a-zA-Z0-9]+$/, '').replace(/[_\-]+/g, ' ').trim();
+    if(!name) name = 'Yeni məhsul';
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  bulkPhotoInput.addEventListener('change', async () => {
+    const files = Array.from(bulkPhotoInput.files || []);
+    if(files.length === 0) return;
+
+    bulkProgress.hidden = false;
+    bulkProgress.innerHTML = '';
+    bulkStatusMsg.style.display = 'none';
+    bulkPhotoInput.disabled = true;
+
+    files.forEach((f, i) => {
+      const row = document.createElement('div');
+      row.className = 'bulk-row';
+      row.innerHTML = `<span class="bulk-name">${escapeHtml(f.name)}</span><span class="bulk-state" id="bulkState${i}">Gözləyir...</span>`;
+      bulkProgress.appendChild(row);
+    });
+
+    let done = 0, failed = 0;
+    for(let i = 0; i < files.length; i++){
+      const file = files[i];
+      const stateEl = document.getElementById('bulkState' + i);
+      try{
+        stateEl.textContent = 'Yüklənir...';
+        const photo = await compressImage(file);
+        await addDoc(collection(db, 'products'), {
+          name: filenameToDraftName(file.name),
+          category: '',
+          subCategory: null,
+          brandId: null,
+          brandName: null,
+          description: '',
+          price: null,
+          photo: photo,
+          featured: false,
+          draft: true,
+          createdAt: Date.now(),
+        });
+        stateEl.textContent = '✓ Yaradıldı';
+        stateEl.classList.add('ok');
+        done++;
+      }catch(err){
+        console.error(err);
+        stateEl.textContent = '✕ Xəta';
+        stateEl.classList.add('err');
+        failed++;
+      }
+    }
+
+    bulkPhotoInput.disabled = false;
+    bulkPhotoInput.value = '';
+    showBulkStatus(
+      `${done} qaralama məhsul yaradıldı${failed ? `, ${failed} şəkil yüklənə bilmədi` : ''}. İndi "Bütün məhsullar"a keçib hər birinə ad, qiymət və kateqoriya əlavə edin.`,
+      failed === 0
+    );
+    await loadProducts();
+    loadDashboardStats();
+  });
+
   /* ---------- Categories ---------- */
   const categoryForm = document.getElementById('categoryForm');
   const catNameInput = document.getElementById('catNameInput');
   const catSubsInput = document.getElementById('catSubsInput');
+  const catSlugInput = document.getElementById('catSlugInput');
+  const catMetaTitleInput = document.getElementById('catMetaTitleInput');
+  const catMetaDescInput = document.getElementById('catMetaDescInput');
   const catSubmitBtn = document.getElementById('catSubmitBtn');
   const catCancelEditBtn = document.getElementById('catCancelEditBtn');
   const catFormHeading = document.getElementById('catFormHeading');
@@ -865,9 +981,18 @@
   const categoryList = document.getElementById('categoryList');
 
   let editingCategoryId = null;
+  let catSlugManuallyEdited = false;
+
+  catNameInput.addEventListener('input', () => {
+    if(!catSlugManuallyEdited){
+      catSlugInput.value = slugify(catNameInput.value);
+    }
+  });
+  catSlugInput.addEventListener('input', () => { catSlugManuallyEdited = true; });
 
   function resetCategoryForm(){
     editingCategoryId = null;
+    catSlugManuallyEdited = false;
     categoryForm.reset();
     catSubmitBtn.textContent = 'Əlavə et';
     catFormHeading.textContent = 'Yeni kateqoriya əlavə et';
@@ -887,9 +1012,14 @@
     catSubmitBtn.disabled = true;
     try{
       const subcategories = catSubsInput.value.split('\n').map(s => s.trim()).filter(Boolean);
+      let slug = slugify(catSlugInput.value || catNameInput.value);
+      if(!slug) slug = 'kateqoriya-' + Date.now();
       const data = {
         name: catNameInput.value.trim(),
         subcategories: subcategories,
+        slug: slug,
+        metaTitle: catMetaTitleInput.value.trim(),
+        metaDescription: catMetaDescInput.value.trim(),
       };
       if(editingCategoryId){
         await updateDoc(doc(db, 'categories', editingCategoryId), data);
@@ -969,8 +1099,12 @@
           const id = btn.closest('.cat-row').dataset.id;
           const c = allCategories.find(x => x.id === id);
           editingCategoryId = id;
+          catSlugManuallyEdited = true;
           catNameInput.value = c.name || '';
           catSubsInput.value = (c.subcategories || []).join('\n');
+          catSlugInput.value = c.slug || '';
+          catMetaTitleInput.value = c.metaTitle || '';
+          catMetaDescInput.value = c.metaDescription || '';
           catSubmitBtn.textContent = 'Yenilə';
           catFormHeading.textContent = 'Kateqoriyanı redaktə et';
           catCancelEditBtn.hidden = false;
@@ -1244,7 +1378,7 @@
         <div class="product-row" data-id="${p.id}">
           <div class="thumb">${p.photo ? `<img src="${p.photo}" alt="">` : ''}</div>
           <div class="info">
-            <div class="name">${escapeHtml(p.name)}${p.featured ? ' <span class="badge on">Ən yaxşı</span>' : ''}</div>
+            <div class="name">${escapeHtml(p.name)}${p.draft ? ' <span class="badge draft">Qaralama — tamamlanmayıb</span>' : ''}${p.featured ? ' <span class="badge on">Ən yaxşı</span>' : ''}</div>
             <div class="meta">${escapeHtml(p.category || '')}${p.subCategory ? ' / ' + escapeHtml(p.subCategory) : ''}${p.brandName ? ' · ' + escapeHtml(p.brandName) : ''}${p.price ? ' · ' + escapeHtml(p.price) + ' ₼' : ''}</div>
           </div>
           <div class="actions">
