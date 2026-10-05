@@ -30,7 +30,7 @@
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;display:block;}
-  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px;}
 
   .site-header{background:var(--pine);color:#fff;padding:18px 0;}
   .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
@@ -38,55 +38,75 @@
   .back-link{color:#C9D8C2;text-decoration:none;font-size:0.9rem;white-space:nowrap;}
   .back-link:hover{color:#fff;}
 
-  main{padding:36px 0 50px;}
+  main{padding:40px 0 64px;}
 
-  .skeleton, .not-found{text-align:center;color:var(--muted);padding:70px 20px;}
+  .breadcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:7px;font-size:0.85rem;color:var(--muted);margin:0 0 28px;}
+  .breadcrumb a{color:var(--muted);text-decoration:none;}
+  .breadcrumb a:hover{color:var(--pine);}
+  .breadcrumb .sep{color:var(--line);}
+  .breadcrumb .current{color:var(--ink);font-weight:600;}
+
+  .skeleton, .not-found{text-align:center;color:var(--muted);padding:90px 20px;}
   .not-found p{margin:0 0 16px;font-size:1.02rem;}
   .not-found a{color:var(--pine);font-weight:600;text-decoration:none;}
   .not-found a:hover{text-decoration:underline;}
 
-  .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;}
-  @media (max-width:720px){.product-detail{grid-template-columns:1fr;}}
+  .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  @media (max-width:760px){.product-detail{grid-template-columns:1fr;gap:30px;}}
 
-  .detail-photo{aspect-ratio:1/1;background:#E4E9DE;border-radius:16px;overflow:hidden;}
+  .photo-card{
+    background:var(--card);border-radius:22px;padding:18px;
+    box-shadow:0 1px 2px rgba(31,59,44,.05), 0 14px 34px rgba(31,59,44,.08);
+  }
+  .detail-photo{aspect-ratio:1/1;background:#E4E9DE;border-radius:15px;overflow:hidden;}
   .detail-photo img{width:100%;height:100%;object-fit:cover;}
   .detail-photo.no-photo{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.9rem;}
 
-  .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+  .detail-info{padding-top:6px;}
+
+  .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
   .tag{
-    align-self:flex-start;font-size:0.75rem;color:var(--honey);background:#FBF0DD;
-    padding:3px 10px;border-radius:100px;font-weight:600;
+    align-self:flex-start;font-size:0.76rem;color:var(--honey);background:#FBF0DD;
+    padding:4px 12px;border-radius:100px;font-weight:600;
   }
   .brand-tag{
-    align-self:flex-start;font-size:0.75rem;color:var(--muted);background:#fff;
-    border:1px solid var(--line);padding:3px 10px;border-radius:100px;
+    align-self:flex-start;font-size:0.76rem;color:var(--muted);background:#fff;
+    border:1px solid var(--line);padding:4px 12px;border-radius:100px;
   }
 
   .detail-info h1{
-    font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--pine);margin:0 0 14px;
+    font-family:'Fraunces',serif;font-weight:600;font-size:2rem;line-height:1.22;color:var(--pine);margin:0 0 16px;
   }
-  .detail-price{margin:0 0 16px;font-weight:700;color:var(--ink);font-size:1.5rem;}
-  .detail-desc{margin:0 0 26px;color:var(--muted);font-size:1rem;line-height:1.65;white-space:pre-line;}
+  .detail-price{
+    display:inline-block;margin:0 0 22px;font-weight:700;color:var(--pine);font-size:1.55rem;
+    background:#E3EEE0;padding:8px 18px;border-radius:12px;
+  }
+  .detail-desc{margin:0 0 30px;color:var(--muted);font-size:1rem;line-height:1.7;white-space:pre-line;}
 
   .wa-btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:9px;
-    background:var(--wa);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;
-    padding:14px 22px;border-radius:10px;transition:background .15s;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--wa);color:#fff;text-decoration:none;font-weight:600;font-size:1.05rem;
+    padding:16px 28px;border-radius:12px;transition:background .15s, transform .15s;
+    box-shadow:0 8px 20px rgba(37,211,102,.3);
   }
-  .wa-btn:hover{background:var(--wa-dark);}
+  .wa-btn:hover{background:var(--wa-dark);transform:translateY(-1px);}
   .wa-btn:focus-visible{outline:2px solid var(--pine-light);outline-offset:2px;}
   .wa-btn svg{flex:0 0 auto;}
+  @media (max-width:500px){ .wa-btn{width:100%;} }
 
   .section-title{
-    font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--pine);margin:0 0 16px;
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--pine);margin:0 0 20px;
+    padding-bottom:12px;border-bottom:2px solid var(--line);
   }
-  #relatedSection{margin-top:56px;}
+  #relatedSection{margin-top:72px;}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px;}
   .card{
-    background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);
     display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    transition:transform .15s, box-shadow .15s;
   }
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(31,59,44,.09);}
   .card-photo{aspect-ratio:1/1;background:#E4E9DE;overflow:hidden;}
   .card-photo img{width:100%;height:100%;object-fit:cover;}
   .card-photo.no-photo{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;}
@@ -129,8 +149,12 @@
     <a href="/">← Bütün məhsullara qayıt</a>
   </div>
 
+  <nav class="breadcrumb" id="breadcrumbRow" hidden></nav>
+
   <div class="product-detail" id="detailWrap" hidden>
-    <div class="detail-photo" id="detailPhoto"></div>
+    <div class="photo-card">
+      <div class="detail-photo" id="detailPhoto"></div>
+    </div>
     <div class="detail-info">
       <div class="tag-row" id="detailTags"></div>
       <h1 id="detailName"></h1>
@@ -180,6 +204,7 @@
 
   const loadingEl = document.getElementById('loadingState');
   const notFoundEl = document.getElementById('notFoundState');
+  const breadcrumbRow = document.getElementById('breadcrumbRow');
   const detailEl = document.getElementById('detailWrap');
   const relatedSection = document.getElementById('relatedSection');
   const relatedGrid = document.getElementById('relatedGrid');
@@ -256,6 +281,31 @@
     waBtn.addEventListener('click', () => trackWaClick(p));
   }
 
+  function renderBreadcrumb(p, categorySlug){
+    const parts = [`<a href="/">Ana səhifə</a>`];
+    if(p.category){
+      parts.push(`<span class="sep">/</span>`);
+      parts.push(categorySlug
+        ? `<a href="/?kateqoriya=${encodeURIComponent(categorySlug)}">${escapeHtml(p.category)}</a>`
+        : `<span>${escapeHtml(p.category)}</span>`);
+    }
+    parts.push(`<span class="sep">/</span>`);
+    parts.push(`<span class="current">${escapeHtml(p.name || '')}</span>`);
+    breadcrumbRow.innerHTML = parts.join(' ');
+    breadcrumbRow.hidden = false;
+  }
+
+  async function findCategorySlug(categoryName){
+    if(!categoryName) return null;
+    try{
+      const snap = await getDocs(collection(db, 'categories'));
+      const match = snap.docs.map(d => d.data()).find(c => c.name === categoryName);
+      return (match && match.slug) || null;
+    }catch(e){
+      return null;
+    }
+  }
+
   function renderFooter(settings){
     const s = settings || {};
     const lines = [];
@@ -279,6 +329,24 @@
     ).join('');
   }
 
+  function lightenColor(hex, percent){
+    const num = parseInt(hex.slice(1), 16);
+    let r = (num >> 16) + Math.round(255 * percent / 100);
+    let g = ((num >> 8) & 0x00FF) + Math.round(255 * percent / 100);
+    let b = (num & 0x0000FF) + Math.round(255 * percent / 100);
+    r = Math.min(255, Math.max(0, r));
+    g = Math.min(255, Math.max(0, g));
+    b = Math.min(255, Math.max(0, b));
+    return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+  }
+
+  function applyThemeColor(settings){
+    const hex = settings && settings.themeColor;
+    if(!hex || !/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+    document.documentElement.style.setProperty('--pine', hex);
+    document.documentElement.style.setProperty('--pine-light', lightenColor(hex, 15));
+  }
+
   async function loadRelated(p){
     try{
       const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
@@ -297,7 +365,9 @@
   async function loadFooterSettings(){
     try{
       const snap = await getDoc(doc(db, 'settings', 'site'));
-      renderFooter(snap.exists() ? snap.data() : null);
+      const data = snap.exists() ? snap.data() : null;
+      renderFooter(data);
+      applyThemeColor(data);
     }catch(e){
       console.error('Ayarlar yüklənərkən xəta:', e);
       renderFooter(null);
@@ -323,7 +393,11 @@
       }
       const p = { id: snap.id, ...snap.data() };
       renderProduct(p);
-      if(p.category) loadRelated(p);
+      const [, categorySlug] = await Promise.all([
+        p.category ? loadRelated(p) : Promise.resolve(),
+        findCategorySlug(p.category)
+      ]);
+      renderBreadcrumb(p, categorySlug);
     }catch(e){
       console.error('Məhsul yüklənərkən xəta:', e);
       loadingEl.hidden = true;
