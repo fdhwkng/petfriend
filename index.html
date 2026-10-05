@@ -644,6 +644,25 @@
     ).join('');
   }
 
+  /* ---------- Sayt rəngi (admin ayarlarından) ---------- */
+  function lightenColor(hex, percent){
+    const num = parseInt(hex.slice(1), 16);
+    let r = (num >> 16) + Math.round(255 * percent / 100);
+    let g = ((num >> 8) & 0x00FF) + Math.round(255 * percent / 100);
+    let b = (num & 0x0000FF) + Math.round(255 * percent / 100);
+    r = Math.min(255, Math.max(0, r));
+    g = Math.min(255, Math.max(0, g));
+    b = Math.min(255, Math.max(0, b));
+    return '#' + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+  }
+
+  function applyThemeColor(settings){
+    const hex = settings && settings.themeColor;
+    if(!hex || !/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+    document.documentElement.style.setProperty('--pine', hex);
+    document.documentElement.style.setProperty('--pine-light', lightenColor(hex, 15));
+  }
+
   /* ---------- Yükləmə ---------- */
   async function loadProducts(){
     try{
@@ -692,6 +711,7 @@
   async function init(){
     const results = await Promise.all([loadProducts(), loadBrands(), loadCategories(), loadSettings()]);
     const settings = results[3];
+    applyThemeColor(settings);
     loadingEl.hidden = true;
 
     // Əgər keçid ?brend=slug ilə gəlibsə, həmin brendi əvvəlcədən seçili et
