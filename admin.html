@@ -190,6 +190,11 @@
   .badge.draft{background:#FBF0DD;color:var(--honey);}
 
   .hint{color:var(--muted);font-size:0.88rem;line-height:1.5;margin:0 0 16px;}
+  .color-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .color-row input[type="color"]{
+    width:56px;height:40px;padding:2px;border:1px solid var(--line);border-radius:8px;
+    cursor:pointer;background:#fff;
+  }
   .bulk-progress{margin-top:14px;display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;}
   .bulk-row{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -504,6 +509,17 @@
 
       <section class="view" id="view-settings" hidden>
         <h1>Sayt Ayarları</h1>
+        <div class="panel">
+          <h2>Sayt rəngi</h2>
+          <p class="hint">Saytın header, footer və əsas vurğu rəngi. Dəyişdirib "Yadda saxla" düyməsinə basan kimi bütün saytda tətbiq olunacaq.</p>
+          <div class="field color-field">
+            <label>Əsas rəng</label>
+            <div class="color-row">
+              <input type="color" id="setThemeColorInput" value="#1F3B2C">
+              <button type="button" class="btn btn-secondary" id="setThemeResetBtn">Standart yaşıla qaytar</button>
+            </div>
+          </div>
+        </div>
         <div class="panel">
           <h2>Əlaqə məlumatları</h2>
           <form id="settingsForm">
@@ -1131,6 +1147,10 @@
 
   /* ---------- Site settings ---------- */
   const settingsForm = document.getElementById('settingsForm');
+  const setThemeColorInput = document.getElementById('setThemeColorInput');
+  const setThemeResetBtn = document.getElementById('setThemeResetBtn');
+  const DEFAULT_THEME_COLOR = '#1F3B2C';
+  setThemeResetBtn.addEventListener('click', () => { setThemeColorInput.value = DEFAULT_THEME_COLOR; });
   const setPhoneInput = document.getElementById('setPhoneInput');
   const setEmailInput = document.getElementById('setEmailInput');
   const setAddressInput = document.getElementById('setAddressInput');
@@ -1149,6 +1169,7 @@
       const snap = await getDoc(doc(db, 'settings', 'site'));
       if(snap.exists()){
         const s = snap.data();
+        setThemeColorInput.value = s.themeColor || DEFAULT_THEME_COLOR;
         setPhoneInput.value = s.phone || '';
         setEmailInput.value = s.email || '';
         setAddressInput.value = s.address || '';
@@ -1177,6 +1198,7 @@
     setSubmitBtn.disabled = true;
     try{
       await setDoc(doc(db, 'settings', 'site'), {
+        themeColor: setThemeColorInput.value,
         phone: setPhoneInput.value.trim(),
         email: setEmailInput.value.trim(),
         address: setAddressInput.value.trim(),
