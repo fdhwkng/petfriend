@@ -247,8 +247,62 @@ async function saveRecord(resource, body, id = null) {
 }
 
 async function deleteRecord(resource, id) {
+  if (resource === "products") {
+    await getPool().query("DELETE FROM product_reviews WHERE product_id = $1", [id]);
+  }
   const result = await getPool().query("DELETE FROM catalog_items WHERE resource = $1 AND id = $2", [resource, id]);
   if (!result.rowCount) fail(404, "Qeyd tapılmadı.");
+}
+
+async function listProductReviews(productId) {
+  const normalizedId = String(productId || "").trim();
+  if (!normalizedId || normalizedId.length > 120) fail(400, "Məhsul seçilməyib.");
+
+  const product = await getPool().query(
+    "SELECT id FROM catalog_items WHERE resource = 'products' AND id = $1 AND COALESCE(data->>'draft', 'false') <> 'true'",
+    [normalizedId],
+  );
+  if (!product.rowCount) fail(404, "Məhsul tapılmadı.");
+
+  const result = await getPool().query(
+    `SELECT id, customer_name AS name, rating, comment, created_at AS "createdAt"
+     FROM product_reviews WHERE product_id = $1 ORDER BY created_at DESC LIMIT 100`,
+    [normalizedId],
+  );
+  const items = result.rows.map((row) => ({ ...row, rating: Number(row.rating), createdAt: Number(row.createdAt) }));
+  const average = items.length
+    ? Math.round(items.reduce((sum, review) => sum + review.rating, 0) / items.length * 10) / 10
+    : 0;
+  return { items, total: items.length, average };
+}
+
+async function createProductReview(body) {
+  if (!body || typeof body !== "object" || Array.isArray(body)) fail(400, "Rəy məlumatları düzgün deyil.");
+  if (String(body.website || "").trim()) fail(400, "Rəyi göndərmək mümkün olmadı.");
+
+  const productId = String(body.productId || "").trim();
+  const name = String(body.name || "").trim();
+  const comment = String(body.comment || "").trim();
+  const rating = Number(body.rating);
+  if (!productId || productId.length > 120) fail(400, "Məhsul seçilməyib.");
+  if (name.length < 2 || name.length > 80) fail(400, "Ad 2–80 simvol arasında olmalıdır.");
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) fail(400, "1-dən 5-ə qədər qiymət seçin.");
+  if (comment.length < 10 || comment.length > 1200) fail(400, "Rəy 10–1200 simvol arasında olmalıdır.");
+
+  const product = await getPool().query(
+    "SELECT id FROM catalog_items WHERE resource = 'products' AND id = $1 AND COALESCE(data->>'draft', 'false') <> 'true'",
+    [productId],
+  );
+  if (!product.rowCount) fail(404, "Məhsul tapılmadı.");
+
+  const id = randomUUID();
+  const createdAt = Date.now();
+  await getPool().query(
+    `INSERT INTO product_reviews (id, product_id, customer_name, rating, comment, created_at)
+     VALUES ($1, $2, $3, $4, $5, $6)`,
+    [id, productId, name, rating, comment, createdAt],
+  );
+  return { id, productId, name, rating, comment, createdAt };
 }
 
 async function getSettings() {
@@ -379,6 +433,17 @@ async function handler(req, res) {
 
   if (resource === "whatsapp-clicks" && adminRoute && req.method === "GET") {
     return sendJson(res, 200, await listClicks());
+  }
+
+  if (resource === "reviews" && !adminRoute) {
+    if (req.method === "GET") {
+      return sendJson(res, 200, await listProductReviews(url.searchParams.get("productId")));
+    }
+    if (req.method === "POST") {
+      return sendJson(res, 201, await createProductReview(await readJson(req)));
+    }
+    res.setHeader("Allow", "GET, POST");
+    return fail(405, "Method not allowed.");
   }
 
   if (!validResources.has(resource)) return sendJson(res, 404, { error: "Route tapılmadı." });

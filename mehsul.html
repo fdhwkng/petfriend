@@ -167,6 +167,34 @@
   .card-body h3{font-family:'Fraunces',Georgia,serif;font-size:1.1rem;font-weight:500;}
   .site-footer{background:#17382c;}
   @media(max-width:760px){.product-detail{grid-template-columns:1fr;gap:25px}.photo-card{position:relative;top:auto;max-width:560px;width:100%;margin:auto}.detail-info h1{font-size:2.35rem}main{padding-top:22px!important}}
+  .reviews-section{margin-top:58px;padding:clamp(20px,4vw,36px);border:1px solid #e7e9e3;border-radius:16px;background:#fff;}
+  .reviews-header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:22px;}
+  .reviews-kicker{margin:0 0 7px;color:#8b978e;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+  .reviews-section .section-title{margin:0;}
+  .review-summary{color:#4d6253;font-size:.82rem;font-weight:600;white-space:nowrap;}
+  .review-list{display:grid;gap:12px;margin-bottom:26px;}
+  .review-card{padding:17px 18px;border:1px solid #edf0eb;border-radius:12px;background:#fbfcfa;}
+  .review-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;}
+  .review-card-head strong{color:#263b2d;font-size:.9rem;}
+  .review-card time{color:#89958c;font-size:.74rem;}
+  .review-stars{color:#ae7d39;font-size:.9rem;letter-spacing:.08em;white-space:nowrap;}
+  .review-comment{margin:0;color:#5e6d63;font-size:.88rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;}
+  .review-empty{margin:0;color:#748078;font-size:.88rem;line-height:1.6;}
+  .review-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,.42fr);gap:15px 18px;padding-top:24px;border-top:1px solid #e9ece7;}
+  .review-form h3{grid-column:1/-1;margin:0;color:#193e2d;font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:500;}
+  .review-field{display:grid;gap:7px;}
+  .review-field label{color:#45564a;font-size:.78rem;font-weight:600;}
+  .review-field input,.review-field select,.review-field textarea{width:100%;border:1px solid #dce4dc;border-radius:8px;background:#fff;color:#24352b;font:inherit;font-size:.88rem;padding:11px 12px;}
+  .review-field textarea{min-height:120px;resize:vertical;line-height:1.55;}
+  .review-field input:focus,.review-field select:focus,.review-field textarea:focus{outline:2px solid #7eaa89;outline-offset:1px;border-color:#668f70;}
+  .review-field--full{grid-column:1/-1;}
+  .review-submit{justify-self:start;border:0;border-radius:8px;background:#1e4934;color:#fff;font:inherit;font-size:.86rem;font-weight:600;padding:12px 18px;cursor:pointer;transition:background .15s,transform .15s;}
+  .review-submit:hover{background:#2e6549;transform:translateY(-1px);}
+  .review-submit:disabled{opacity:.65;cursor:wait;transform:none;}
+  .review-status{grid-column:1/-1;min-height:1.2em;margin:0;color:#4d7257;font-size:.82rem;}
+  .review-status.is-error{color:#a23c35;}
+  .review-honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;}
+  @media(max-width:620px){.reviews-header{align-items:flex-start;flex-direction:column;gap:10px}.review-form{grid-template-columns:1fr}.review-field--full,.review-form h3,.review-status{grid-column:1}.review-submit{width:100%;}}
 </style>
 </head>
 <body>
@@ -205,6 +233,45 @@
     </div>
   </div>
 
+  <section id="reviewsSection" class="reviews-section" aria-labelledby="reviewsTitle" hidden>
+    <div class="reviews-header">
+      <div>
+        <p class="reviews-kicker">Alıcıların təcrübəsi</p>
+        <h2 class="section-title" id="reviewsTitle">Müştəri rəyləri</h2>
+      </div>
+      <p class="review-summary" id="reviewSummary" aria-live="polite">Rəylər yüklənir...</p>
+    </div>
+    <div class="review-list" id="reviewList" aria-live="polite"></div>
+    <form class="review-form" id="reviewForm">
+      <h3>Bu məhsul haqqında rəy yazın</h3>
+      <div class="review-field">
+        <label for="reviewNameInput">Adınız</label>
+        <input id="reviewNameInput" name="name" type="text" autocomplete="name" minlength="2" maxlength="80" required>
+      </div>
+      <div class="review-field">
+        <label for="reviewRatingInput">Qiymət</label>
+        <select id="reviewRatingInput" name="rating" required>
+          <option value="">Qiymət seçin</option>
+          <option value="5">5 — Əla</option>
+          <option value="4">4 — Yaxşı</option>
+          <option value="3">3 — Orta</option>
+          <option value="2">2 — Zəif</option>
+          <option value="1">1 — Pis</option>
+        </select>
+      </div>
+      <div class="review-field review-field--full">
+        <label for="reviewCommentInput">Rəyiniz</label>
+        <textarea id="reviewCommentInput" name="comment" minlength="10" maxlength="1200" required></textarea>
+      </div>
+      <div class="review-honeypot" aria-hidden="true">
+        <label for="reviewWebsiteInput">Website</label>
+        <input id="reviewWebsiteInput" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="review-submit" id="reviewSubmitBtn" type="submit">Rəyi göndər</button>
+      <p class="review-status" id="reviewStatus" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
   <section id="relatedSection" hidden>
     <h2 class="section-title">Oxşar məhsullar</h2>
     <div class="grid" id="relatedGrid"></div>
@@ -231,6 +298,12 @@
   const detailEl = document.getElementById('detailWrap');
   const relatedSection = document.getElementById('relatedSection');
   const relatedGrid = document.getElementById('relatedGrid');
+  const reviewsSection = document.getElementById('reviewsSection');
+  const reviewSummary = document.getElementById('reviewSummary');
+  const reviewList = document.getElementById('reviewList');
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewStatus = document.getElementById('reviewStatus');
+  const reviewSubmitBtn = document.getElementById('reviewSubmitBtn');
   const footerContact = document.getElementById('footerContact');
   const footerSocial = document.getElementById('footerSocial');
   const pageTitleTag = document.getElementById('pageTitleTag');
@@ -240,6 +313,8 @@
   const ogDescTag = document.getElementById('ogDescTag');
   const ogUrlTag = document.getElementById('ogUrlTag');
   const ogImageTag = document.getElementById('ogImageTag');
+  let currentProductId = null;
+  let whatsappNumber = '';
 
   function escapeHtml(str){
     return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -247,7 +322,8 @@
 
   function waLink(name){
     const msg = `Salam, "${name}" haqqında məlumat almaq istəyirəm.`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    const destination = whatsappNumber ? `https://wa.me/${whatsappNumber}` : 'https://wa.me/';
+    return `${destination}?text=${encodeURIComponent(msg)}`;
   }
 
   function trackWaClick(p){
@@ -278,6 +354,8 @@
   function renderProduct(p){
     loadingEl.hidden = true;
     detailEl.hidden = false;
+    currentProductId = p.id;
+    reviewsSection.hidden = false;
 
     const title = p.metaTitle || (p.name ? `${p.name} — Pet Friend` : 'Məhsul — Pet Friend');
     document.title = title;
@@ -329,6 +407,90 @@
     waBtn.addEventListener('click', () => trackWaClick(p));
   }
 
+  function updateProductRatingStructuredData(payload){
+    const jsonLd = document.getElementById('productJsonLd');
+    if(!jsonLd) return;
+    try{
+      const product = JSON.parse(jsonLd.textContent || '{}');
+      if(payload.total){
+        product.aggregateRating = {
+          '@type': 'AggregateRating',
+          ratingValue: payload.average,
+          reviewCount: payload.total
+        };
+      }else{
+        delete product.aggregateRating;
+      }
+      jsonLd.textContent = JSON.stringify(product);
+    }catch(e){ /* məhsul məlumatı yenə göstərilir */ }
+  }
+
+  function renderReviews(payload){
+    const reviews = Array.isArray(payload.items) ? payload.items : [];
+    const total = Number(payload.total) || reviews.length;
+    const average = Number(payload.average) || 0;
+    reviewSummary.textContent = total ? `${average.toFixed(1)} / 5 · ${total} rəy` : 'Hələ rəy yoxdur';
+    if(!reviews.length){
+      reviewList.innerHTML = '<p class="review-empty">Bu məhsul üçün hələ rəy yazılmayıb. İlk rəyi siz yaza bilərsiniz.</p>';
+    }else{
+      reviewList.innerHTML = reviews.map(review => {
+        const rating = Math.min(5, Math.max(1, Number(review.rating) || 1));
+        const date = new Date(Number(review.createdAt));
+        const dateLabel = Number.isNaN(date.getTime()) ? '' : new Intl.DateTimeFormat('az-AZ').format(date);
+        const dateMarkup = dateLabel ? `<time datetime="${date.toISOString()}">${dateLabel}</time>` : '';
+        return `<article class="review-card">
+          <div class="review-card-head">
+            <strong>${escapeHtml(review.name || 'Alıcı')}</strong>
+            <span class="review-stars" aria-label="${rating} / 5">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</span>
+          </div>
+          ${dateMarkup}
+          <p class="review-comment">${escapeHtml(review.comment || '')}</p>
+        </article>`;
+      }).join('');
+    }
+    updateProductRatingStructuredData({total, average});
+  }
+
+  async function loadReviews(productId){
+    try{
+      const response = await fetch(`/api/reviews?productId=${encodeURIComponent(productId)}`, { credentials: 'same-origin' });
+      const payload = await response.json().catch(() => ({}));
+      if(!response.ok) throw new Error(payload.error || 'Rəyləri yükləmək mümkün olmadı.');
+      renderReviews(payload);
+    }catch(e){
+      reviewSummary.textContent = 'Rəyləri yükləmək mümkün olmadı';
+      reviewList.innerHTML = '<p class="review-empty">Rəylər hazırda yüklənə bilmir. Bir az sonra yenidən yoxlayın.</p>';
+      console.error('Məhsul rəyləri yüklənərkən xəta:', e);
+    }
+  }
+
+  reviewForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if(!currentProductId) return;
+    reviewSubmitBtn.disabled = true;
+    reviewStatus.classList.remove('is-error');
+    reviewStatus.textContent = 'Rəy göndərilir...';
+    const formValues = Object.fromEntries(new FormData(reviewForm).entries());
+    try{
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({...formValues, productId: currentProductId})
+      });
+      const payload = await response.json().catch(() => ({}));
+      if(!response.ok) throw new Error(payload.error || 'Rəyi göndərmək mümkün olmadı.');
+      reviewForm.reset();
+      reviewStatus.textContent = 'Rəyiniz əlavə edildi. Təşəkkür edirik!';
+      await loadReviews(currentProductId);
+    }catch(e){
+      reviewStatus.classList.add('is-error');
+      reviewStatus.textContent = e.message || 'Rəyi göndərmək mümkün olmadı. Bir az sonra yenidən yoxlayın.';
+    }finally{
+      reviewSubmitBtn.disabled = false;
+    }
+  });
+
   function renderBreadcrumb(p, categorySlug){
     const parts = [`<a href="/">Ana səhifə</a>`];
     if(p.category){
@@ -368,7 +530,7 @@
       { label: 'IG', url: soc.instagram, name: 'Instagram' },
       { label: 'X', url: soc.x, name: 'X' },
       { label: 'YT', url: soc.youtube, name: 'YouTube' },
-      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : `https://wa.me/${WHATSAPP_NUMBER}`, name: 'WhatsApp' },
+      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : '', name: 'WhatsApp' },
       { label: 'TG', url: soc.telegram, name: 'Telegram' },
       { label: 'TT', url: soc.tiktok, name: 'TikTok' },
     ];
@@ -414,6 +576,7 @@
     try{
       const snap = await getDoc(doc(db, 'settings', 'site'));
       const data = snap.exists() ? snap.data() : null;
+      whatsappNumber = String((data && data.social && data.social.whatsapp) || '').replace(/\D/g, '');
       renderFooter(data);
       applyThemeColor(data);
     }catch(e){
@@ -451,7 +614,8 @@
       renderProduct(p);
       const [, categorySlug] = await Promise.all([
         p.category ? loadRelated(p) : Promise.resolve(),
-        findCategorySlug(p.category)
+        findCategorySlug(p.category),
+        loadReviews(p.id)
       ]);
       renderBreadcrumb(p, categorySlug);
     }catch(e){

@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet Friend — Ev heyvanınız üçün</title>
 <meta name="description" content="Ev heyvanınız üçün seçilmiş məhsullar. Bəyəndiyinizi birbaşa WhatsApp-dan soruşun.">
-<link rel="canonical" href="https://petfriend.az/">
+<link rel="canonical" id="canonicalTag" href="https://petfriend.az/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pet Friend">
-<meta property="og:title" content="Pet Friend — Ev heyvanınız üçün">
-<meta property="og:description" content="Dördayaqlı dostlarınız üçün gündəlik həyatlarına sevinc qatan, diqqətlə seçilmiş məhsullar.">
+<meta property="og:title" id="ogTitleTag" content="Pet Friend — Ev heyvanınız üçün">
+<meta property="og:description" id="ogDescriptionTag" content="Dördayaqlı dostlarınız üçün gündəlik həyatlarına sevinc qatan, diqqətlə seçilmiş məhsullar.">
+<meta property="og:url" id="ogUrlTag" content="https://petfriend.az/">
 <meta property="og:image" content="https://petfriend.az/assets/hero-pets.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -439,8 +440,15 @@
   const footerContact = document.getElementById('footerContact');
   const footerSocial = document.getElementById('footerSocial');
   const metaDescTag = document.querySelector('meta[name="description"]');
+  const canonicalTag = document.getElementById('canonicalTag');
+  const ogTitleTag = document.getElementById('ogTitleTag');
+  const ogDescriptionTag = document.getElementById('ogDescriptionTag');
+  const ogUrlTag = document.getElementById('ogUrlTag');
   const defaultTitle = document.title;
   const defaultMetaDesc = metaDescTag ? metaDescTag.content : '';
+  const defaultOgTitle = ogTitleTag ? ogTitleTag.content : defaultTitle;
+  const defaultOgDescription = ogDescriptionTag ? ogDescriptionTag.content : defaultMetaDesc;
+  const defaultCanonical = canonicalTag ? canonicalTag.href : 'https://petfriend.az/';
 
   let allProducts = [];
   let allBrands = [];
@@ -517,9 +525,25 @@
     if(metaDescTag) metaDescTag.content = (cat && cat.metaDescription) ? cat.metaDescription : defaultMetaDesc;
   }
 
+  function applyBrandMeta(brand){
+    const title = brand.metaTitle || `${brand.name} — Pet Friend`;
+    const description = brand.metaDescription || defaultMetaDesc;
+    const path = brand.slug ? `/brend/${encodeURIComponent(brand.slug)}` : '/';
+    document.title = title;
+    if(metaDescTag) metaDescTag.content = description;
+    if(canonicalTag) canonicalTag.href = `https://petfriend.az${path}`;
+    if(ogTitleTag) ogTitleTag.content = title;
+    if(ogDescriptionTag) ogDescriptionTag.content = description;
+    if(ogUrlTag) ogUrlTag.content = `https://petfriend.az${path}`;
+  }
+
   function resetMeta(){
     document.title = defaultTitle;
     if(metaDescTag) metaDescTag.content = defaultMetaDesc;
+    if(canonicalTag) canonicalTag.href = defaultCanonical;
+    if(ogTitleTag) ogTitleTag.content = defaultOgTitle;
+    if(ogDescriptionTag) ogDescriptionTag.content = defaultOgDescription;
+    if(ogUrlTag) ogUrlTag.content = defaultCanonical;
   }
 
   function renderActiveFilter(){
@@ -653,17 +677,14 @@
         const slug = btn.dataset.slug;
         if(activeBrandId === id){
           activeBrandId = null;
-          history.replaceState(null, '', location.pathname);
-          document.title = defaultTitle;
-          if(metaDescTag) metaDescTag.content = defaultMetaDesc;
+          const homePath = location.pathname.startsWith('/brend/') ? '/' : location.pathname;
+          history.replaceState(null, '', homePath);
+          resetMeta();
         }else{
           activeBrandId = id;
           const b = allBrands.find(x => x.id === id);
-          history.replaceState(null, '', slug ? `?brend=${encodeURIComponent(slug)}` : location.pathname);
-          if(b){
-            document.title = b.metaTitle || (b.name + ' — Pet Friend');
-            if(metaDescTag) metaDescTag.content = b.metaDescription || defaultMetaDesc;
-          }
+          history.replaceState(null, '', slug ? `/brend/${encodeURIComponent(slug)}` : '/');
+          if(b) applyBrandMeta(b);
         }
         renderBrands();
         renderGrid();
@@ -779,14 +800,14 @@
     applyThemeColor(settings);
     loadingEl.hidden = true;
 
-    // Əgər keçid ?brend=slug ilə gəlibsə, həmin brendi əvvəlcədən seçili et
-    const slugParam = new URLSearchParams(location.search).get('brend');
+    // Köhnə ?brend=slug linklərini dəstəklə və /brend/slug səhifəsini əvvəlcədən seçili et.
+    const brandPath = location.pathname.match(/^\/brend\/([^/]+)\/?$/);
+    const slugParam = new URLSearchParams(location.search).get('brend') || (brandPath ? decodeURIComponent(brandPath[1]) : null);
     if(slugParam){
       const b = allBrands.find(x => x.slug === slugParam && x.active !== false);
       if(b){
         activeBrandId = b.id;
-        document.title = b.metaTitle || (b.name + ' — Pet Friend');
-        if(metaDescTag) metaDescTag.content = b.metaDescription || defaultMetaDesc;
+        applyBrandMeta(b);
       }
     }
 

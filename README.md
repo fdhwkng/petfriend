@@ -35,4 +35,6 @@ Public routes provide products, brands, categories, and site settings. The admin
 
 Products can be assigned a URL slug, meta title, and meta description from the admin product editor. Slugged products use `/mehsul/{slug}` URLs; product pages publish canonical, Open Graph, and Product structured data. `/sitemap.xml` is generated from published catalog items and is referenced by `robots.txt`.
 
+Active brands use the SEO slug, title, and description configured in the admin panel and are shareable at `/brend/{slug}`. Product detail pages include a public rating and review form; reviews are stored in PostgreSQL through `GET /api/reviews?productId=...` and `POST /api/reviews`.
+
 The `firebase-admin` package is a development dependency used only by the one-time importer. It is not imported by the deployed API functions.
