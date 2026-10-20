@@ -625,12 +625,8 @@
 </div>
 
 <script>
-  // Bu blok Firebase-dən tamamilə asılı deyil — internet/Firebase problemi olsa belə
-  // giriş forması işləməyə davam edir.
+  // Admin girişi server API-si tərəfindən təsdiqlənir; parol brauzerə göndərilmir.
   (function(){
-    // Şifrəni dəyişmək üçün aşağıdakı sətri redaktə edin:
-    var ADMIN_PASSWORD = "petfriend2026";
-
     var loginScreen = document.getElementById('loginScreen');
     var adminPanel = document.getElementById('adminPanel');
     var loginForm = document.getElementById('loginForm');
@@ -645,25 +641,45 @@
       document.dispatchEvent(new CustomEvent('pf-admin-shown'));
     }
 
-    if(sessionStorage.getItem('pfAdminAuthed') === 'true'){
-      showAdmin();
+    async function checkAdminSession(){
+      try{
+        const response = await fetch('/api/admin/session', {credentials:'same-origin'});
+        const session = await response.json();
+        if(session.authenticated) showAdmin();
+      }catch(err){
+        console.error('Giriş yoxlanarkən xəta:', err);
+      }
     }
 
-    loginForm.addEventListener('submit', function(e){
+    loginForm.addEventListener('submit', async function(e){
       e.preventDefault();
-      if(pwInput.value === ADMIN_PASSWORD){
-        sessionStorage.setItem('pfAdminAuthed', 'true');
-        loginError.style.display = 'none';
+      loginError.style.display = 'none';
+      try{
+        const response = await fetch('/api/admin/login', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({password: pwInput.value})
+        });
+        const result = await response.json();
+        if(!response.ok) throw new Error(result.error || 'Giriş alınmadı.');
+        pwInput.value = '';
         showAdmin();
-      }else{
+      }catch(err){
+        loginError.textContent = err.message || 'Şifrə yanlışdır.';
         loginError.style.display = 'block';
       }
     });
 
-    logoutBtn.addEventListener('click', function(){
-      sessionStorage.removeItem('pfAdminAuthed');
-      location.reload();
+    logoutBtn.addEventListener('click', async function(){
+      try{
+        await fetch('/api/admin/logout', {method:'POST', credentials:'same-origin'});
+      }finally{
+        location.reload();
+      }
     });
+
+    checkAdminSession();
 
     // Sidebar nav: switch between views
     var navItems = document.querySelectorAll('.nav-item[data-view]');
@@ -708,23 +724,8 @@
 </script>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import {
-    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy, setDoc, getDoc
-  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
-    authDomain: "petfriend-az.firebaseapp.com",
-    projectId: "petfriend-az",
-    storageBucket: "petfriend-az.firebasestorage.app",
-    messagingSenderId: "970042291926",
-    appId: "1:970042291926:web:7b3b4124cab520e3863b77",
-    measurementId: "G-84BZXVMWCJ"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  import { createApiAdapter } from "./api-client.js";
+  const { db, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy, setDoc, getDoc } = createApiAdapter(true);
 
   let allBrands = [];
   let allCategories = [];
@@ -749,7 +750,7 @@
       const snap = await getDocs(query(collection(db, 'whatsappClicks'), orderBy('createdAt', 'desc')));
       const clicks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const statWa = document.getElementById('statWa');
-      if(statWa) statWa.textContent = clicks.length;
+      if(statWa) statWa.textContent = snap.size;
       const waClicksList = document.getElementById('waClicksList');
       if(waClicksList){
         if(clicks.length === 0){

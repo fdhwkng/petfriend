@@ -184,23 +184,8 @@
 </footer>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, addDoc, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
-    authDomain: "petfriend-az.firebaseapp.com",
-    projectId: "petfriend-az",
-    storageBucket: "petfriend-az.firebasestorage.app",
-    messagingSenderId: "970042291926",
-    appId: "1:970042291926:web:7b3b4124cab520e3863b77",
-    measurementId: "G-84BZXVMWCJ"
-  };
-
-  const WHATSAPP_NUMBER = "994503068700";
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  import { createApiAdapter } from "./api-client.js";
+  const { db, collection, getDocs, addDoc, doc, getDoc, query, orderBy } = createApiAdapter();
 
   const loadingEl = document.getElementById('loadingState');
   const notFoundEl = document.getElementById('notFoundState');

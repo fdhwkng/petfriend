@@ -1,0 +1,17 @@
+{
+  "name": "petfriend-website",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "import:firebase": "node scripts/import-firestore.js"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "firebase-admin": "^13.5.0"
+  }
+}
