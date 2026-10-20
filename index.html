@@ -450,6 +450,7 @@
   let activeBrandId = null;
   let searchQuery = '';
   let brandScrollTimer = null;
+  let whatsappNumber = '';
 
   function escapeHtml(str){
     return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -457,7 +458,8 @@
 
   function waLink(name){
     const msg = `Salam, "${name}" haqqında məlumat almaq istəyirəm.`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    const destination = whatsappNumber ? `https://wa.me/${whatsappNumber}` : 'https://wa.me/';
+    return `${destination}?text=${encodeURIComponent(msg)}`;
   }
 
   const waIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 8.7c.2-.55.7-.55 1.1-.55.3 0 .5 0 .7.5.2.5.7 1.7.75 1.85.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.15.6.15.3.7 1.15 1.5 1.85.9.8 1.6 1.05 1.9 1.2.3.15.5.1.65-.1.15-.2.65-.75.85-1 .2-.25.4-.2.65-.1.25.1 1.6.75 1.9.9.3.15.5.2.55.35.05.15.05.85-.2 1.65-.25.8-1.5 1.45-2.05 1.5-.55.05-1.05.25-3.55-.75-2.5-1-4.05-3.55-4.15-3.75-.1-.2-.85-1.15-.85-2.2 0-1.05.55-1.55.75-1.75Z" fill="currentColor"/></svg>`;
@@ -697,7 +699,7 @@
       { label: 'IG', url: soc.instagram, name: 'Instagram' },
       { label: 'X', url: soc.x, name: 'X' },
       { label: 'YT', url: soc.youtube, name: 'YouTube' },
-      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : `https://wa.me/${WHATSAPP_NUMBER}`, name: 'WhatsApp' },
+      { label: 'WA', url: soc.whatsapp ? `https://wa.me/${String(soc.whatsapp).replace(/\D/g, '')}` : '', name: 'WhatsApp' },
       { label: 'TG', url: soc.telegram, name: 'Telegram' },
       { label: 'TT', url: soc.tiktok, name: 'TikTok' },
     ];
@@ -773,6 +775,7 @@
   async function init(){
     const results = await Promise.all([loadProducts(), loadBrands(), loadCategories(), loadSettings()]);
     const settings = results[3];
+    whatsappNumber = String((settings && settings.social && settings.social.whatsapp) || '').replace(/\D/g, '');
     applyThemeColor(settings);
     loadingEl.hidden = true;
 
