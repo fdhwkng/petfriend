@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/api/admin/:segment/:path*", "destination": "/api/admin?route=:segment/:path*" },
     { "source": "/mehsul/:slug", "destination": "/mehsul.html?slug=:slug" },
     { "source": "/sitemap.xml", "destination": "/api/sitemap" }
   ]
