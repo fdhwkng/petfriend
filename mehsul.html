@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitleTag">Məhsul — Pet Friend</title>
 <meta name="description" id="pageDescTag" content="Pet Friend-də məhsullara baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.">
+<link rel="canonical" id="canonicalTag" href="https://petfriend.az/">
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Pet Friend">
+<meta property="og:title" id="ogTitleTag" content="Məhsul — Pet Friend">
+<meta property="og:description" id="ogDescTag" content="Pet Friend-də məhsullara baxın.">
+<meta property="og:url" id="ogUrlTag" content="https://petfriend.az/">
+<meta property="og:image" id="ogImageTag" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -51,7 +58,7 @@
   .not-found a{color:var(--pine);font-weight:600;text-decoration:none;}
   .not-found a:hover{text-decoration:underline;}
 
-  .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .product-detail{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:54px;align-items:start;}
   @media (max-width:760px){.product-detail{grid-template-columns:1fr;gap:30px;}}
 
   .photo-card{
@@ -130,6 +137,36 @@
   .footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;font-size:0.8rem;color:#9FB294;}
 
   @media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+  /* Product editorial refresh */
+  :root{--pine:#183b2d;--pine-light:#2d6047;--bg:#fafaf7;--card:#fff;--honey:#b17a45;--ink:#24352b;--muted:#707d74;--line:#e7e9e3;--wa:#1e4934;--wa-dark:#2e6549;}
+  body{background:#fafaf7;}
+  .site-header{background:rgba(250,250,247,.95);border-bottom:1px solid #e8ebe5;backdrop-filter:blur(12px);}
+  .wordmark{color:var(--pine);letter-spacing:-.04em;}
+  .back-link{color:#516b59;}
+  main{max-width:1210px!important;padding-top:30px!important;}
+  .breadcrumb{font-size:.75rem;margin:0 0 30px;color:#89958c;}
+  .breadcrumb a{color:#718078;}
+  .product-detail{gap:clamp(28px,5vw,66px);}
+  .photo-card{padding:13px;border-radius:18px;background:#f2f3ed;box-shadow:none;position:sticky;top:22px;}
+  .detail-photo{border-radius:12px;background:#eceee8;}
+  .detail-photo img{object-fit:contain;mix-blend-mode:multiply;}
+  .detail-info{padding-top:8px;}
+  .tag-row{margin-bottom:20px;}
+  .tag{background:#eef3eb;color:#527451;}
+  .brand-tag{border-color:#e1e7df;color:#66756b;}
+  .detail-info h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(2rem,3.5vw,3rem);line-height:1.08;letter-spacing:-.045em;margin:0 0 20px;color:#193e2d;}
+  .detail-price{background:transparent;border-radius:0;padding:0;color:#213d2d;font-size:1.5rem;margin:2px 0 16px;}
+  .detail-desc{font-size:.94rem;line-height:1.8;color:#647169;margin:0 0 22px;}
+  .product-order-note{display:flex;align-items:center;gap:10px;padding:13px 15px;margin:22px 0 18px;border:1px solid #e6ebe4;background:#fff;border-radius:10px;font-size:.78rem;color:#5d6e62;}
+  .product-order-note span{width:8px;height:8px;border-radius:50%;background:#65a679;box-shadow:0 0 0 4px #e3f0e5;}
+  .wa-btn{background:#1e4934;border-radius:7px;box-shadow:none;font-size:.9rem;padding:15px 20px;}
+  .wa-btn:hover{background:#2e6549;}
+  #relatedSection{margin-top:70px;padding-top:30px;border-top:1px solid #e7e9e3;}
+  .section-title{font-family:'Fraunces',Georgia,serif;font-size:1.8rem;font-weight:500;letter-spacing:-.03em;border:0;padding:0;margin-bottom:24px;}
+  .card{border-radius:14px;border-color:#e8ebe5;box-shadow:0 6px 22px rgba(35,53,40,.035);}
+  .card-body h3{font-family:'Fraunces',Georgia,serif;font-size:1.1rem;font-weight:500;}
+  .site-footer{background:#17382c;}
+  @media(max-width:760px){.product-detail{grid-template-columns:1fr;gap:25px}.photo-card{position:relative;top:auto;max-width:560px;width:100%;margin:auto}.detail-info h1{font-size:2.35rem}main{padding-top:22px!important}}
 </style>
 </head>
 <body>
@@ -160,6 +197,7 @@
       <h1 id="detailName"></h1>
       <p class="detail-price" id="detailPrice" hidden></p>
       <p class="detail-desc" id="detailDesc" hidden></p>
+      <div class="product-order-note"><span aria-hidden="true"></span> Məhsul barədə məlumat və sifariş üçün bizə yazın</div>
       <a class="wa-btn" id="detailWaBtn" href="#" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 8.7c.2-.55.7-.55 1.1-.55.3 0 .5 0 .7.5.2.5.7 1.7.75 1.85.05.15.1.3 0 .5-.1.2-.15.3-.3.45-.15.15-.3.3-.15.6.15.3.7 1.15 1.5 1.85.9.8 1.6 1.05 1.9 1.2.3.15.5.1.65-.1.15-.2.65-.75.85-1 .2-.25.4-.2.65-.1.25.1 1.6.75 1.9.9.3.15.5.2.55.35.05.15.05.85-.2 1.65-.25.8-1.5 1.45-2.05 1.5-.55.05-1.05.25-3.55-.75-2.5-1-4.05-3.55-4.15-3.75-.1-.2-.85-1.15-.85-2.2 0-1.05.55-1.55.75-1.75Z" fill="currentColor"/></svg>
         WhatsApp-dan soruş
@@ -197,6 +235,11 @@
   const footerSocial = document.getElementById('footerSocial');
   const pageTitleTag = document.getElementById('pageTitleTag');
   const pageDescTag = document.getElementById('pageDescTag');
+  const canonicalTag = document.getElementById('canonicalTag');
+  const ogTitleTag = document.getElementById('ogTitleTag');
+  const ogDescTag = document.getElementById('ogDescTag');
+  const ogUrlTag = document.getElementById('ogUrlTag');
+  const ogImageTag = document.getElementById('ogImageTag');
 
   function escapeHtml(str){
     return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -218,8 +261,9 @@
   }
 
   function miniCardHtml(p){
+    const productPath = p.slug ? `/mehsul/${encodeURIComponent(p.slug)}` : `/mehsul?id=${encodeURIComponent(p.id)}`;
     return `
-      <a class="card" href="/mehsul?id=${encodeURIComponent(p.id)}">
+      <a class="card" href="${productPath}">
         <div class="card-photo${p.photo ? '' : ' no-photo'}">
           ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
         </div>
@@ -235,11 +279,30 @@
     loadingEl.hidden = true;
     detailEl.hidden = false;
 
-    const title = p.name ? `${p.name} — Pet Friend` : 'Məhsul — Pet Friend';
+    const title = p.metaTitle || (p.name ? `${p.name} — Pet Friend` : 'Məhsul — Pet Friend');
     document.title = title;
     pageTitleTag.textContent = title;
-    const descText = p.description ? p.description.slice(0, 160) : 'Pet Friend-də məhsullara baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.';
+    const descText = (p.metaDescription || p.description || 'Pet Friend-də ev heyvanları üçün seçilmiş məhsullara baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.').slice(0, 180);
     pageDescTag.setAttribute('content', descText);
+    const canonicalUrl = p.slug ? `https://petfriend.az/mehsul/${encodeURIComponent(p.slug)}` : `https://petfriend.az/mehsul?id=${encodeURIComponent(p.id)}`;
+    canonicalTag.href = canonicalUrl;
+    ogTitleTag.content = title;
+    ogDescTag.content = descText;
+    ogUrlTag.content = canonicalUrl;
+    if(p.photo) ogImageTag.content = new URL(p.photo, location.origin).href;
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: p.name || '',
+      description: descText,
+      image: p.photo ? [new URL(p.photo, location.origin).href] : undefined,
+      sku: p.id,
+      brand: p.brandName ? { '@type': 'Brand', name: p.brandName } : undefined,
+      offers: p.price ? { '@type': 'Offer', priceCurrency: 'AZN', price: Number(p.price), url: canonicalUrl } : undefined
+    };
+    let jsonLd = document.getElementById('productJsonLd');
+    if(!jsonLd){ jsonLd = document.createElement('script'); jsonLd.id = 'productJsonLd'; jsonLd.type = 'application/ld+json'; document.head.appendChild(jsonLd); }
+    jsonLd.textContent = JSON.stringify(structuredData);
 
     const photoEl = document.getElementById('detailPhoto');
     photoEl.classList.toggle('no-photo', !p.photo);
@@ -360,23 +423,31 @@
   }
 
   async function init(){
-    const id = new URLSearchParams(location.search).get('id');
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const slug = params.get('slug') || (location.pathname.startsWith('/mehsul/') ? decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()) : null);
     loadFooterSettings();
 
-    if(!id){
+    if(!id && !slug){
       loadingEl.hidden = true;
       notFoundEl.hidden = false;
       return;
     }
 
     try{
-      const snap = await getDoc(doc(db, 'products', id));
-      if(!snap.exists() || snap.data().draft){
+      let p = null;
+      if(id){
+        const snap = await getDoc(doc(db, 'products', id));
+        if(snap.exists()) p = { id: snap.id, ...snap.data() };
+      }else{
+        const snap = await getDocs(collection(db, 'products'));
+        p = snap.docs.map(d => ({ id: d.id, ...d.data() })).find(product => product.slug === slug) || null;
+      }
+      if(!p || p.draft){
         loadingEl.hidden = true;
         notFoundEl.hidden = false;
         return;
       }
-      const p = { id: snap.id, ...snap.data() };
       renderProduct(p);
       const [, categorySlug] = await Promise.all([
         p.category ? loadRelated(p) : Promise.resolve(),
