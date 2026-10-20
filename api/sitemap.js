@@ -21,9 +21,14 @@ export default async function sitemap(req, res) {
 
   try {
     await ensureSchema();
-    const result = await getPool().query(
+    const [result, brandResult] = await Promise.all([
+      getPool().query(
       "SELECT id, data, updated_at FROM catalog_items WHERE resource = 'products' AND COALESCE(data->>'draft', 'false') <> 'true' ORDER BY created_at DESC",
-    );
+      ),
+      getPool().query(
+        "SELECT data, updated_at FROM catalog_items WHERE resource = 'brands' AND COALESCE(data->>'active', 'true') <> 'false' ORDER BY created_at DESC",
+      ),
+    ]);
     const productUrls = result.rows.map((row) => {
       const slug = row.data?.slug;
       const path = typeof slug === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)
@@ -33,7 +38,14 @@ export default async function sitemap(req, res) {
       const lastmod = Number.isNaN(modified.getTime()) ? "" : `<lastmod>${modified.toISOString().slice(0, 10)}</lastmod>`;
       return `<url><loc>${escapeXml(`${SITE_ORIGIN}${path}`)}</loc>${lastmod}</url>`;
     });
-    const urls = [`<url><loc>${SITE_ORIGIN}/</loc></url>`, ...productUrls].join("");
+    const brandUrls = brandResult.rows.flatMap((row) => {
+      const slug = row.data?.slug;
+      if (typeof slug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return [];
+      const modified = new Date(Number(row.updated_at));
+      const lastmod = Number.isNaN(modified.getTime()) ? "" : `<lastmod>${modified.toISOString().slice(0, 10)}</lastmod>`;
+      return [`<url><loc>${escapeXml(`${SITE_ORIGIN}/brend/${encodeURIComponent(slug)}`)}</loc>${lastmod}</url>`];
+    });
+    const urls = [`<url><loc>${SITE_ORIGIN}/</loc></url>`, ...productUrls, ...brandUrls].join("");
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/xml; charset=utf-8");
     res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=600");

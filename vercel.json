@@ -1,7 +1,9 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/api/media/:resource/:id", "destination": "/api/media?route=:resource/:id" },
     { "source": "/api/admin/:segment/:path*", "destination": "/api/admin?route=:segment/:path*" },
+    { "source": "/brend/:slug", "destination": "/?brend=:slug" },
     { "source": "/mehsul/:slug", "destination": "/mehsul.html?slug=:slug" },
     { "source": "/sitemap.xml", "destination": "/api/sitemap" }
   ]
