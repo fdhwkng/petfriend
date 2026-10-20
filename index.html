@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet Friend — Ev heyvanınız üçün</title>
 <meta name="description" content="Ev heyvanınız üçün seçilmiş məhsullar. Bəyəndiyinizi birbaşa WhatsApp-dan soruşun.">
+<link rel="canonical" href="https://petfriend.az/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pet Friend">
+<meta property="og:title" content="Pet Friend — Ev heyvanınız üçün">
+<meta property="og:description" content="Dördayaqlı dostlarınız üçün gündəlik həyatlarına sevinc qatan, diqqətlə seçilmiş məhsullar.">
+<meta property="og:image" content="https://petfriend.az/assets/hero-pets.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -288,6 +294,71 @@
     *{transition:none !important;}
     .brand-row{scroll-behavior:auto;}
   }
+
+  /* Editorial storefront refresh */
+  :root{--pine:#183b2d;--pine-light:#2d6047;--bg:#f7f7f3;--card:#fff;--honey:#d99a59;--ink:#203128;--muted:#69776e;--line:#e7e9e3;--wa:#1c9c66;--wa-dark:#137c50;}
+  body{background:#fafaf7;color:var(--ink);}
+  .site-header{background:rgba(250,250,247,.95);color:var(--ink);border-bottom:1px solid #e8ebe5;padding:15px 0;backdrop-filter:blur(12px);}
+  .header-inner{max-width:1240px;gap:22px;}
+  .wordmark{color:var(--pine);font-size:1.8rem;letter-spacing:-.04em;}
+  .wordmark:before{content:"";display:inline-block;vertical-align:-4px;width:14px;height:14px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#d69d64;margin-right:9px;}
+  .cat-nav-btn{background:#e9efe8;color:#254333;border-radius:999px;font-size:.83rem;padding:10px 15px;}
+  .cat-nav-btn:hover{background:#dce8dc;}
+  .search-box input{background:#f0f2ed;color:#24372b;border:1px solid #e5e9e1;border-radius:999px;padding:11px 16px;}
+  .search-box input::placeholder{color:#839087;}
+  .search-box input:focus{background:#fff;color:var(--ink);outline:2px solid #cad9cc;border-color:transparent;}
+  .intro.home-hero{max-width:1240px;padding:48px 0 58px;min-height:565px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:34px;position:relative;}
+  .hero-copy{padding:36px 0 46px;max-width:500px;position:relative;z-index:2;}
+  .hero-copy{animation:store-rise .72s cubic-bezier(.2,.75,.25,1) both;}
+  .hero-kicker{display:flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.16em;font-size:.69rem;font-weight:700;color:#718776;margin:0 0 24px;}
+  .hero-kicker span{width:22px;height:1px;background:#d29a5d;}
+  .hero-copy h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(3rem,5vw,5.4rem);letter-spacing:-.06em;line-height:.99;color:#193c2c;margin:0;max-width:550px;}
+  .hero-copy h1 em{font-style:normal;color:#a66f3c;}
+  .hero-lede{font-size:1rem;color:#68756c;line-height:1.8;max-width:445px;margin:23px 0 27px;}
+  .hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .hero-primary{display:inline-flex;align-items:center;gap:22px;background:#1e4934;color:white;text-decoration:none;padding:15px 19px;border-radius:7px;font-size:.87rem;font-weight:600;box-shadow:0 10px 22px rgba(30,73,52,.14);transition:transform .2s,background .2s;}
+  .hero-primary:hover{background:#2e6549;transform:translateY(-2px);}
+  .hero-primary span{font-size:1.1rem;}
+  .hero-secondary{color:#3b5847;text-decoration:none;font-size:.86rem;font-weight:600;border-bottom:1px solid #aebcae;padding:0 0 4px;}
+  .hero-secondary:hover{color:#946338;border-color:#d39b62;}
+  .hero-assurance{display:flex;align-items:center;gap:12px;margin-top:43px;color:#385446;font-size:.77rem;font-weight:650;}
+  .hero-assurance small{display:block;color:#89948d;font-size:.68rem;font-weight:400;margin-top:4px;}
+  .assurance-icon{width:37px;height:37px;border:1px solid #d9e2d9;border-radius:50%;display:grid;place-items:center;color:#a67643;background:#fff;}
+  .hero-visual{position:relative;isolation:isolate;min-height:430px;border-radius:200px 28px 28px 28px;overflow:hidden;background:linear-gradient(135deg,#ebece2,#dfe9df);box-shadow:0 28px 70px rgba(32,55,39,.13);animation:hero-arrive .95s cubic-bezier(.2,.75,.25,1) both;}
+  .hero-visual:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(0deg,rgba(34,46,34,.2),transparent);z-index:1;pointer-events:none;}
+  .hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% 53%;}
+  .hero-photo-note{position:absolute;z-index:2;right:20px;bottom:20px;padding:15px 18px;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7);border-radius:12px;color:#516057;font-size:.75rem;line-height:1.55;box-shadow:0 10px 30px rgba(35,50,39,.1);}
+  .hero-photo-note b{font-family:'Fraunces',serif;font-size:1rem;color:#1c3f2f;font-weight:600;}
+  .hero-orbit{position:absolute;z-index:2;pointer-events:none;border:1px solid rgba(255,255,255,.62);border-radius:50%;}
+  .orbit-one{width:170px;height:170px;right:-78px;top:-58px;}.orbit-two{width:245px;height:245px;right:-112px;top:-96px;}
+  .hero-scroll{position:absolute;left:0;bottom:17px;display:flex;align-items:center;gap:11px;color:#829087;text-decoration:none;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;}
+  .hero-scroll b{font-size:1rem;color:#a47647;font-weight:400;}
+  @keyframes store-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes hero-arrive{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+  main.wrap{max-width:1240px;padding-bottom:64px;}
+  main.wrap>section{margin-bottom:54px;}
+  .section-title{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:500;letter-spacing:-.035em;color:#1e4231;margin:0 0 20px;}
+  #featuredSection,#brandsSection,#latestSection{scroll-margin-top:100px;}
+  .brands-section{padding:25px 0 8px;border-top:1px solid #e9ece6;border-bottom:1px solid #e9ece6;}
+  .brand-row{gap:20px;padding:0 0 12px;}
+  .brand-logo{width:72px;height:72px;border-color:#e6eae4;box-shadow:0 4px 12px rgba(31,57,41,.04);}
+  .brand-item:hover .brand-logo{transform:translateY(-2px);border-color:#b7c9b8;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;}
+  .card{border-radius:15px;border-color:#e9ebe6;box-shadow:0 6px 22px rgba(35,53,40,.035);transition:transform .22s,box-shadow .22s;}
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(35,53,40,.1);}
+  .card-photo{background:#f0f1eb;}
+  .card-photo img{transition:transform .5s;}
+  .card:hover .card-photo img{transform:scale(1.035);}
+  .card-body h3{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:500;letter-spacing:-.02em;}
+  .tag{background:#eff4ec;color:#557655;}
+  .wa-btn{border-radius:7px;background:#1d4934;}
+  .wa-btn:hover{background:#2e6549;}
+  .site-footer{background:#17382c;color:#d1ddd4;margin-top:30px;padding-top:48px;}
+  .footer-contact a{color:#d1ddd4;}
+  .footer-bottom{color:#aabaae;}
+  @media(max-width:800px){.intro.home-hero{grid-template-columns:1fr;gap:18px;padding:35px 0 70px;}.hero-copy{padding:18px 0 0;max-width:620px}.hero-copy h1{font-size:clamp(3rem,10vw,4.7rem)}.hero-visual{min-height:380px;border-radius:140px 22px 22px 22px}.hero-assurance{margin-top:28px}.hero-scroll{bottom:22px}}
+  @media(max-width:560px){.header-inner{gap:12px}.wordmark{font-size:1.48rem}.cat-nav{margin-left:auto}.search-box{order:3;flex-basis:100%}.intro.home-hero{padding:24px 0 62px;min-height:auto}.hero-copy h1{font-size:3.1rem}.hero-lede{font-size:.93rem;margin:18px 0 22px}.hero-actions{gap:15px}.hero-primary{padding:13px 15px}.hero-visual{min-height:295px;border-radius:105px 18px 18px 18px}.hero-photo-note{right:11px;bottom:11px;padding:11px 13px}.hero-orbit{display:none}.section-title{font-size:1.5rem}.grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}.card-body{padding:13px 12px 0}.card-cta{padding:8px 12px 12px}.card-body h3{font-size:1.07rem}.desc{font-size:.82rem}.wa-btn{font-size:.78rem;padding:10px 8px}}
+  @media(prefers-reduced-motion:reduce){.hero-copy,.hero-visual{animation:none}.hero-primary,.card,.card-photo img{transition:none}.card:hover,.hero-primary:hover{transform:none}.card:hover .card-photo img{transform:none}}
 </style>
 </head>
 <body>
@@ -305,8 +376,16 @@
   </div>
 </header>
 
-<section class="intro wrap">
-  <h1>Məhsullarımıza baxın, bəyəndiyinizi birbaşa WhatsApp-dan soruşun.</h1>
+<section class="intro home-hero wrap">
+  <div class="hero-copy">
+    <p class="hero-kicker"><span></span> PET FRIEND-DƏN SEVGİLƏ</p>
+    <h1>Onların dünyası <em>daha gözəl</em> olsun.</h1>
+    <p class="hero-lede">Dördayaqlı dostlarınız üçün gündəlik həyatlarına sevinc qatan, diqqətlə seçilmiş məhsullar.</p>
+    <div class="hero-actions"><a class="hero-primary" href="#latestSection">Məhsullara bax <span aria-hidden="true">→</span></a><a class="hero-secondary" href="#brandsSection">Brendləri kəşf et</a></div>
+    <div class="hero-assurance"><span class="assurance-icon" aria-hidden="true">✦</span><span>Sevgi ilə seçilmiş məhsullar<small>Hər quyruq yellənişində yanınızdayıq</small></span></div>
+  </div>
+  <div class="hero-visual"><img src="/assets/hero-pets.png" alt="Birlikdə oturan qızılı it və zolaqlı pişik" fetchpriority="high"><span class="hero-photo-note"><b>Balaca dostlar.</b><br>Gündəlik böyük sevinc.</span><span class="hero-orbit orbit-one"></span><span class="hero-orbit orbit-two"></span></div>
+  <a class="hero-scroll" href="#latestSection"><span>Mağazanı kəşf et</span><b aria-hidden="true">↓</b></a>
 </section>
 
 <main class="wrap">
@@ -396,9 +475,10 @@
 
   /* ---------- Product card (həm "Ən yaxşı", həm "Son əlavə olunan" bölmələri bunu istifadə edir) ---------- */
   function cardHtml(p){
+    const productPath = p.slug ? `/mehsul/${encodeURIComponent(p.slug)}` : `/mehsul?id=${encodeURIComponent(p.id)}`;
     return `
       <article class="card">
-        <a class="card-link" href="/mehsul?id=${encodeURIComponent(p.id)}">
+        <a class="card-link" href="${productPath}">
           <div class="card-photo${p.photo ? '' : ' no-photo'}">
             ${p.photo ? `<img src="${p.photo}" alt="${escapeHtml(p.name)}" loading="lazy">` : 'Şəkil yoxdur'}
           </div>

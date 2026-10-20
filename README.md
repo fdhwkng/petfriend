@@ -33,4 +33,6 @@ If you do not need the existing Firebase records, skip the importer and add prod
 
 Public routes provide products, brands, categories, and site settings. The admin routes handle product, brand, category, and setting changes. Product and brand images are stored as PostgreSQL binary data and served from `/api/media/...`; they are not returned inline with catalog JSON.
 
+Products can be assigned a URL slug, meta title, and meta description from the admin product editor. Slugged products use `/mehsul/{slug}` URLs; product pages publish canonical, Open Graph, and Product structured data. `/sitemap.xml` is generated from published catalog items and is referenced by `robots.txt`.
+
 The `firebase-admin` package is a development dependency used only by the one-time importer. It is not imported by the deployed API functions.

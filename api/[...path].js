@@ -130,6 +130,9 @@ function validateRecord(resource, data) {
     if (typeof data.name !== "string" || data.name.trim().length < 1 || data.name.length > 240) fail(400, "Məhsul adı tələb olunur.");
     if (data.description != null && String(data.description).length > 12000) fail(400, "Məhsul açıqlaması çox uzundur.");
     if (data.price != null && data.price !== "" && (!Number.isFinite(Number(data.price)) || Number(data.price) < 0)) fail(400, "Qiymət düzgün deyil.");
+    if (data.slug != null && (typeof data.slug !== "string" || data.slug.length > 100 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug))) fail(400, "Məhsul URL-i yalnız kiçik latın hərfləri, rəqəmlər və defislərdən ibarət olmalıdır.");
+    if (data.metaTitle != null && String(data.metaTitle).length > 120) fail(400, "Meta başlıq çox uzundur.");
+    if (data.metaDescription != null && String(data.metaDescription).length > 320) fail(400, "Meta təsvir çox uzundur.");
   } else {
     if (typeof data.name !== "string" || data.name.trim().length < 1 || data.name.length > 240) fail(400, resource === "brands" ? "Brend adı tələb olunur." : "Kateqoriya adı tələb olunur.");
   }
@@ -182,6 +185,10 @@ async function saveRecord(resource, body, id = null) {
   if (!id) {
     const recordId = randomUUID();
     const record = validateRecord(resource, input);
+    if (resource === "products" && record.slug) {
+      const duplicate = await pool.query("SELECT id FROM catalog_items WHERE resource = 'products' AND data->>'slug' = $1 LIMIT 1", [record.slug]);
+      if (duplicate.rowCount) fail(409, "Bu məhsul URL-i artıq istifadə olunur.");
+    }
     const image = field ? decodeImage(imageValue) : null;
     if (field && imageValue && !image) fail(400, "Şəkil URL-i serverə yüklənə bilmədi.");
     const createdAt = Number(record.createdAt) || now;
@@ -219,6 +226,10 @@ async function saveRecord(resource, body, id = null) {
       }
     }
     validateRecord(resource, nextData);
+    if (resource === "products" && nextData.slug) {
+      const duplicate = await client.query("SELECT id FROM catalog_items WHERE resource = 'products' AND id <> $1 AND data->>'slug' = $2 LIMIT 1", [id, nextData.slug]);
+      if (duplicate.rowCount) fail(409, "Bu məhsul URL-i artıq istifadə olunur.");
+    }
     const createdAt = Number(nextData.createdAt) || Number(previous.created_at) || now;
     await client.query(
       `UPDATE catalog_items SET data = $3::jsonb, image = $4, image_content_type = $5, created_at = $6, updated_at = $7
