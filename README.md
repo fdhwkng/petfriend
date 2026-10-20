@@ -6,7 +6,7 @@ Static HTML pages are served by Vercel. The catalog and admin panel use a same-o
 
 Create a PostgreSQL database, then add these environment variables to the Vercel project:
 
-- `DATABASE_URL` — PostgreSQL connection string. A managed database may require `?sslmode=require`.
+- `DATABASE_URL` — PostgreSQL connection string. If the Vercel Neon integration is connected, the API also accepts its `POSTGRES_URL` variable. A managed database may require `?sslmode=require`.
 - `ADMIN_PASSWORD` — a long, unique admin password. It is read only by the server API.
 - `SESSION_SECRET` — at least 32 random characters used to sign the admin session cookie.
 
