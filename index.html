@@ -341,27 +341,8 @@
 </footer>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, addDoc, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-  // Qeyd: aktiv/deaktiv filtri bilərəkdən burada deyil, JS tərəfində edilir —
-  // beləliklə Firestore-da composite index qurmağa ehtiyac qalmır.
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDXzYlOYv5gBgeSoKPhrLVmOutTZPlOxns",
-    authDomain: "petfriend-az.firebaseapp.com",
-    projectId: "petfriend-az",
-    storageBucket: "petfriend-az.firebasestorage.app",
-    messagingSenderId: "970042291926",
-    appId: "1:970042291926:web:7b3b4124cab520e3863b77",
-    measurementId: "G-84BZXVMWCJ"
-  };
-
-  // Hər bir məhsulun WhatsApp düyməsi üçün nömrə (ölkə kodu ilə, + işarəsi olmadan).
-  // Admin → Sayt Ayarları-da fərqli nömrə qeyd etsəniz, footer-dəki WhatsApp ikonu onu istifadə edəcək.
-  const WHATSAPP_NUMBER = "994503068700";
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  import { createApiAdapter } from "./api-client.js";
+  const { db, collection, getDocs, addDoc, doc, getDoc, query, orderBy } = createApiAdapter();
 
   const gridEl = document.getElementById('grid');
   const loadingEl = document.getElementById('loading');
